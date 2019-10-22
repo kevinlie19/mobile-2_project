@@ -1,0 +1,163 @@
+<ion-content>
+  <div class="card">
+    <div class="header">
+      <div class="avatar">
+        <ion-row> 
+          <img src="https://www.venmond.com/demo/vendroid/img/avatar/big.jpg">
+          <ion-col class="titleDisplay1" no-padding>
+            <ion-row style="font-family:neusa-next-std, sans-serif; font-size:20pt; color: #FFD338; font-weight: bold;">
+              Cecilia K.
+            </ion-row>
+            <ion-row style="font-family:Qanelas; font-size:12pt; color: #FFFFFF; opacity: 100%;" >
+              Jakarta Selatan
+            </ion-row>
+            <ion-row style="padding-top:25px;">
+              <ion-col col-4 no-padding style="margin-left: -23px;">
+                <ion-row style="font-family:neusa-next-std, sans-serif; font-size:14pt; color: #FF8754; font-weight: bold;">
+                  <ion-col col-12 no-padding text-center>50</ion-col></ion-row>
+                <ion-row style="font-family:neusa-next-std, sans-serif; font-size:14pt; color: #707070;">
+                    <ion-col col-12 no-padding text-center>Given</ion-col></ion-row>
+              </ion-col>
+              <ion-col col-4 no-padding style="padding-right:5px;">
+                <ion-row style="font-family:neusa-next-std, sans-serif; font-size:14pt; color: #FF8754; font-weight: bold;">
+                  <ion-col col-12 no-padding text-center>10</ion-col></ion-row>
+                <ion-row style="font-family:neusa-next-std, sans-serif; font-size:14pt; color: #707070;">
+                    <ion-col col-12 no-padding text-center>Taken</ion-col></ion-row>
+              </ion-col>
+              <ion-col col-4 no-padding style="padding-right:10px;">
+                <ion-row style="font-family:neusa-next-std, sans-serif; font-size:14pt; color: #5CD8FF; font-weight: bold;">
+                  <ion-col col-12 no-padding text-center>100</ion-col></ion-row>
+                <ion-row style="font-family:neusa-next-std, sans-serif; font-size:14pt; color: #707070;">
+                    <ion-col col-12 no-padding text-center>Friends</ion-col></ion-row>
+              </ion-col>
+            </ion-row>
+          </ion-col>
+        </ion-row>
+      </div>
+    </div>
+    <div style="background-color: #ffffff">
+      <div>
+        <div class="ion-text-center">
+          <br><br><p style="color: #283148; font-size:20pt; font-family: neusa-next-std, sans-serif; font-weight: bold; padding-top:10px;">Your Posts</p>
+        </div>
+        <p style="font-size:20pt; font-family: neusa-next-std, sans-serif; font-weight: bold; color:#689F38; padding-top:0px; padding-left:38px;">Available</p>
+        <ion-row style="padding-top:0px; margin-top:-20px;">
+          <ion-list lines="none">
+            <ion-item>
+              <ion-col col-6 *ngFor="let available of loadedAvailable">
+                <ion-card style="margin-top:-5px; margin-bottom:-1px; box-shadow: #00000029 0px 3px 6px;">
+                  <div class="container">
+                      <img src="{{ available.imageUrl1 }}" style="width:164px;height:162px;">
+                      <div class="top-right" 
+                        style="border-radius:3px;
+                                background: #689F38;
+                                padding: 3px;
+                                font-size: 11px;
+                                width: 70px;
+                                height: 18px;
+                                font-family: Qanelas">{{ available.status }}</div>
+                    </div>
+                  <ion-card-content>
+                    <p style="font-family: Qanelas; font-size:12pt;font-weight:bold;">{{ available.name }}</p>
+                    <p style="font-family: Qanelas; font-size:11pt;">
+                      <ion-icon name="hourglass" slot="icon-only"></ion-icon> Posted {{ available.daySince }} day ago
+                    </p>
+                    <p>
+                      <ion-row>
+                        <ion-col size="4">
+                          <img src="{{ available.imageUrl2 }}" style="border-radius: 50%; width:28px;height:28px;">
+                        </ion-col>
+                        <ion-col>
+                          <ion-row style="font-family:Qanelas;font-weight:semiBold; font-size:12pt; color:#33691E">
+                            {{ available.userName }}
+                          </ion-row>
+                          <ion-row style="font-family:Qanelas; font-size:11px; color:#707070">
+                            {{ available.userLocation }}
+                          </ion-row>
+                        </ion-col>
+                      </ion-row>
+                    </p>
+                  </ion-card-content>
+                </ion-card>
+              </ion-col>
+            </ion-item>
+          </ion-list>
+        </ion-row>
+
+        <p style="padding-top:0px; font-size:20pt; font-family: neusa-next-std, sans-serif; font-weight: bold; color:#D32F2F; padding-top:4px; padding-left:38px; margin-top:24px;">Unavailable</p>
+
+        <ion-row style="padding-top:0px;  margin-top:-20px;">
+          <ion-list lines="none">
+            <ion-item no-lines >
+              <ion-col width-50 *ngFor="let unavailable of loadedUnavailable">
+                <ion-card style="margin-top:-5px; margin-bottom:-1px; box-shadow: #00000029 0px 3px 6px;">
+                  <div class="container">
+                      <img src="{{ unavailable.imageUrl1 }}" 
+                        style="width:164px;height:162px;
+                               -webkit-filter: grayscale(100%);
+                               filter: grayscale(100%);">
+                      <div class="top-right" 
+                        style="border-radius:3px;
+                                background: #D32F2F;
+                                padding: 3px;
+                                font-size: 11px;
+                                width: 70px;
+                                height: 18px;
+                                font-family: Qanelas">{{ unavailable.status }}</div>
+                    </div>
+                  <ion-card-content>
+                    <p style="font-family: Qanelas; font-size:12pt;font-weight:bold;">{{ unavailable.name }}</p>
+                    <p style="font-family: Qanelas; font-size:11pt;">
+                      <ion-icon name="hourglass" slot="icon-only"></ion-icon> Posted {{ unavailable.daySince }} day ago
+                    </p>
+                    <p>
+                      <ion-row>
+                        <ion-col size="4">
+                          <img src="{{ unavailable.imageUrl2 }}" 
+                          style="border-radius: 50%; width:28px;height:28px;">
+                        </ion-col>
+                        <ion-col>
+                          <ion-row style="font-family:Qanelas;font-weight:semiBold; font-size:12pt; color:#33691E">
+                            {{ unavailable.userName }}
+                          </ion-row>
+                          <ion-row style="font-family:Qanelas; font-size:11px; color:#707070">
+                            {{ unavailable.userLocation }}
+                          </ion-row>
+                        </ion-col>
+                      </ion-row>
+                    </p>
+                  </ion-card-content>
+                </ion-card>
+              </ion-col>
+            </ion-item>
+          </ion-list>
+        </ion-row>
+        <br>
+      </div>
+    </div>
+  </div>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-row style="padding-left:70px; padding-right:70px;">
+      <ion-buttons style="display:flex; flex:1;" start>
+        <ion-button>
+          <ion-icon slot="icon-only" name="paper"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+
+      <ion-buttons style="display:flex; flex:1; display:block; padding-top:5px;">
+        <ion-button>
+          <ion-icon slot="icon-only" name="menu"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+
+      <ion-buttons style="display:flex; flex:1;" end style="display:block; padding-top:5px;">
+        <ion-button style="background-color: #F6C722; border-radius: 50%;">
+          <ion-icon slot="icon-only" name="person"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-row>
+  </ion-toolbar>
+</ion-footer>
