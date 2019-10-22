@@ -1,0 +1,96 @@
+ion-content {
+    --background: url(https://digitalsynopsis.com/wp-content/uploads/2017/02/beautiful-color-gradients-backgrounds-100-vicious-stance.png) no-repeat top center/cover fixed, #fff;
+    position: relative;
+    height: 100%;
+    width: 100%;
+
+    ion-button {
+        margin-top: 1em;
+        margin-bottom: 1em
+    }
+}
+
+ion-toolbar {
+    --background: transparent;
+}
+
+ion-chip {
+    --background: #9dc912;
+    --color: #fff;
+}
+
+.card {
+    margin: 0 auto;
+
+    .header {
+        height: 200px; // 20vh;
+
+        .avatar {
+           // width: 150px; //40vw
+            height: 150px;
+            position: relative;
+            margin-left: 20px;
+
+            img{
+                width:150px;
+                display: block;
+                border-radius: 50%;
+                position: absolute;
+                bottom: calc(-1*(80px + 20px)); // -42px;
+                //border: 8px solid #9Dc912;
+                background-color: #fff;
+            }
+
+            .titleDisplay1{
+                display: block;
+                //position: center;
+                padding-left:169px;
+                padding-top:50px;
+                bottom: calc(-1*(80px + 4px)); // -42px;
+            }
+
+            .displayHeader {
+                display: block;
+                position: absolute;
+                bottom: calc(-1*(80px + 4px)); // -42px;
+            }
+        }
+    }
+}
+
+.card-body {
+    background-color: #ffffff;
+    height: calc(100vh - (200px + 56px));
+    //overflow: hidden;
+
+    .user-meta {
+        padding-top: 40px;
+        padding-bottom: 2px;
+
+        .playername {
+            font-size: 24px;
+            font-weight: 600;
+            color: #303940;
+        }
+
+        .country {
+            font-size: 90%;
+            color: #949ea6;
+            text-transform: uppercase;
+            margin: 0 auto;
+        }
+    }
+}
+
+.container {
+    position: relative;
+    text-align: center;
+    color: white;
+}
+
+
+.top-right {
+    position: absolute;
+    top: 8px;
+    right: 16px;
+}
