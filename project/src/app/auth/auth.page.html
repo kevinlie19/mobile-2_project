@@ -1,0 +1,180 @@
+<ion-content class="ion-padding">
+  <div style="padding-top: 50px;" >
+    <h1 class="ion-text-center">
+      APP NAME
+    </h1>
+    <ion-segment [(ngModel)]="segment" style="padding-top: 50px;">
+      <ion-segment-button value="login" checked>Login</ion-segment-button>
+      <ion-segment-button value="signUp">Sign Up</ion-segment-button>
+    </ion-segment>
+
+    <div [ngSwitch]="segment">
+        <div *ngSwitchCase="'login'">
+          <form #f="ngForm" (ngSubmit)="onSubmit(f)" *ngIf="login">
+            <ion-grid>
+              <ion-row>
+                <ion-col>
+                  <ion-list>
+                    <ion-item>
+                      <ion-label position="floating" style="margin-top: 10px;"> 
+                        <img src="../assets/icon/icons8-email.png">
+                        &nbsp;&nbsp;E-mail
+                      </ion-label>
+                      <ion-input
+                        inputmode="email"
+                        ngModel
+                        name="email"
+                        required
+                        email
+                        #emailCtrl="ngModel"
+                        type="email"
+                      ></ion-input>
+                    </ion-item>
+                    <ion-item
+                      *ngIf="!emailCtrl.valid && emailCtrl.touched"
+                      lines="none"
+                    >
+                      <ion-label>Should be a valid email address</ion-label>
+                    </ion-item>
+                    <ion-item>
+                      <ion-label position="floating" style="margin-top: 10px;"> 
+                        <img src="../assets/icon/icons8-password.png">
+                        &nbsp;&nbsp;Password
+                      </ion-label>
+                      <ion-input
+                        type="password"
+                        ngModel
+                        name="password"
+                        required
+                        #passwordCtrl="ngModel"
+                        minlength="6"
+                      ></ion-input>
+                    </ion-item>
+                    <ion-item
+                      *ngIf="!passwordCtrl.valid && passwordCtrl.touched"
+                      lines="none"
+                    >
+                      <ion-label>Should be a valid password</ion-label>
+                    </ion-item>
+                  </ion-list>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col col size-sm="6" offset-sm="3">
+                  <ion-button
+                    type="submit"
+                    color="primary"
+                    (click)="onLogin()"
+                    [disabled]="!f.valid"
+                    expand="block"
+                    shape="round"
+                    >LOGIN</ion-button
+                  >
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </form>
+        </div>
+      
+        <div *ngSwitchCase="'signUp'">
+          <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+            <ion-grid>
+              <ion-row>
+                <ion-col>
+                  <ion-list>
+                    <ion-item>
+                      <ion-label position="floating" style="margin-top: 10px;"> 
+                        <img src="../assets/icon/icons8-email.png">
+                        &nbsp;&nbsp;E-mail
+                      </ion-label>
+                      <ion-input
+                        inputmode="email"
+                        ngModel
+                        name="email"
+                        required
+                        email
+                        #emailCtrl="ngModel"
+                        type="email"
+                      ></ion-input>
+                    </ion-item>
+                    <ion-item
+                      *ngIf="!emailCtrl.valid && emailCtrl.touched"
+                      lines="none"
+                    >
+                      <ion-label>Should be a valid email address</ion-label>
+                    </ion-item>
+                    <ion-item>
+                      <ion-label position="floating" style="margin-top: 10px;"> 
+                        <img src="../assets/icon/icons8-user.png">
+                        &nbsp;&nbsp;Username
+                      </ion-label>
+                      <ion-input
+                        inputmode="name"
+                        ngModel
+                        name="name"
+                        required
+                        type="name"
+                      ></ion-input>
+                    </ion-item>
+                    <ion-item>
+                      <ion-label position="floating" style="margin-top: 10px;"> 
+                        <img src="../assets/icon/icons8-password.png">
+                        &nbsp;&nbsp;Password
+                      </ion-label>
+                      <ion-input
+                        type="password"
+                        ngModel
+                        name="password"
+                        required
+                        #passwordCtrl="ngModel"
+                        minlength="6"
+                      ></ion-input>
+                    </ion-item>
+                    <ion-item
+                      *ngIf="!passwordCtrl.valid && passwordCtrl.touched"
+                      lines="none"
+                    >
+                      <ion-label>Should be a valid password</ion-label>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label position="floating" style="margin-top: 10px;"> 
+                          <img src="../assets/icon/icons8-password.png">
+                          &nbsp;&nbsp;Confirm Password
+                        </ion-label>
+                        <ion-input
+                          type="password"
+                          ngModel
+                          name="conformPassword"
+                          required
+                          #confirmPasswordCtrl="ngModel"
+                          minlength="6"
+                        ></ion-input>
+                      </ion-item>
+                      <ion-item
+                        *ngIf="!confirmPasswordCtrl.valid && confirmPasswordCtrl.touched"
+                        lines="none"
+                      >
+                        <ion-label>Should be a valid confirm password</ion-label>
+                      </ion-item>
+                  </ion-list>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col col size-sm="6" offset-sm="3">
+                    <ion-button
+                    type="submit"
+                    color="primary"
+                    (click)="onSignUp()"
+                    [disabled]="!f.valid"
+                    expand="block"
+                    shape="round"
+                    >SIGN UP</ion-button
+                  >
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </form>
+        </div>
+      </div>
+  </div>
+</ion-content>

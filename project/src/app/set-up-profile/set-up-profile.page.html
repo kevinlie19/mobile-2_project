@@ -1,0 +1,80 @@
+<ion-content class="ion-padding">
+  <div style="padding-top: 20px;" >
+    <h3 class="ion-text-center">
+      Complete Your Profile
+    </h3>
+
+    <img style="display:block; margin:auto; width: 180px; margin-top: 20px;" src="../assets/icon/userProfile.png">
+
+    <ion-row center>
+      <ion-col text-center>
+        <ion-button class="text-center" style="text-align: center; margin-top: 20px; height: 50px; width: 100px;" shape="round">
+          <img src="../assets/icon/icons8-add_image.png">
+        </ion-button>
+      </ion-col>
+    </ion-row>
+    
+    <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-list>
+              <ion-item>
+                <ion-label position="floating" style="margin-top: 10px;"> 
+                  <img src="../assets/icon/icons8-user.png">
+                  &nbsp;&nbsp;Full Name
+                </ion-label>
+                <ion-input
+                  inputmode="name"
+                  ngModel
+                  name="fullName"
+                  required
+                  type="name"
+                ></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label position="floating" style="margin-top: 10px;"> 
+                  <img src="../assets/icon/icons8-phone.png">
+                  &nbsp;&nbsp;Phone Number
+                </ion-label>
+                <ion-input
+                  inputmode="number"
+                  ngModel
+                  name="phoneNumber"
+                  required
+                  type="number"
+                ></ion-input>
+              </ion-item>
+              <ion-item>
+                  <ion-label position="floating" style="margin-top: 10px;"> 
+                      <img src="../assets/icon/icons8-marker.png">
+                      &nbsp;&nbsp;Location
+                    </ion-label>
+                <ion-select interface="popover">
+                  <ion-select-option value="Tangerang">tangerang</ion-select-option>
+                  <ion-select-option value="Jakarta">Jakarta</ion-select-option>
+                </ion-select>
+              </ion-item>
+            </ion-list>
+          </ion-col>
+        </ion-row>
+
+        <ion-row center>
+          <ion-col text-center style="margin-top: 20px;">
+              <ion-button
+                type="submit"
+                color="primary"
+                (click)="next()"
+                [disabled]="!f.valid"
+                shape="round"
+                style="width: 70px; height: 70px;"
+                >
+                  <ion-icon name="ios-arrow-forward"></ion-icon>
+              </ion-button>
+          </ion-col>
+        </ion-row>
+
+      </ion-grid>
+    </form>
+  </div>
+</ion-content>
