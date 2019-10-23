@@ -13,19 +13,18 @@ const routes: Routes = [
   {
     path: 'set-up-profile',
     canLoad: [AuthGuard],
-    loadChildren: './set-up-profile/set-up-profile.module#SetUpProfilePageModule' 
+    loadChildren: './set-up-profile/set-up-profile.module#SetUpProfilePageModule'
   },
-  { 
+  {
     path: 'profile',
     canLoad: [AuthGuard],
     loadChildren: './profile/profile.module#ProfilePageModule'
   },
-  { 
+  {
     path: 'feeds',
     canLoad: [AuthGuard],
     loadChildren: './feeds/feeds.module#FeedsPageModule'
   },
-
 ];
 
 @NgModule({

@@ -1,9 +1,19 @@
-.content{
-  padding-top: 50px;
+.background{
+  --background: linear-gradient(155deg, 
+  rgba(251, 195, 74, 1), rgba(243, 126, 115, 1));
 }
 
-.ionSegment{
-  padding-top: 50px;
+.content{
+  padding-top: 70px;
+}
+
+.appName{
+  color: white;;
+}
+.card{
+  background-color: white;
+  margin-top: 50px;
+  padding: 30px;
 }
 
 .label{
@@ -11,7 +21,9 @@
 }
 
 .button{
-  margin-top: 20px;
+  margin-top: 15px;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 .middle{
