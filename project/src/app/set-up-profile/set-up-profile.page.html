@@ -1,14 +1,14 @@
 <ion-content class="ion-padding">
-  <div style="padding-top: 20px;" >
+  <div class="content">
     <h3 class="ion-text-center">
       Complete Your Profile
     </h3>
 
-    <img style="display:block; margin:auto; width: 180px; margin-top: 20px;" src="../assets/icon/userProfile.png">
+    <img class="photo" src="../assets/icon/userProfile.png">
 
     <ion-row center>
       <ion-col text-center>
-        <ion-button class="text-center" style="text-align: center; margin-top: 20px; height: 50px; width: 100px;" shape="round">
+        <ion-button class="text-center takePhoto" shape="round">
           <img src="../assets/icon/icons8-add_image.png">
         </ion-button>
       </ion-col>
@@ -20,10 +20,13 @@
           <ion-col>
             <ion-list>
               <ion-item>
-                <ion-label position="floating" style="margin-top: 10px;"> 
-                  <img src="../assets/icon/icons8-user.png">
-                  &nbsp;&nbsp;Full Name
-                </ion-label>
+                <div class="middle">
+                  <ion-label position="floating" class="label middle"> 
+                    <img src="../assets/icon/icons8-user.png" class="middle">
+                    &nbsp;&nbsp;Full Name
+                  </ion-label>
+                </div>
+                
                 <ion-input
                   inputmode="name"
                   ngModel
@@ -33,10 +36,12 @@
                 ></ion-input>
               </ion-item>
               <ion-item>
-                <ion-label position="floating" style="margin-top: 10px;"> 
-                  <img src="../assets/icon/icons8-phone.png">
-                  &nbsp;&nbsp;Phone Number
-                </ion-label>
+                <div class="middle">
+                  <ion-label position="floating" class="label middle"> 
+                    <img src="../assets/icon/icons8-phone.png" class="middle">
+                    &nbsp;&nbsp;Phone Number
+                  </ion-label>
+                </div>
                 <ion-input
                   inputmode="number"
                   ngModel
@@ -46,10 +51,12 @@
                 ></ion-input>
               </ion-item>
               <ion-item>
-                  <ion-label position="floating" style="margin-top: 10px;"> 
-                      <img src="../assets/icon/icons8-marker.png">
-                      &nbsp;&nbsp;Location
-                    </ion-label>
+                <div class="middle">
+                  <ion-label position="floating" class="label middle"> 
+                    <img src="../assets/icon/icons8-marker.png" class="middle">
+                    &nbsp;&nbsp;Location
+                  </ion-label>
+                </div>
                 <ion-select interface="popover">
                   <ion-select-option value="Tangerang">tangerang</ion-select-option>
                   <ion-select-option value="Jakarta">Jakarta</ion-select-option>
@@ -60,14 +67,14 @@
         </ion-row>
 
         <ion-row center>
-          <ion-col text-center style="margin-top: 20px;">
+          <ion-col text-center class="button">
               <ion-button
                 type="submit"
                 color="primary"
                 (click)="next()"
                 [disabled]="!f.valid"
                 shape="round"
-                style="width: 70px; height: 70px;"
+                class="next-button"
                 >
                   <ion-icon name="ios-arrow-forward"></ion-icon>
               </ion-button>
