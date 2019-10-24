@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { Feeds } from './feeds.model';
-import { FeedsService } from './feeds.service';
+import {Component, OnInit} from '@angular/core';
+import {Feeds} from './feeds.model';
+import {FeedsService} from './feeds.service';
 
 @Component({
   selector: 'app-feeds',
@@ -8,12 +8,11 @@ import { FeedsService } from './feeds.service';
   styleUrls: ['./feeds.page.scss'],
 })
 export class FeedsPage implements OnInit {
-  loadedItem: Feeds[];
+  loadedFeeds: Feeds[];
 
-  constructor(private feedsService: FeedsService) { }
+  constructor(private feedsService: FeedsService) {}
 
   ngOnInit() {
-    this.loadedItem = this.feedsService.itemList;
+    this.loadedFeeds = this.feedsService.allFeeds;
   }
-
 }
