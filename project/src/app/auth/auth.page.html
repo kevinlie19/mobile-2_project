@@ -1,14 +1,14 @@
-<ion-content class="ion-padding">
+<ion-content class="ion-padding background">
   <div class="content">
-    <h1 class="ion-text-center">
-      APP NAME
+    <h1 class="ion-text-center appName">
+      C I B O
     </h1>
-    <ion-segment [(ngModel)]="segment" class="ionSegment">
-      <ion-segment-button value="login" checked>Login</ion-segment-button>
-      <ion-segment-button value="signUp">Sign Up</ion-segment-button>
-    </ion-segment>
-
-    <div [ngSwitch]="segment" class="segment">
+    <div class="card">
+      <ion-segment [(ngModel)]="segment" color="tertiary">
+        <ion-segment-button value="login" checked class="ion-segment-text" color="secondary"><b>Sign In</b></ion-segment-button>
+        <ion-segment-button value="signUp" class="ion-segment-text"><b>Sign Up</b></ion-segment-button>
+      </ion-segment>
+      <div [ngSwitch]="segment" class="segment">
         <div *ngSwitchCase="'login'">
           <form #f="ngForm" (ngSubmit)="onSubmit(f)" *ngIf="login">
             <ion-grid>
@@ -17,12 +17,11 @@
                   <ion-list>
                     <ion-item>
                       <div class="middle">
-                        <ion-label position="floating" class="label middle"> 
+                        <ion-label position="floating" class="middle"> 
                           <img src="../assets/icon/icons8-email.png" class="middle">
-                          &nbsp;&nbsp;E-mail
+                          &nbsp;&nbsp;E-mail / Username
                         </ion-label>
                       </div>
-                      
                       <ion-input
                         inputmode="email"
                         ngModel
@@ -65,7 +64,7 @@
                 </ion-col>
               </ion-row>
               <ion-row>
-                <ion-col col size-sm="6" offset-sm="3"  class="button">
+                <ion-col col size-sm="6" offset-sm="3" class="button">
                   <ion-button
                     type="submit"
                     color="primary"
@@ -73,7 +72,8 @@
                     [disabled]="!f.valid"
                     expand="block"
                     shape="round"
-                    >LOGIN</ion-button
+                    color="tertiary"
+                    >Sign In</ion-button
                   >
                 </ion-col>
               </ion-row>
@@ -89,7 +89,7 @@
                   <ion-list>
                     <ion-item>
                       <div class="middle">
-                        <ion-label position="floating" class="label middle"> 
+                        <ion-label position="floating" class="middle"> 
                           <img src="../assets/icon/icons8-email.png" class="middle">
                           &nbsp;&nbsp;E-mail
                         </ion-label>
@@ -181,7 +181,8 @@
                     [disabled]="!f.valid"
                     expand="block"
                     shape="round"
-                    >SIGN UP</ion-button
+                    color="tertiary"
+                    >Sign Up</ion-button
                   >
                 </ion-col>
               </ion-row>
@@ -189,5 +190,6 @@
           </form>
         </div>
       </div>
+    </div>
   </div>
 </ion-content>

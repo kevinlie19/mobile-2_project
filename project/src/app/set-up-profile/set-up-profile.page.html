@@ -1,32 +1,33 @@
-<ion-content class="ion-padding">
+<ion-content class="ion-padding background">
   <div class="content">
-    <h3 class="ion-text-center">
-      Complete Your Profile
-    </h3>
+    <h2 class="ion-text-center header">
+      <b>
+        Complete Your Profile
+      </b>
+    </h2>
 
     <img class="photo" src="../assets/icon/userProfile.png">
 
     <ion-row center>
       <ion-col text-center>
-        <ion-button class="text-center takePhoto" shape="round">
+        <ion-button class="text-center takePhoto" shape="round" color="tertiary">
           <img src="../assets/icon/icons8-add_image.png">
         </ion-button>
       </ion-col>
     </ion-row>
     
-    <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+    <form #f="ngForm" (ngSubmit)="onSubmit(f)" class="form">
       <ion-grid>
         <ion-row>
           <ion-col>
-            <ion-list>
-              <ion-item>
+            <ion-list class="list">
+              <ion-item class="item">
                 <div class="middle">
-                  <ion-label position="floating" class="label middle"> 
+                  <ion-label position="floating" class="middle"> 
                     <img src="../assets/icon/icons8-user.png" class="middle">
                     &nbsp;&nbsp;Full Name
                   </ion-label>
                 </div>
-                
                 <ion-input
                   inputmode="name"
                   ngModel
@@ -35,9 +36,11 @@
                   type="name"
                 ></ion-input>
               </ion-item>
-              <ion-item>
+            </ion-list>
+            <ion-list class="list">
+              <ion-item class="item">
                 <div class="middle">
-                  <ion-label position="floating" class="label middle"> 
+                  <ion-label position="floating" class="middle"> 
                     <img src="../assets/icon/icons8-phone.png" class="middle">
                     &nbsp;&nbsp;Phone Number
                   </ion-label>
@@ -50,9 +53,11 @@
                   type="number"
                 ></ion-input>
               </ion-item>
-              <ion-item>
+            </ion-list>
+            <ion-list class="list">
+              <ion-item class="item">
                 <div class="middle">
-                  <ion-label position="floating" class="label middle"> 
+                  <ion-label position="floating" class="middle"> 
                     <img src="../assets/icon/icons8-marker.png" class="middle">
                     &nbsp;&nbsp;Location
                   </ion-label>
@@ -65,22 +70,20 @@
             </ion-list>
           </ion-col>
         </ion-row>
-
         <ion-row center>
           <ion-col text-center class="button">
-              <ion-button
-                type="submit"
-                color="primary"
-                (click)="next()"
-                [disabled]="!f.valid"
-                shape="round"
-                class="next-button"
-                >
-                  <ion-icon name="ios-arrow-forward"></ion-icon>
-              </ion-button>
+            <ion-button
+              type="submit"
+              color="primary"
+              (click)="next()"
+              [disabled]="!f.valid"
+              shape="round"
+              class="next-button"
+              >
+                <ion-icon name="ios-arrow-forward"></ion-icon>
+            </ion-button>
           </ion-col>
         </ion-row>
-
       </ion-grid>
     </form>
   </div>
