@@ -1,17 +1,30 @@
-import { NgModule } from "@angular/core";
-import { PreloadAllModules, RouterModule, Routes } from "@angular/router";
+import { AuthGuard } from './auth/auth.guard';
+import { NgModule } from '@angular/core';
+import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
-  { path: "", redirectTo: "home", pathMatch: "full" },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: 'auth', loadChildren: './auth/auth.module#AuthPageModule' },
   {
-    path: "home",
-    loadChildren: () => import("./home/home.module").then(m => m.HomePageModule)
+    path: 'home',
+    canLoad: [AuthGuard],
+    loadChildren: './home/home.module#HomePageModule',
   },
   {
-    path: "profile",
-    loadChildren: "./profile/profile.module#ProfilePageModule"
+    path: 'set-up-profile',
+    canLoad: [AuthGuard],
+    loadChildren: './set-up-profile/set-up-profile.module#SetUpProfilePageModule'
   },
-  { path: "feeds", loadChildren: "./feeds/feeds.module#FeedsPageModule" }
+  {
+    path: 'profile',
+    canLoad: [AuthGuard],
+    loadChildren: './profile/profile.module#ProfilePageModule'
+  },
+  {
+    path: 'feeds',
+    canLoad: [AuthGuard],
+    loadChildren: './feeds/feeds.module#FeedsPageModule'
+  },
 ];
 
 @NgModule({
@@ -20,4 +33,5 @@ const routes: Routes = [
   ],
   exports: [RouterModule]
 })
-export class AppRoutingModule {}
+
+export class AppRoutingModule { }
