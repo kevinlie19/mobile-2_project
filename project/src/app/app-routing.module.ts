@@ -41,7 +41,7 @@ const routes: Routes = [
   },
   {
     path: 'feeds-edit-post',
-    canLoad: [AuthGuard],
+    //canLoad: [AuthGuard],
     loadChildren:
       './feeds/feeds-detail/feeds-edit-post/feeds-edit-post.module#FeedsEditPostPageModule',
   },
