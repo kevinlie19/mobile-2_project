@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
-import { Router } from '@angular/router';
-import { AuthService } from './auth.service';
-import { LoadingController } from '@ionic/angular';
+import {Component, OnInit} from '@angular/core';
+import {NgForm} from '@angular/forms';
+import {Router} from '@angular/router';
+import {AuthService} from './auth.service';
+import {LoadingController} from '@ionic/angular';
 
 @Component({
   selector: 'app-auth',
@@ -10,7 +10,6 @@ import { LoadingController } from '@ionic/angular';
   styleUrls: ['./auth.page.scss'],
 })
 export class AuthPage implements OnInit {
-
   isLoading = false;
   segment: string = 'login';
   isLogin = true;
@@ -19,12 +18,11 @@ export class AuthPage implements OnInit {
     private router: Router,
     private authService: AuthService,
     private loadingCtrl: LoadingController,
-  ) { }
+  ) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
-  onSubmit(form: NgForm){
+  onSubmit(form: NgForm) {
     if (!form.valid) {
       return;
     }
@@ -49,7 +47,7 @@ export class AuthPage implements OnInit {
         setTimeout(() => {
           this.isLoading = false;
           loadingEl.dismiss();
-          this.router.navigateByUrl('home');
+          this.router.navigateByUrl('feeds');
         }, 1500);
       });
     this.authService.login();

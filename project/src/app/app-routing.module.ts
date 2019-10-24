@@ -1,37 +1,43 @@
-import { AuthGuard } from './auth/auth.guard';
-import { NgModule } from '@angular/core';
-import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import {AuthGuard} from './auth/auth.guard';
+import {NgModule} from '@angular/core';
+import {PreloadAllModules, RouterModule, Routes} from '@angular/router';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
-  { path: 'auth', loadChildren: './auth/auth.module#AuthPageModule' },
-  {
-    path: 'home',
-    canLoad: [AuthGuard],
-    loadChildren: './home/home.module#HomePageModule',
-  },
+  {path: '', redirectTo: 'feeds', pathMatch: 'full'},
+  {path: 'auth', loadChildren: './auth/auth.module#AuthPageModule'},
   {
     path: 'set-up-profile',
     canLoad: [AuthGuard],
-    loadChildren: './set-up-profile/set-up-profile.module#SetUpProfilePageModule'
+    loadChildren:
+      './set-up-profile/set-up-profile.module#SetUpProfilePageModule',
   },
   {
     path: 'profile',
     canLoad: [AuthGuard],
-    loadChildren: './profile/profile.module#ProfilePageModule'
+    loadChildren: './profile/profile.module#ProfilePageModule',
   },
   {
     path: 'feeds',
-    canLoad: [AuthGuard],
-    loadChildren: './feeds/feeds.module#FeedsPageModule'
+    children: [
+      {
+        path: '',
+        canLoad: [AuthGuard],
+        loadChildren: './feeds/feeds.module#FeedsPageModule',
+      },
+      {
+        path: ':feedsId',
+        canLoad: [AuthGuard],
+        loadChildren:
+          './feeds/feeds-detail/feeds-detail.module#FeedsDetailPageModule',
+      },
+    ],
   },
 ];
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
+    RouterModule.forRoot(routes, {preloadingStrategy: PreloadAllModules}),
   ],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-
-export class AppRoutingModule { }
+export class AppRoutingModule {}
