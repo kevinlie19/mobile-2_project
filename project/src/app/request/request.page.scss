@@ -1,0 +1,118 @@
+.footer1 {
+  padding-left: 20px;
+}
+
+.footer2 {
+  width: 41px;
+  height: 41px;
+  color: #ffffff;
+}
+
+.btn-round1 {
+  --background: #3c4cac;
+  border-radius: 50%;
+}
+
+.btn-round2 {
+  color: #ed4495;
+}
+
+.header-color {
+  --background: #3c4cac;
+}
+
+.header-display {
+  vertical-align: middle;
+  --background: #3c4cac;
+}
+
+.header-title {
+  font-family: neusa-next-std, sans-serif;
+  font-size: 18px;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+.noMargin{
+  margin: 0%;
+}
+
+.noPadding{
+  padding: 0%;
+}
+
+.declineButton{
+  --background: #E4E4E4;
+  color: #636363;
+  text-transform: none;
+}
+
+.acceptButton{
+  --background: #00AF72;
+  color: #FFFFFF;
+  text-transform: none;
+}
+
+.itemName{
+  font: "Neusa Next Std";
+  color: #ED4495;
+  font-weight: bold;
+  font-size: 18px;
+  margin-top: 5%;
+  margin-bottom: 5%;
+  padding-top: 2%;
+  padding-bottom: 2%;
+}
+
+.requestBy{
+  font: "Neusa Next Std";
+  color: #3C4CAC;
+  font-weight: bold;
+  font-size: 16px;
+  margin-top: 0%;
+  margin-bottom: 0%;
+  padding-top: 0%;
+  padding-bottom: 0%;
+}
+
+.itemImage{
+  --size: 8rem;
+}
+
+.itemAvatar{
+  --size: 2rem;
+}
+
+.imageAvatar{
+  border-radius: 50%;
+}
+
+.requestUsername{
+  color: #000000;
+  font-size: 12pt;
+}
+
+.requestLocation{
+  color: #707070;
+  font-size: 10pt;
+}
+
+.ion-segment-text{
+  text-transform: none;
+}
+
+.approved{
+  font: "Neusa Next Std";
+  font-size: 10pt;
+  color: #FFFFFF;
+  background: #00AF72;
+  padding: 3%;
+}
+
+.notApproved{
+  font: "Neusa Next Std";
+  font-size: 10pt;
+  color: #FFFFFF;
+  background: #FA4353;
+  padding: 3%;
+}

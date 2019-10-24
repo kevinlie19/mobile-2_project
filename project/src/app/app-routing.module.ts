@@ -32,6 +32,12 @@ const routes: Routes = [
       },
     ],
   },
+  {
+    path: 'request',
+    canLoad: [AuthGuard],
+    loadChildren: './request/request.module#RequestPageModule'
+  },
+
 ];
 
 @NgModule({
