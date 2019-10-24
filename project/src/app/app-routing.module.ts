@@ -34,6 +34,12 @@ const routes: Routes = [
     ],
   },
   {
+    path: 'feeds-add-post',
+    canLoad: [AuthGuard],
+    loadChildren:
+      './feeds-add-post/feeds-add-post.module#FeedsAddPostPageModule',
+  },
+  {
     path: 'request',
     canLoad: [AuthGuard],
     loadChildren: './request/request.module#RequestPageModule',
