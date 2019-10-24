@@ -7,26 +7,27 @@ const routes: Routes = [
   { path: 'auth', loadChildren: './auth/auth.module#AuthPageModule' },
   {
     path: 'home',
-    // canLoad: [AuthGuard],
+    canLoad: [AuthGuard],
     loadChildren: './home/home.module#HomePageModule',
   },
   {
     path: 'set-up-profile',
-    // canLoad: [AuthGuard],
+    canLoad: [AuthGuard],
     loadChildren: './set-up-profile/set-up-profile.module#SetUpProfilePageModule'
   },
   {
     path: 'profile',
-    // canLoad: [AuthGuard],
+    canLoad: [AuthGuard],
     loadChildren: './profile/profile.module#ProfilePageModule'
   },
   {
     path: 'feeds',
-    // canLoad: [AuthGuard],
+    canLoad: [AuthGuard],
     loadChildren: './feeds/feeds.module#FeedsPageModule'
   },
   {
     path: 'request',
+    canLoad: [AuthGuard],
     loadChildren: './request/request.module#RequestPageModule'
   },
 
