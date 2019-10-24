@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'set-up-profile', pathMatch: 'full' },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'auth', loadChildren: './auth/auth.module#AuthPageModule' },
   {
     path: 'home',
@@ -12,7 +12,7 @@ const routes: Routes = [
   },
   {
     path: 'set-up-profile',
-    // canLoad: [AuthGuard],
+    canLoad: [AuthGuard],
     loadChildren: './set-up-profile/set-up-profile.module#SetUpProfilePageModule'
   },
   {
