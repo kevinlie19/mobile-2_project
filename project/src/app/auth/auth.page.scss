@@ -1,22 +1,29 @@
 .background{
   --background: linear-gradient(155deg, 
-  rgba(251, 195, 74, 1), rgba(243, 126, 115, 1));
+  rgba(251, 195, 74, 1), rgba(240, 93, 135, 1));
 }
 
 .content{
   padding-top: 70px;
+  font: "Neusa Next Std";
 }
 
 .appName{
-  color: white;;
+  color: white;
+  font: "Neusa Next Std";
 }
+
 .card{
   background-color: white;
   margin-top: 50px;
   padding: 30px;
+  margin-left: 24px;
+  margin-right: 24px;
 }
 
 .label{
+  font: "Neusa Next Std";
+  font-size: 12pt;
   margin-top: 10px;
 }
 
@@ -24,6 +31,9 @@
   margin-top: 15px;
   padding-left: 20px;
   padding-right: 20px;
+  text-transform: none;
+  font: "Neusa Next Std";
+  font-size: 14pt;
 }
 
 .middle{
@@ -31,5 +41,11 @@
 }
 
 .segment{
-  margin-top: 20px;
+  margin-top: 24px;
+}
+
+.ion-segment-text{
+  font: Neusa Next Std;
+  font-size: 14pt;
+  text-transform: none;
 }

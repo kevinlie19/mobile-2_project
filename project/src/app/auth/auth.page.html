@@ -5,11 +5,10 @@
     </h1>
     <div class="card">
       <ion-segment [(ngModel)]="segment" color="tertiary">
-        <ion-segment-button value="login" checked>Sign In</ion-segment-button>
-        <ion-segment-button value="signUp">Sign Up</ion-segment-button>
+        <ion-segment-button value="login" checked class="ion-segment-text" color="secondary"><b>Sign In</b></ion-segment-button>
+        <ion-segment-button value="signUp" class="ion-segment-text"><b>Sign Up</b></ion-segment-button>
       </ion-segment>
-
-    <div [ngSwitch]="segment" class="segment">
+      <div [ngSwitch]="segment" class="segment">
         <div *ngSwitchCase="'login'">
           <form #f="ngForm" (ngSubmit)="onSubmit(f)" *ngIf="login">
             <ion-grid>
@@ -20,10 +19,9 @@
                       <div class="middle">
                         <ion-label position="floating" class="middle"> 
                           <img src="../assets/icon/icons8-email.png" class="middle">
-                          &nbsp;&nbsp;E-mail
+                          &nbsp;&nbsp;E-mail / Username
                         </ion-label>
                       </div>
-                      
                       <ion-input
                         inputmode="email"
                         ngModel
@@ -75,7 +73,7 @@
                     expand="block"
                     shape="round"
                     color="tertiary"
-                    >SIGN IN</ion-button
+                    >Sign In</ion-button
                   >
                 </ion-col>
               </ion-row>
@@ -91,7 +89,7 @@
                   <ion-list>
                     <ion-item>
                       <div class="middle">
-                        <ion-label position="floating" class="label middle"> 
+                        <ion-label position="floating" class="middle"> 
                           <img src="../assets/icon/icons8-email.png" class="middle">
                           &nbsp;&nbsp;E-mail
                         </ion-label>
@@ -184,7 +182,7 @@
                     expand="block"
                     shape="round"
                     color="tertiary"
-                    >SIGN UP</ion-button
+                    >Sign Up</ion-button
                   >
                 </ion-col>
               </ion-row>
