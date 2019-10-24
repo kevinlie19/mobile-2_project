@@ -40,6 +40,12 @@ const routes: Routes = [
       './feeds-add-post/feeds-add-post.module#FeedsAddPostPageModule',
   },
   {
+    path: 'feeds-edit-post',
+    canLoad: [AuthGuard],
+    loadChildren:
+      './feeds/feeds-detail/feeds-edit-post/feeds-edit-post.module#FeedsEditPostPageModule',
+  },
+  {
     path: 'request',
     canLoad: [AuthGuard],
     loadChildren: './request/request.module#RequestPageModule',
