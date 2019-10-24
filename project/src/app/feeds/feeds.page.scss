@@ -1,0 +1,147 @@
+.header-color {
+  --background: #3c4cac;
+}
+
+.header-display {
+  height: 86px;
+  vertical-align: middle;
+  line-height: 86px;
+}
+
+.header-title {
+  font-family: neusa-next-std, sans-serif;
+  font-size: 18px;
+  font-weight: bold;
+  color: #ffffff;
+  margin-top: 20px;
+}
+
+.row1 {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-left: -20px;
+}
+
+.col1 {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 50%;
+  flex-grow: 0;
+}
+
+.col2 {
+  position: relative;
+  top: 3px;
+}
+
+.col3 {
+  margin-left: -15px;
+}
+
+.displayUser {
+  font-family: Qanelas;
+  font-weight: 600;
+  font-size: 12px;
+  color: #000000;
+}
+
+.card1 {
+  box-shadow: #00000029 0px 3px 6px;
+  width: 100%;
+  height: 100%;
+}
+
+.footer1 {
+  padding-left: 20px;
+}
+
+.footer2 {
+  width: 29px;
+  height: 29px;
+  color: #ffffff;
+}
+
+.img1 {
+  height: 162px;
+  font-family: Qanelas;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.img2 {
+  height: 162px;
+  -webkit-filter: grayscale(100%);
+  filter: grayscale(100%);
+  font-family: Qanelas;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.img3 {
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+}
+
+.status1 {
+  border-radius: 3px;
+  background: #00af72;
+  padding: 3px;
+  font-size: 11px;
+  width: 70px;
+  height: 18px;
+  font-family: qanelas;
+}
+
+.status2 {
+  border-radius: 3px;
+  background: #fa4353;
+  padding: 3px;
+  font-size: 11px;
+  width: 70px;
+  height: 18px;
+  font-family: qanelas;
+}
+
+.displayName {
+  font-family: Qanelas;
+  font-size: 12px;
+  font-weight: bold;
+  color: #ed4495;
+}
+
+.displayNormal {
+  font-family: Qanelas;
+  font-size: 11px;
+  color: #707070;
+}
+
+.btn-round1 {
+  --background: #3c4cac;
+  border-radius: 50%;
+}
+
+.btn-round2 {
+  color: #ed4495;
+}
+
+.container {
+  position: relative;
+  text-align: center;
+  color: white;
+}
+
+.top-right {
+  position: absolute;
+  top: 8px;
+  right: 16px;
+}
+
+ion-content {
+  --ion-background-color: #f7f7f7;
+}
+
+ion-card {
+  background-color: #ffffff;
+}
