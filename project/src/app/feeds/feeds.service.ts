@@ -49,7 +49,7 @@ export class FeedsService {
       expDate: '1 November 2019',
       timestamps: '2',
       itemImageUrl:
-        'https://indianapublicmedia.org/amomentofscience/files/2019/08/damsel-fish.jpg',
+        'https://img.etimg.com/thumb/msid-68495044,width-643,imgsize-1335371,resizemode-4/fish.jpg',
       username: 'Cecilia K.',
       location: 'Jakarta Selatan',
       avatar: 'https://www.venmond.com/demo/vendroid/img/avatar/big.jpg',

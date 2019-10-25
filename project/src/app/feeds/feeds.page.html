@@ -1,49 +1,60 @@
-<ion-header class="ion-text-center header-display">
-  <ion-toolbar class="header-color">
-    <ion-title class="header-title">Home</ion-title>
+<ion-header>
+  <ion-toolbar class="toolbarContainer">
+    <div class="headerTitle">Home</div>
+    <ion-buttons slot="end">
+      <ion-button
+        ><ion-icon name="chatboxes" class="chattingIcon"></ion-icon
+      ></ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-row class="row1" padding>
-    <ion-col class="col1" *ngFor="let item of loadedFeeds">
-      <ion-card class="card1" [routerLink]="['/', 'feeds', item.id]">
-        <div class="container">
+  <ion-row class="rowFeedsContainer">
+    <ion-col class="colFeedsContainer" *ngFor="let item of loadedFeeds">
+      <ion-card class="cardContainer" [routerLink]="['/', 'feeds', item.id]">
+        <div class="imageContainer">
           <img
             *ngIf="item.status == 'Available'"
             src="{{ item.itemImageUrl }}"
-            class="img1"
+            class="imageAvailable"
           />
           <img
             *ngIf="item.status == 'Unavailable'"
             src="{{ item.itemImageUrl }}"
-            class="img2"
+            class="imageUnavailable"
           />
-          <div *ngIf="item.status == 'Available'" class="top-right status1">
+          <div
+            *ngIf="item.status == 'Available'"
+            class="tagPosition statusAvailable"
+          >
             {{ item.status }}
           </div>
-          <div *ngIf="item.status == 'Unavailable'" class="top-right status2">
+          <div
+            *ngIf="item.status == 'Unavailable'"
+            class="tagPosition statusUnavailable"
+          >
             {{ item.status }}
           </div>
         </div>
         <ion-card-content>
-          <p class="displayName">
+          <p class="textItemName">
             {{ item.item_name }}
           </p>
-          <p class="displayNormal">
+          <p class="textTimeStamp">
             <ion-icon name="hourglass" slot="icon-only"></ion-icon> Posted
             {{ item.timestamps }} day ago
           </p>
           <p>
-            <ion-row>
-              <ion-col size="4" class="col2">
-                <img src="{{ item.avatar }}" class="img3" />
+            <ion-row class="userInfoContainer">
+              <ion-col size="4" class="avatarContainer">
+                <img src="{{ item.avatar }}" class="imageAvatar" />
               </ion-col>
-              <ion-col class="col3">
-                <ion-row class="displayUser">
+              <ion-col size="8" class="userContainer">
+                <ion-row class="textUserName">
                   {{ item.username }}
                 </ion-row>
-                <ion-row class="displayNormal">
+                <ion-row class="textUserLocation">
                   {{ item.location }}
                 </ion-row>
               </ion-col>
@@ -53,40 +64,41 @@
       </ion-card>
     </ion-col>
   </ion-row>
+  <br />
 </ion-content>
 
-<ion-footer class="md">
+<ion-footer>
   <ion-toolbar>
-    <ion-row class="footer1">
-      <ion-col>
+    <ion-row class="footerContainer">
+      <ion-col size="2">
         <ion-buttons>
-          <ion-button class="btn-round2">
+          <ion-button class="iconSelectedContainer">
             <ion-icon slot="icon-only" name="home"></ion-icon>
           </ion-button>
         </ion-buttons>
       </ion-col>
-      <ion-col>
+      <ion-col size="2">
+        <ion-buttons>
+          <ion-button>
+            <ion-icon slot="icon-only" name="search"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-col>
+      <ion-col size="4" class="footerMiddleContainer">
+        <ion-buttons>
+          <ion-button class="iconAddContainer">
+            <ion-icon class="iconAdd" slot="icon-only" name="add"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-col>
+      <ion-col size="2">
         <ion-buttons>
           <ion-button>
             <ion-icon slot="icon-only" name="notifications"></ion-icon>
           </ion-button>
         </ion-buttons>
       </ion-col>
-      <ion-col>
-        <ion-buttons>
-          <ion-button class="btn-round1">
-            <ion-icon class="footer2" slot="icon-only" name="add"></ion-icon>
-          </ion-button>
-        </ion-buttons>
-      </ion-col>
-      <ion-col>
-        <ion-buttons>
-          <ion-button>
-            <ion-icon slot="icon-only" name="chatboxes"></ion-icon>
-          </ion-button>
-        </ion-buttons>
-      </ion-col>
-      <ion-col>
+      <ion-col size="2">
         <ion-buttons>
           <ion-button>
             <ion-icon slot="icon-only" name="person"></ion-icon>
