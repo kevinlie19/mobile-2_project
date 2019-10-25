@@ -1,57 +1,52 @@
-<!-- <ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="end">
-      <ion-menu-button menu="m1"></ion-menu-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header> -->
-
 <ion-content>
-  <div class="card">
-    <ion-toolbar class="drawerProfile1">
+  <div class="pageContainer">
+    <ion-toolbar class="settingsContainer">
       <ion-buttons slot="end">
         <ion-menu-button menu="m1"
-          ><ion-icon name="settings" class="drawerProfile2"></ion-icon
+          ><ion-icon name="settings" class="settingsIcon"></ion-icon
         ></ion-menu-button>
       </ion-buttons>
     </ion-toolbar>
-    <div class="header">
-      <div class="avatar">
+    <div class="headerContainer">
+      <div class="avatarContainerHeader">
         <ion-row>
           <img src="https://www.venmond.com/demo/vendroid/img/avatar/big.jpg" />
-          <ion-col class="titleDisplay1" no-padding>
-            <ion-row class="profile1">
+          <ion-col class="textHeaderContainer" no-padding>
+            <ion-row class="textUserFullNameHeader">
               Cecilia K.
             </ion-row>
-            <ion-row class="profile2">
+            <ion-row class="textUserNameHeader">
+              @ceciliak
+            </ion-row>
+            <ion-row class="textUserLocationHeader">
               Jakarta Selatan
             </ion-row>
-            <ion-row class="rowProfile1">
-              <ion-col col-4 no-padding class="colProfile1">
-                <ion-row class="rowProfile2">
+            <ion-row class="userStatusContainer">
+              <ion-col col-2 no-padding class="userGivenContainer">
+                <ion-row class="textAmount">
                   <ion-col col-12 no-padding text-center>50</ion-col></ion-row
                 >
-                <ion-row class="rowProfile3">
+                <ion-row class="textUserStatus">
                   <ion-col col-12 no-padding text-center
                     >Given</ion-col
                   ></ion-row
                 >
               </ion-col>
-              <ion-col col-4 no-padding class="colProfile2">
-                <ion-row class="rowProfile2">
+              <ion-col col-2 no-padding class="userTakenContainer">
+                <ion-row class="textAmount">
                   <ion-col col-12 no-padding text-center>10</ion-col></ion-row
                 >
-                <ion-row class="rowProfile3">
+                <ion-row class="textUserStatus">
                   <ion-col col-12 no-padding text-center
                     >Taken</ion-col
                   ></ion-row
                 >
               </ion-col>
-              <ion-col col-4 no-padding class="colProfile3">
-                <ion-row class="rowProfile2">
+              <ion-col col-2 no-padding class="userFriendsContainer">
+                <ion-row class="textAmount">
                   <ion-col col-12 no-padding text-center>100</ion-col></ion-row
                 >
-                <ion-row class="rowProfile3">
+                <ion-row class="textUserStatus">
                   <ion-col col-12 no-padding text-center
                     >Friends</ion-col
                   ></ion-row
@@ -62,67 +57,69 @@
         </ion-row>
       </div>
     </div>
-    <div class="divProfile1">
+    <div class="bodyContainer">
       <div>
         <div>
           <br /><br />
-          <p class="divProfile2">
+          <p class="textYourPosts">
             Your Posts
           </p>
         </div>
-        <p class="divProfile3">
+        <p class="textAvailableTitle">
           Available
         </p>
-        <ion-row class="row1" padding>
-          <ion-col class="col1" *ngFor="let item of loadedAvailable">
-            <ion-card class="card1">
-              <div class="container">
+        <ion-row class="rowFeedsContainer">
+          <ion-col
+            class="colFeedsContainer"
+            *ngFor="let item of loadedAvailable"
+          >
+            <ion-card
+              class="cardContainer"
+              [routerLink]="['/', 'feeds', item.id]"
+            >
+              <div class="imageContainer">
                 <img
                   *ngIf="item.status == 'Available'"
-                  src="{{ item.imageUrl1 }}"
-                  class="img1"
+                  src="{{ item.itemImageUrl }}"
+                  class="imageAvailable"
                 />
                 <img
                   *ngIf="item.status == 'Unavailable'"
-                  src="{{ item.imageUrl1 }}"
-                  class="img2"
+                  src="{{ item.itemImageUrl }}"
+                  class="imageUnavailable"
                 />
                 <div
                   *ngIf="item.status == 'Available'"
-                  class="top-right status1"
+                  class="tagPosition statusAvailable"
                 >
                   {{ item.status }}
                 </div>
                 <div
                   *ngIf="item.status == 'Unavailable'"
-                  class="top-right status2"
+                  class="tagPosition statusUnavailable"
                 >
                   {{ item.status }}
                 </div>
               </div>
               <ion-card-content>
-                <p class="displayName">
-                  {{ item.name }}
+                <p class="textItemName">
+                  {{ item.item_name }}
                 </p>
-                <p class="displayNormal">
-                  <ion-icon
-                    name="hourglass"
-                    slot="icon-only"
-                    class="img3"
-                  ></ion-icon>
-                  Posted {{ item.daySince }} day ago
+                <p class="textTimeStamp">
+                  <ion-icon name="hourglass" slot="icon-only"></ion-icon> Posted
+                  {{ item.timestamps }} day ago
                 </p>
                 <p>
-                  <ion-row>
-                    <ion-col size="4" class="col2">
-                      <img src="{{ item.imageUrl2 }}" class="img4" />
+                  <ion-row class="userInfoContainer">
+                    <ion-col size="4" class="avatarContainer">
+                      <img src="{{ item.avatar }}" class="imageAvatar" />
                     </ion-col>
-                    <ion-col class="col3">
-                      <ion-row class="displayUser">
-                        {{ item.userName }}
+                    <ion-col size="8" class="userContainer">
+                      <ion-row class="textUserName">
+                        {{ item.username }}
                       </ion-row>
-                      <ion-row class="displayNormal">
-                        {{ item.userLocation }}
+                      <ion-row class="textUserLocation">
+                        {{ item.location }}
                       </ion-row>
                     </ion-col>
                   </ion-row>
@@ -132,56 +129,62 @@
           </ion-col>
         </ion-row>
 
-        <p class="divProfile4">
+        <p class="textUnavailableTitle">
           Unavailable
         </p>
 
-        <ion-row class="row1" padding>
-          <ion-col class="col1" *ngFor="let item of loadedUnavailable">
-            <ion-card class="card1">
-              <div class="container">
+        <ion-row class="rowFeedsContainer">
+          <ion-col
+            class="colFeedsContainer"
+            *ngFor="let item of loadedUnavailable"
+          >
+            <ion-card
+              class="cardContainer"
+              [routerLink]="['/', 'feeds', item.id]"
+            >
+              <div class="imageContainer">
                 <img
                   *ngIf="item.status == 'Available'"
-                  src="{{ item.imageUrl1 }}"
-                  class="img1"
+                  src="{{ item.itemImageUrl }}"
+                  class="imageAvailable"
                 />
                 <img
                   *ngIf="item.status == 'Unavailable'"
-                  src="{{ item.imageUrl1 }}"
-                  class="img2"
+                  src="{{ item.itemImageUrl }}"
+                  class="imageUnavailable"
                 />
                 <div
                   *ngIf="item.status == 'Available'"
-                  class="top-right status1"
+                  class="tagPosition statusAvailable"
                 >
                   {{ item.status }}
                 </div>
                 <div
                   *ngIf="item.status == 'Unavailable'"
-                  class="top-right status2"
+                  class="tagPosition statusUnavailable"
                 >
                   {{ item.status }}
                 </div>
               </div>
               <ion-card-content>
-                <p class="displayName">
-                  {{ item.name }}
+                <p class="textItemName">
+                  {{ item.item_name }}
                 </p>
-                <p class="displayNormal">
+                <p class="textTimeStamp">
                   <ion-icon name="hourglass" slot="icon-only"></ion-icon> Posted
-                  {{ item.daySince }} day ago
+                  {{ item.timestamps }} day ago
                 </p>
                 <p>
-                  <ion-row>
-                    <ion-col size="4" class="col2">
-                      <img src="{{ item.imageUrl2 }}" class="img3" />
+                  <ion-row class="userInfoContainer">
+                    <ion-col size="4" class="avatarContainer">
+                      <img src="{{ item.avatar }}" class="imageAvatar" />
                     </ion-col>
-                    <ion-col class="col3">
-                      <ion-row class="displayUser">
-                        {{ item.userName }}
+                    <ion-col size="8" class="userContainer">
+                      <ion-row class="textUserName">
+                        {{ item.username }}
                       </ion-row>
-                      <ion-row class="displayNormal">
-                        {{ item.userLocation }}
+                      <ion-row class="textUserLocation">
+                        {{ item.location }}
                       </ion-row>
                     </ion-col>
                   </ion-row>
@@ -198,38 +201,38 @@
 
 <ion-footer>
   <ion-toolbar>
-    <ion-row class="footer1">
-      <ion-col>
+    <ion-row class="footerContainer">
+      <ion-col size="2">
         <ion-buttons>
           <ion-button>
             <ion-icon slot="icon-only" name="home"></ion-icon>
           </ion-button>
         </ion-buttons>
       </ion-col>
-      <ion-col>
+      <ion-col size="2">
+        <ion-buttons>
+          <ion-button>
+            <ion-icon slot="icon-only" name="search"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-col>
+      <ion-col size="4" class="footerMiddleContainer">
+        <ion-buttons>
+          <ion-button class="iconAddContainer">
+            <ion-icon class="iconAdd" slot="icon-only" name="add"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-col>
+      <ion-col size="2">
         <ion-buttons>
           <ion-button>
             <ion-icon slot="icon-only" name="notifications"></ion-icon>
           </ion-button>
         </ion-buttons>
       </ion-col>
-      <ion-col>
+      <ion-col size="2">
         <ion-buttons>
-          <ion-button class="btn-round1">
-            <ion-icon slot="icon-only" name="add" class="footer2"></ion-icon>
-          </ion-button>
-        </ion-buttons>
-      </ion-col>
-      <ion-col>
-        <ion-buttons>
-          <ion-button>
-            <ion-icon slot="icon-only" name="chatboxes"></ion-icon>
-          </ion-button>
-        </ion-buttons>
-      </ion-col>
-      <ion-col>
-        <ion-buttons>
-          <ion-button class="btn-round2">
+          <ion-button class="iconSelectedContainer">
             <ion-icon slot="icon-only" name="person"></ion-icon>
           </ion-button>
         </ion-buttons>
