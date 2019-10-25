@@ -28,4 +28,8 @@ export class FeedsPage implements OnInit {
   onClickProfile() {
     this.router.navigateByUrl('/profile');
   }
+
+  onClickHome() {
+    this.router.navigateByUrl('/feeds');
+  }
 }

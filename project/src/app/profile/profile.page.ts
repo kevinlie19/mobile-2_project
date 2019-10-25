@@ -19,15 +19,19 @@ export class ProfilePage implements OnInit {
     this.loadedUnavailable = this.profileService.itemUnvailableList;
   }
 
-  onClickHome() {
-    this.router.navigateByUrl('/feeds');
-  }
-
   onClickAdd() {
     this.router.navigateByUrl('/feeds-add-post');
   }
 
   onClickRequest() {
     this.router.navigateByUrl('/request');
+  }
+
+  onClickProfile() {
+    this.router.navigateByUrl('/profile');
+  }
+
+  onClickHome() {
+    this.router.navigateByUrl('/feeds');
   }
 }

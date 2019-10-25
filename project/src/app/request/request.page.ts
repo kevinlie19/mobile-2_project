@@ -31,4 +31,8 @@ export class RequestPage implements OnInit {
   onClickProfile() {
     this.router.navigateByUrl('/profile');
   }
+
+  onClickRequest() {
+    this.router.navigateByUrl('/request');
+  }
 }

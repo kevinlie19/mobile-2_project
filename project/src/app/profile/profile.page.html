@@ -200,43 +200,42 @@
 </ion-content>
 
 <ion-footer>
-  <ion-toolbar>
     <ion-row class="footerContainer">
-      <ion-col size="2">
+      <div>
         <ion-buttons>
           <ion-button (click)="onClickHome()">
             <ion-icon slot="icon-only" name="home"></ion-icon>
           </ion-button>
         </ion-buttons>
-      </ion-col>
-      <ion-col size="2">
+      </div>
+      <div>
         <ion-buttons>
           <ion-button>
             <ion-icon slot="icon-only" name="search"></ion-icon>
           </ion-button>
         </ion-buttons>
-      </ion-col>
-      <ion-col size="4" class="footerMiddleContainer">
+      </div>
+      <div>
         <ion-buttons>
           <ion-button class="iconAddContainer" (click)="onClickAdd()">
             <ion-icon class="iconAdd" slot="icon-only" name="add"></ion-icon>
           </ion-button>
         </ion-buttons>
-      </ion-col>
-      <ion-col size="2">
+      </div>
+      <div>
         <ion-buttons>
           <ion-button (click)="onClickRequest()">
             <ion-icon slot="icon-only" name="notifications"></ion-icon>
           </ion-button>
         </ion-buttons>
-      </ion-col>
-      <ion-col size="2">
+      </div>
+      <div>
         <ion-buttons>
-          <ion-button class="iconSelectedContainer">
+          <ion-button class="iconSelectedContainer" (click)="onClickProfile()">
             <ion-icon slot="icon-only" name="person"></ion-icon>
           </ion-button>
         </ion-buttons>
-      </ion-col>
+      </div>
     </ion-row>
-  </ion-toolbar>
-</ion-footer>
+  </ion-footer>
+  
