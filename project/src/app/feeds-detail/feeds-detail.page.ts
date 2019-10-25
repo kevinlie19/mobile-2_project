@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {FeedsService} from '../feeds.service';
-import {Feeds} from '../feeds.model';
+import {FeedsService} from '../feeds/feeds.service';
+import {Feeds} from '../feeds/feeds.model';
 import {ActivatedRoute} from '@angular/router';
 import {NavController} from '@ionic/angular';
 

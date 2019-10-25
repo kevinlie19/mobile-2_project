@@ -19,19 +19,12 @@ const routes: Routes = [
   },
   {
     path: 'feeds',
-    children: [
-      {
-        path: '',
-        canLoad: [AuthGuard],
-        loadChildren: './feeds/feeds.module#FeedsPageModule',
-      },
-      {
-        path: ':feedsId',
-        canLoad: [AuthGuard],
-        loadChildren:
-          './feeds/feeds-detail/feeds-detail.module#FeedsDetailPageModule',
-      },
-    ],
+    loadChildren: './feeds/feeds.module#FeedsPageModule',
+  },
+  {
+    path: 'feeds-detail/:feedsId',
+    canLoad: [AuthGuard],
+    loadChildren: './feeds-detail/feeds-detail.module#FeedsDetailPageModule',
   },
   {
     path: 'feeds-add-post',
@@ -43,7 +36,7 @@ const routes: Routes = [
     path: 'feeds-edit-post',
     canLoad: [AuthGuard],
     loadChildren:
-      './feeds/feeds-detail/feeds-edit-post/feeds-edit-post.module#FeedsEditPostPageModule',
+      './feeds-detail/feeds-edit-post/feeds-edit-post.module#FeedsEditPostPageModule',
   },
   {
     path: 'request',
