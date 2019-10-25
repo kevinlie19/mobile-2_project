@@ -1,20 +1,24 @@
 .container {
-  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 1000px;
 }
 
 .header {
   flex: 1;
-  margin-top: 40%;
+  margin-top: 30%;
 }
 
 .body {
   flex: 1;
   margin-top: 30%;
   position: relative;
+  height: auto;
 }
 
 .imageBody {
   transform: scale(1.3);
+  height: auto;
 }
 
 .textContainer {
@@ -41,5 +45,5 @@
   --background: #fff;
   --color: #3c4cac;
   height: 43px;
-  margin-top: 50px;
+  margin-top: 8%;
 }
