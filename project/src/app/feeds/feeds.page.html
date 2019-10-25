@@ -12,7 +12,10 @@
 <ion-content>
   <ion-row class="rowFeedsContainer">
     <ion-col class="colFeedsContainer" *ngFor="let item of loadedFeeds">
-      <ion-card class="cardContainer" [routerLink]="['/', 'feeds', item.id]">
+      <ion-card
+        class="cardContainer"
+        [routerLink]="['/', 'feeds-detail', item.id]"
+      >
         <div class="imageContainer">
           <img
             *ngIf="item.status == 'Available'"
