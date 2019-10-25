@@ -16,8 +16,7 @@ export class FeedsService {
       buyDate: '10 September 2019',
       expDate: '1 November 2019',
       timestamps: '1',
-      itemImageUrl:
-        'https://www.chelsea.co.nz/files/cache/c7eb8909bcbfb9ff878c499feb1dcbd5_f1433.jpg',
+      itemImageUrl: '../../../assets/images/Chocolate Brownie.png',
       username: 'Cecilia K.',
       location: 'Jakarta Selatan',
       avatar: 'https://www.venmond.com/demo/vendroid/img/avatar/big.jpg',
