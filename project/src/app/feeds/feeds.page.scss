@@ -59,8 +59,12 @@
 }
 
 .footerContainer {
-  margin-left: 27px;
-  margin-right: 27px;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
 }
 
 .imageAvailable {
@@ -128,14 +132,9 @@
   border-radius: 50%;
 }
 
-.footerMiddleContainer {
-  padding-left: 30px;
-  padding-right: -30px;
-}
-
 .iconAdd {
-  width: 29px;
-  height: 29px;
+  width: 29pt;
+  height: 29pt;
   color: #ffffff;
 }
 
@@ -159,6 +158,7 @@
   width: 25px;
   height: 25px;
   color: #ffffff;
+  padding-top: 5px;
 }
 
 ion-content {

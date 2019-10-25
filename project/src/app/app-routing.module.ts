@@ -29,7 +29,7 @@ const routes: Routes = [
         path: ':feedsId',
         canLoad: [AuthGuard],
         loadChildren:
-          './feeds/feeds-detail/feeds-detail.module#FeedsDetailPageModule',
+          './feeds-detail/feeds-detail.module#FeedsDetailPageModule',
       },
     ],
   },
