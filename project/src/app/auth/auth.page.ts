@@ -47,7 +47,7 @@ export class AuthPage implements OnInit {
         setTimeout(() => {
           this.isLoading = false;
           loadingEl.dismiss();
-          this.router.navigateByUrl('feeds');
+          this.router.navigateByUrl('/feeds');
         }, 1500);
       });
     this.authService.login();

@@ -3,7 +3,9 @@ import {NgModule} from '@angular/core';
 import {PreloadAllModules, RouterModule, Routes} from '@angular/router';
 
 const routes: Routes = [
-  {path: '', redirectTo: 'feeds', pathMatch: 'full'},
+  {path: '', redirectTo: 'splash', pathMatch: 'full'},
+  {path: 'splash', loadChildren: './splash/splash.module#SplashPageModule'},
+  {path: 'welcome', loadChildren: './welcome/welcome.module#WelcomePageModule'},
   {path: 'auth', loadChildren: './auth/auth.module#AuthPageModule'},
   {
     path: 'set-up-profile',
@@ -12,9 +14,8 @@ const routes: Routes = [
       './set-up-profile/set-up-profile.module#SetUpProfilePageModule',
   },
   {
-    path: 'profile',
-    canLoad: [AuthGuard],
-    loadChildren: './profile/profile.module#ProfilePageModule',
+    path: 'set-up-done',
+    loadChildren: './set-up-done/set-up-done.module#SetUpDonePageModule',
   },
   {
     path: 'feeds',
@@ -35,9 +36,13 @@ const routes: Routes = [
   {
     path: 'request',
     canLoad: [AuthGuard],
-    loadChildren: './request/request.module#RequestPageModule'
+    loadChildren: './request/request.module#RequestPageModule',
   },
-
+  {
+    path: 'profile',
+    canLoad: [AuthGuard],
+    loadChildren: './profile/profile.module#ProfilePageModule',
+  },
 ];
 
 @NgModule({
