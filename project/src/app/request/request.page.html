@@ -8,8 +8,16 @@
   <div class="content">
     <div class="card">
       <ion-segment [(ngModel)]="segment" color="tertiary">
-        <ion-segment-button value="requests" checked class="ion-segment-text" color="secondary"><b>Requests</b></ion-segment-button>
-        <ion-segment-button value="myRequests" class="ion-segment-text"><b>My Requests</b></ion-segment-button>
+        <ion-segment-button
+          value="requests"
+          checked
+          class="ion-segment-text"
+          color="secondary"
+          ><b>Requests</b></ion-segment-button
+        >
+        <ion-segment-button value="myRequests" class="ion-segment-text"
+          ><b>My Requests</b></ion-segment-button
+        >
       </ion-segment>
       <div [ngSwitch]="segment" class="segment">
         <div *ngSwitchCase="'requests'">
@@ -17,18 +25,16 @@
             <ion-row class="noMargin noPadding">
               <ion-col size="5" class="noMargin noPadding">
                 <ion-thumbnail class="itemImage noMargin noPadding">
-                  <img
-                    src="{{ request.itemImageUrl }}"
-                  />
+                  <img src="{{ request.itemImageUrl }}" />
                 </ion-thumbnail>
               </ion-col>
               <ion-col>
                 <ion-row>
                   <p class="itemName">
                     <b>
-                      {{request.item_name}}
+                      {{ request.item_name }}
                     </b>
-                  </p>  
+                  </p>
                 </ion-row>
                 <ion-row>
                   <p class="requestBy">
@@ -38,10 +44,7 @@
                 <ion-row>
                   <ion-col size="3">
                     <ion-thumbnail class="itemAvatar noMargin noPadding">
-                      <img
-                        class="imageAvatar"
-                        src="{{ request.avatar }}"
-                      />
+                      <img class="imageAvatar" src="{{ request.avatar }}" />
                     </ion-thumbnail>
                   </ion-col>
                   <ion-col>
@@ -56,18 +59,23 @@
                   </ion-col>
                 </ion-row>
               </ion-col>
-
             </ion-row>
             <ion-row class="noPadding noMargin">
               <ion-col class="noPadding noMargin">
-                <ion-button class="noPadding noMargin declineButton" expand="full">
+                <ion-button
+                  class="noPadding noMargin declineButton"
+                  expand="full"
+                >
                   <b>
                     Decline
                   </b>
                 </ion-button>
               </ion-col>
               <ion-col class="noPadding noMargin">
-                <ion-button class="noPadding noMargin acceptButton" expand="full">
+                <ion-button
+                  class="noPadding noMargin acceptButton"
+                  expand="full"
+                >
                   <b>
                     Accept
                   </b>
@@ -81,18 +89,16 @@
             <ion-row class="noMargin noPadding">
               <ion-col size="5" class="noMargin noPadding">
                 <ion-thumbnail class="itemImage noMargin noPadding">
-                  <img
-                    src="{{ request.itemImageUrl }}"
-                  />
+                  <img src="{{ request.itemImageUrl }}" />
                 </ion-thumbnail>
               </ion-col>
               <ion-col>
                 <ion-row>
                   <p class="itemName">
                     <b>
-                      {{request.item_name}}
+                      {{ request.item_name }}
                     </b>
-                  </p>  
+                  </p>
                 </ion-row>
                 <ion-row>
                   <p class="requestBy">
@@ -102,10 +108,7 @@
                 <ion-row>
                   <ion-col size="3">
                     <ion-thumbnail class="itemAvatar noMargin noPadding">
-                      <img
-                        class="imageAvatar"
-                        src="{{ request.avatar }}"
-                      />
+                      <img class="imageAvatar" src="{{ request.avatar }}" />
                     </ion-thumbnail>
                   </ion-col>
                   <ion-col>
@@ -120,17 +123,22 @@
                   </ion-col>
                 </ion-row>
               </ion-col>
-
             </ion-row>
             <ion-row class="noMargin">
-              <ion-col class="noPadding ion-text-center" *ngIf="request.isApprove===true">
+              <ion-col
+                class="noPadding ion-text-center"
+                *ngIf="request.isApprove === true"
+              >
                 <p class="approved noMargin">
                   <b>
                     Approved! Chat Now!
                   </b>
                 </p>
               </ion-col>
-              <ion-col class="noPadding noMargin ion-text-center" *ngIf="request.isApprove===false">
+              <ion-col
+                class="noPadding noMargin ion-text-center"
+                *ngIf="request.isApprove === false"
+              >
                 <p class="notApproved noPadding noMargin">
                   <b>
                     Waiting for Approval
@@ -149,7 +157,7 @@
     <ion-row class="footer1">
       <ion-col>
         <ion-buttons>
-          <ion-button>
+          <ion-button (click)="onClickHome()">
             <ion-icon slot="icon-only" name="home"></ion-icon>
           </ion-button>
         </ion-buttons>
@@ -163,7 +171,7 @@
       </ion-col>
       <ion-col>
         <ion-buttons>
-          <ion-button class="btn-round1">
+          <ion-button class="btn-round1" (click)="onClickAdd()">
             <ion-icon slot="icon-only" name="add" class="footer2"></ion-icon>
           </ion-button>
         </ion-buttons>
@@ -177,11 +185,11 @@
       </ion-col>
       <ion-col>
         <ion-buttons>
-          <ion-button>
+          <ion-button (click)="onClickProfile()">
             <ion-icon slot="icon-only" name="person"></ion-icon>
           </ion-button>
         </ion-buttons>
       </ion-col>
     </ion-row>
   </ion-toolbar>
-</ion-footer>   
+</ion-footer>

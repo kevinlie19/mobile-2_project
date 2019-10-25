@@ -204,7 +204,7 @@
     <ion-row class="footerContainer">
       <ion-col size="2">
         <ion-buttons>
-          <ion-button>
+          <ion-button (click)="onClickHome()">
             <ion-icon slot="icon-only" name="home"></ion-icon>
           </ion-button>
         </ion-buttons>
@@ -218,14 +218,14 @@
       </ion-col>
       <ion-col size="4" class="footerMiddleContainer">
         <ion-buttons>
-          <ion-button class="iconAddContainer">
+          <ion-button class="iconAddContainer" (click)="onClickAdd()">
             <ion-icon class="iconAdd" slot="icon-only" name="add"></ion-icon>
           </ion-button>
         </ion-buttons>
       </ion-col>
       <ion-col size="2">
         <ion-buttons>
-          <ion-button>
+          <ion-button (click)="onClickRequest()">
             <ion-icon slot="icon-only" name="notifications"></ion-icon>
           </ion-button>
         </ion-buttons>
