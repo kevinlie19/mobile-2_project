@@ -1,7 +1,75 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>feeds-detail</ion-title>
-  </ion-toolbar>
-</ion-header>
+<div class="body">
+  <div>
+    <ion-buttons slot="start" class="arrowButton">
+      <ion-icon class="icon" name="arrow-back" routerLink="/feeds"></ion-icon>
+    </ion-buttons>
+  </div>
+</div>
 
-<ion-content> </ion-content>
+<div class="bottom"></div>
+
+<ion-card class="card">
+  <ion-card-header class="card-header">
+    <ion-card-title class="card-title">{{ _feed.item_name }}</ion-card-title>
+    <p class="card-subtitle">
+      <ion-icon name="hourglass" slot="icon-only"></ion-icon>
+      Posted {{ _feed.timestamps }} day ago
+    </p>
+
+    <ion-row class="row-1">
+      <ion-col size="2">
+        <img src="{{ _feed.avatar }}" class="avatar" />
+      </ion-col>
+
+      <ion-col>
+        <ion-row>
+          <p class="user-data">{{ _feed.username }}</p>
+        </ion-row>
+        <ion-row>
+          <p class="user-data">{{ _feed.location }}</p>
+        </ion-row>
+      </ion-col>
+    </ion-row>
+    <p class="card-blue">Category: {{ _feed.category }}</p>
+  </ion-card-header>
+
+  <ion-card-content class="card-content">
+    {{ _feed.description }}
+
+    <div class="card-blue ">
+      <ion-row>
+        <ion-col class="col-1">
+          <p>Buy Date:</p>
+        </ion-col>
+        <ion-col>
+          <div class="ion-text-right">
+            <p>{{ _feed.buyDate }}</p>
+          </div>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col class="col-1">
+          <p>Exp Date:</p>
+        </ion-col>
+        <ion-col>
+          <div class="ion-text-right">
+            <p>{{ _feed.expDate }}</p>
+          </div>
+        </ion-col>
+      </ion-row>
+    </div>
+  </ion-card-content>
+
+  <ion-row>
+    <ion-col class="col-1">
+      <ion-button color="primary" class="button-style">EDIT</ion-button>
+    </ion-col>
+
+    <ion-col class="col-1">
+      <div class="ion-text-right">
+        <ion-button color="danger" class="button-style">DELETE</ion-button>
+      </div>
+    </ion-col>
+  </ion-row>
+</ion-card>
