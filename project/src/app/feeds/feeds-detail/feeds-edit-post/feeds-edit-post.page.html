@@ -1,0 +1,86 @@
+<ion-content class="pageBackground">
+  <ion-toolbar color="translucent">
+    <ion-buttons slot="end">
+      <ion-button>
+        <ion-icon name="close" class="iconClose"></ion-icon
+      ></ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-row>
+    <p class="textTitle">Edit Item</p>
+  </ion-row>
+  <br />
+  <ion-row class="boxImage"> </ion-row>
+  <br />
+  <ion-row class="boxItemName">
+    <ion-input
+      placeholder="Item Name"
+      value="Chocolate Brownie"
+      class="textItemName"
+      name="itemName"
+      required
+    ></ion-input>
+  </ion-row>
+  <br />
+  <ion-row class="containerDate">
+    <ion-col class="boxBuyDate">
+      <ion-datetime
+        displayFormat="MM/DD/YY"
+        placeholder="Buy Date"
+        class="textBuyDate"
+        value="10/09/19"
+        name="dateBuy"
+        required
+      ></ion-datetime>
+    </ion-col>
+    <ion-col class="boxExpDate">
+      <ion-datetime
+        displayFormat="MM/DD/YY"
+        placeholder="Exp Date"
+        class="textExpDate"
+        value="01/11/10"
+        name="dateExp"
+        required
+      ></ion-datetime>
+    </ion-col>
+  </ion-row>
+  <br />
+  <ion-row class="boxCategory">
+    <ion-select
+      placeholder="Category"
+      class="textCategory"
+      value="Dessert"
+      name="category"
+      required
+    >
+      <ion-select-option value="Dessert" [selected]="true"
+        >Dessert</ion-select-option
+      >
+      <ion-select-option value="Meat">Meat</ion-select-option>
+      <ion-select-option value="Vegetables">Vegetables</ion-select-option>
+    </ion-select>
+  </ion-row>
+  <br />
+  <ion-row class="boxDescription">
+    <ion-textarea
+      rows="6"
+      cols="6"
+      placeholder="Description"
+      class="textDescription"
+      value="A chocolate brownie (commonly referred to as simply brownie) is a square, baked, chocolate cake."
+      name="desc"
+      required
+    ></ion-textarea>
+  </ion-row>
+  <br />
+  <ion-button
+    type="submit"
+    color="primary"
+    expand="block"
+    shape="round"
+    color="tertiary"
+    class="btnPost"
+    >EDIT</ion-button
+  >
+  <br /><br />
+</ion-content>
