@@ -11,6 +11,30 @@ ion-toolbar {
   --background: transparent;
 }
 
+.footerContainer {
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.iconAddContainer {
+  --background: #3c4cac;
+  border-radius: 50%;
+}
+
+.iconAdd {
+  width: 29pt;
+  height: 29pt;
+  color: #ffffff;
+}
+
+.iconSelectedContainer {
+  color: #ed4495;
+}
+
 .textUserFullNameHeader {
   font-family: neusa-next-std, sans-serif;
   font-size: 20pt;
