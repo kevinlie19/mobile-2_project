@@ -1,0 +1,83 @@
+.toolbarContainer {
+  --background: #3c4cac;
+  height: 86px;
+}
+
+.headerTitle {
+  font-family: neusa-next-std, sans-serif;
+  font-size: 18px;
+  font-weight: bold;
+  color: #ffffff;
+  margin-top: 29px;
+  margin-bottom: 19px;
+  text-align: center;
+}
+
+.searchBarContainer {
+  display: block;
+  margin: 0 auto;
+}
+
+.listSearchContainer {
+  box-shadow: #00000029 0px 3px 6px;
+  line-height: 30px;
+  margin-left: 20px;
+  margin-right: 20px;
+  background-color: #ffffff;
+  vertical-align: middle;
+  margin-top: 22px;
+}
+
+.iconFollow {
+  padding-left: 5px;
+  padding-right: 10px;
+  width: 18px;
+  height: 18px;
+}
+
+.btnFollow {
+  margin-right: 5px;
+  margin-left: auto;
+  text-transform: none;
+  font-family: qanelas;
+  font-size: 14px;
+  color: #ffffff;
+}
+
+.textUsername {
+  margin-left: 15px;
+  vertical-align: middle;
+  font-family: neusa-next-std, sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+  color: #3c4cac;
+}
+
+.footerContainer {
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.iconAddContainer {
+  --background: #3c4cac;
+  border-radius: 50%;
+}
+
+.iconAdd {
+  width: 29pt;
+  height: 29pt;
+  color: #ffffff;
+}
+
+.iconSelectedContainer {
+  color: #ed4495;
+}
+
+ion-content {
+  margin-left: 20px;
+  margin-right: 20px;
+}
