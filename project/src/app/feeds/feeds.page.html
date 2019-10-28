@@ -1,10 +1,15 @@
 <ion-header>
   <ion-toolbar class="toolbarContainer">
     <div class="headerTitle">Home</div>
+    <ion-buttons slot="start">
+      <ion-button (click)="scanBarcode()">
+        <ion-icon name="barcode" class="chattingIcon"></ion-icon>
+      </ion-button>
+    </ion-buttons>
     <ion-buttons slot="end">
-      <ion-button
-        ><ion-icon name="chatboxes" class="chattingIcon"></ion-icon
-      ></ion-button>
+      <ion-button>
+        <ion-icon name="chatboxes" class="chattingIcon"></ion-icon>
+      </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
