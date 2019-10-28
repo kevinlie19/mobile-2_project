@@ -1,0 +1,95 @@
+<ion-content class="pageBackground">
+  <ion-toolbar color="translucent">
+    <ion-buttons slot="end">
+      <ion-button (click)="onClickClose()">
+        <ion-icon name="close" class="iconClose"></ion-icon
+      ></ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-row>
+    <p class="textTitle">Edit Profile</p>
+  </ion-row>
+  <br />
+  <ion-row class="avatarContainer">
+    <img
+      src="https://www.venmond.com/demo/vendroid/img/avatar/big.jpg"
+      class="displayAvatar"
+    />
+    <button class="btnChangeAvatar" (click)="onClickAvatar()">
+      <ion-icon name="camera" class="displayCameraIcon"></ion-icon>
+    </button>
+  </ion-row>
+  <div class="editDataContainer">
+    <div class="editFieldContainer">
+      <ion-row class="textFullName">Full Name</ion-row>
+      <ion-row class="editFullNameContainer"
+        ><ion-input
+          placeholder="Item Name"
+          class="editFullName"
+          value="Cecillia K."
+          name="fullName"
+          required
+        ></ion-input
+      ></ion-row>
+      <ion-row class="textPhoneNumber">Phone Number</ion-row>
+      <ion-row class="editPhoneNumberContainer"
+        ><ion-input
+          type="number"
+          placeholder="Phone Number"
+          class="editPhoneNumber"
+          value="023899230123"
+          name="phoneNumber"
+          required
+        ></ion-input
+      ></ion-row>
+      <ion-row class="textGender">Gender</ion-row>
+      <ion-row class="editGenderContainer"
+        ><ion-select
+          placeholder="Gender"
+          class="editGender"
+          value="Female"
+          name="gender"
+          required
+        >
+          <ion-select-option value="Male">Male</ion-select-option>
+          <ion-select-option value="Female" [selected]="true"
+            >Female</ion-select-option
+          >
+          <ion-select-option value="Others">Others</ion-select-option>
+        </ion-select></ion-row
+      >
+      <ion-row class="textPhoneNumber">Phone Number</ion-row>
+      <ion-row class="editPhoneNumberContainer"
+        ><ion-input
+          type="number"
+          placeholder="Phone Number"
+          class="editPhoneNumber"
+          value="023899230123"
+          name="phoneNumber"
+          required
+        ></ion-input
+      ></ion-row>
+      <ion-row class="textDateOfBirth">Date Of Birth</ion-row>
+      <ion-row class="editDateOfBirthContainer"
+        ><ion-datetime
+          displayFormat="DD/MM/YYYY"
+          placeholder="Date Of Birth"
+          class="editDateOfBirth"
+          value="01/01/1999"
+          name="dateOfBirth"
+          required
+        ></ion-datetime
+      ></ion-row>
+    </div>
+  </div>
+  <br /><br />
+  <ion-button
+    type="submit"
+    expand="block"
+    shape="round"
+    color="tertiary"
+    class="btnSave"
+    >Save Changes</ion-button
+  >
+  <br /><br />
+</ion-content>
