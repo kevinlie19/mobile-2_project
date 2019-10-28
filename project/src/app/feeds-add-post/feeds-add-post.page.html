@@ -13,12 +13,13 @@
   <ion-row class="boxImage">
     <ion-row class="boxImageContent">
       <div class="iconBoxImage">
-        <img
+        <img *ngIf="scanBarcodeFeeds.itemImageUrl === ''"
           src="assets/feeds-add-post/icons8-add_camera.png"
           class="ion-text-center"
         />
+        <ion-img *ngIf="scanBarcodeFeeds.itemImageUrl !== ''" [src]="scanBarcodeFeeds.itemImageUrl"></ion-img>
       </div>
-      <div class="ion-text-center textPhoto">Take a photo of your food.</div>
+      <div *ngIf="scanBarcodeFeeds.itemImageUrl === ''" class="ion-text-center textPhoto">Take a photo of your food.</div>
     </ion-row>
   </ion-row>
   <br />
@@ -29,6 +30,7 @@
       ngModel
       name="itemName"
       required
+      [(ngModel)]="scanBarcodeFeeds.item_name"
     ></ion-input>
   </ion-row>
   <br />
@@ -41,6 +43,7 @@
         ngModel
         name="dateBuy"
         required
+        [(ngModel)]="scanBarcodeFeeds.buyDate"
       ></ion-datetime>
     </ion-col>
     <ion-col class="boxExpDate">
@@ -51,6 +54,7 @@
         ngModel
         name="dateExp"
         required
+        [(ngModel)]="scanBarcodeFeeds.expDate"
       ></ion-datetime>
     </ion-col>
   </ion-row>
@@ -62,6 +66,7 @@
       ngModel
       name="category"
       required
+      [(ngModel)]="scanBarcodeFeeds.category"      
     >
       <ion-select-option value="meat">Meat</ion-select-option>
       <ion-select-option value="vegetables">Vegetables</ion-select-option>
@@ -77,6 +82,7 @@
       ngModel
       name="desc"
       required
+      [(ngModel)]="scanBarcodeFeeds.description"
     ></ion-textarea>
   </ion-row>
   <br />
