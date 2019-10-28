@@ -62,6 +62,7 @@ const routes: Routes = [
 
   // { path: 'chat-list', loadChildren: './chat-list/chat-list.module#ChatListPageModule' },
   // { path: 'chat', loadChildren: './chat-list/chat/chat.module#ChatPageModule' },
+
 ];
 
 @NgModule({
