@@ -55,9 +55,14 @@ const routes: Routes = [
   },
   {
     path: 'profile-edit',
-    //canLoad: [AuthGuard],
+    canLoad: [AuthGuard],
     loadChildren:
       './profile/profile-edit/profile-edit.module#ProfileEditPageModule',
+  },
+  {
+    path: 'search',
+    canLoad: [AuthGuard],
+    loadChildren: './search/search.module#SearchPageModule',
   },
 
   // { path: 'chat-list', loadChildren: './chat-list/chat-list.module#ChatListPageModule' },

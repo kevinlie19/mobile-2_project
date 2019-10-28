@@ -1,0 +1,100 @@
+<ion-header>
+  <ion-toolbar class="toolbarContainer">
+    <div class="headerTitle">Search</div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <br />
+  <ion-searchbar
+    class="searchBarContainer"
+    placeholder="Search for people..."
+    [(ngModel)]="searchKeyword"
+    (ionInput)="filterUsers()"
+  ></ion-searchbar>
+  <ion-list class="listSearchContainer" *ngFor="let search of filteredSearch">
+    <ion-item lines="none">
+      <ion-avatar item-left>
+        <img src="{{ search.avatar }}" />
+      </ion-avatar>
+      <p class="textUsername">{{ search.username }}</p>
+      <ion-button
+        *ngIf="search.flagFollow == 1"
+        expand="block"
+        shape="round"
+        color="tertiary"
+        class="btnFollow"
+        (click)="onClickFollow(search.id)"
+        ><ion-icon
+          slot="icon-only"
+          name="person-add"
+          class="iconFollow"
+        ></ion-icon>
+        Follow</ion-button
+      >
+      <ion-button
+        *ngIf="search.flagFollow == 2"
+        expand="block"
+        shape="round"
+        color="medium"
+        class="btnFollow"
+        ><ion-icon slot="icon-only" name="person" class="iconFollow"></ion-icon>
+        Requested</ion-button
+      >
+      <ion-button
+        *ngIf="search.flagFollow == 3"
+        expand="block"
+        shape="round"
+        color="danger"
+        class="btnFollow"
+        (click)="onClickUnfollow(search.id)"
+        ><ion-icon
+          slot="icon-only"
+          name="remove-circle-outline"
+          class="iconFollow"
+        ></ion-icon>
+        Unfollow</ion-button
+      >
+    </ion-item>
+  </ion-list>
+</ion-content>
+
+<ion-footer>
+  <ion-row class="footerContainer">
+    <div>
+      <ion-buttons>
+        <ion-button (click)="onClickHome()">
+          <ion-icon slot="icon-only" name="home"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </div>
+    <div>
+      <ion-buttons>
+        <ion-button class="iconSelectedContainer">
+          <ion-icon slot="icon-only" name="search"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </div>
+    <div>
+      <ion-buttons>
+        <ion-button class="iconAddContainer" (click)="onClickAdd()">
+          <ion-icon class="iconAdd" slot="icon-only" name="add"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </div>
+    <div>
+      <ion-buttons>
+        <ion-button (click)="onClickRequest()">
+          <ion-icon slot="icon-only" name="notifications"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </div>
+    <div>
+      <ion-buttons>
+        <ion-button (click)="onClickProfile()">
+          <ion-icon slot="icon-only" name="person"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </div>
+  </ion-row>
+</ion-footer>
