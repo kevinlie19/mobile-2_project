@@ -1,0 +1,112 @@
+.pageBackground {
+  --background: linear-gradient(
+    155deg,
+    rgba(251, 195, 74, 1),
+    rgba(240, 93, 135, 1)
+  );
+}
+
+.iconClose {
+  width: 27px;
+  height: 27px;
+  color: #ffffff;
+}
+
+.textTitle {
+  font-family: neusa-next-std, sans-serif;
+  font-weight: bold;
+  font-size: 18pt;
+  color: #ffffff;
+  margin: 0 auto;
+}
+
+.avatarContainer {
+  position: relative;
+  width: 130px;
+  height: 130px;
+  margin: 0 auto;
+  margin-top: 40px;
+  margin-bottom: 11px;
+}
+
+.displayAvatar {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  box-shadow: #00000029 0px 3px 6px;
+}
+
+.btnChangeAvatar {
+  display: block;
+  border-radius: 50%;
+  position: absolute;
+  bottom: 0px;
+  right: 10px;
+  width: 30px;
+  height: 30px;
+  background: #3c4cac;
+}
+
+.displayCameraIcon {
+  color: #ffffff;
+  width: 20px;
+  height: 20px;
+  margin-right: 2px;
+}
+
+.editDataContainer {
+  margin-left: 48px;
+  margin-right: 48px;
+}
+
+.editFieldContainer {
+  margin-top: 18px;
+}
+
+.textFullName,
+.textPhoneNumber,
+.textGender,
+.textDateOfBirth {
+  font-family: neusa-next-std, sans-serif;
+  font-size: 16pt;
+  color: #ffffff;
+  margin-top: 18px;
+}
+
+.editFullNameContainer,
+.editPhoneNumberContainer,
+.editGenderContainer,
+.editDateOfBirthContainer {
+  margin-top: 10px;
+  box-shadow: #00000029 0px 3px 6px;
+  height: 38px;
+  background-color: #ffffff;
+}
+
+.editFullName,
+.editPhoneNumber {
+  font-family: neusa-next-std, sans-serif;
+  font-size: 12pt;
+  color: #6b6b6b;
+  margin-left: 23px;
+  margin-right: 23px;
+}
+
+.editGender,
+.editDateOfBirth {
+  font-family: neusa-next-std, sans-serif;
+  font-size: 12pt;
+  color: #6b6b6b;
+  margin-left: 16px;
+  margin-right: 16px;
+}
+
+.btnSave {
+  margin-left: 109px;
+  margin-right: 109px;
+  height: 46px;
+  text-transform: none;
+  font-family: neusa-next-std, sans-serif;
+  font-size: 18;
+  font-weight: bold;
+}
