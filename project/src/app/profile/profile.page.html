@@ -8,7 +8,9 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content *ngIf="isLoading" color="medium"></ion-content>
+
+<ion-content *ngIf="!isLoading">
   <div class="pageContainer">
     <div class="headerContainer">
       <div class="avatarContainerHeader">
@@ -34,7 +36,9 @@
             <ion-row class="userStatusContainer">
               <ion-col col-2 no-padding class="userPostContainer">
                 <ion-row class="textAmount">
-                  <ion-col col-12 no-padding text-center>50</ion-col></ion-row
+                  <ion-col col-12 no-padding text-center>{{
+                    loadedProfile.post.length
+                  }}</ion-col></ion-row
                 >
                 <ion-row class="textUserStatus">
                   <ion-col col-12 no-padding text-center>Post</ion-col></ion-row
@@ -42,7 +46,9 @@
               </ion-col>
               <ion-col col-2 no-padding class="userFollowerContainer">
                 <ion-row class="textAmount">
-                  <ion-col col-12 no-padding text-center>10</ion-col></ion-row
+                  <ion-col col-12 no-padding text-center>{{
+                    loadedProfile.user.follower.length
+                  }}</ion-col></ion-row
                 >
                 <ion-row class="textUserStatus">
                   <ion-col col-12 no-padding text-center
@@ -52,7 +58,9 @@
               </ion-col>
               <ion-col col-2 no-padding class="userFollowingContainer">
                 <ion-row class="textAmount">
-                  <ion-col col-12 no-padding text-center>100</ion-col></ion-row
+                  <ion-col col-12 no-padding text-center>{{
+                    loadedProfile.user.following.length
+                  }}</ion-col></ion-row
                 >
                 <ion-row class="textUserStatus">
                   <ion-col col-12 no-padding text-center
@@ -78,18 +86,19 @@
         </p>
         <div
           class="bodyContainerEmpty ion-text-center"
-          *ngIf="!flagAvailablePost"
+          *ngIf="!isAvailable"
         >
           <p class="textAvailableEmpty">There are no available posts!</p>
         </div>
-        <ion-row class="rowFeedsContainer" *ngIf="flagAvailablePost">
+        <ion-row class="rowFeedsContainer" *ngIf="isAvailable">
           <ion-col
             class="colFeedsContainer"
-            *ngFor="let item of loadedPostAvailable.post"
+            *ngFor="let item of loadedProfile.post"
           >
             <ion-card
               class="cardContainer"
-              [routerLink]="['/', 'feeds', item.id]"
+              [routerLink]="['/', 'feeds-detail', item.id]"
+              *ngIf="item.tag == 'AVAILABLE' || item.tag == 'EXPIRED'"
             >
               <div class="imageContainer">
                 <img
@@ -115,8 +124,8 @@
                   {{ item.item_name }}
                 </p>
                 <p class="textTimeStamp">
-                  <ion-icon name="hourglass" slot="icon-only"></ion-icon> Posted
-                  day ago
+                  <ion-icon name="hourglass" slot="icon-only"></ion-icon>
+                  {{ item.timestamp }}
                 </p>
                 <p>
                   <ion-row class="userInfoContainer">
@@ -153,19 +162,19 @@
 
         <div
           class="bodyContainerEmpty ion-text-center"
-          *ngIf="!flagUnavailablePost"
+          *ngIf="!isUnavailable"
         >
           <p class="textUnavailableEmpty">There are no unavailable posts!</p>
         </div>
 
-        <ion-row class="rowFeedsContainer" *ngIf="flagUnavailablePost">
+        <ion-row class="rowFeedsContainer" *ngIf="isUnavailable">
           <ion-col
             class="colFeedsContainer"
-            *ngFor="let item of loadedPostUnavailable.post"
+            *ngFor="let item of loadedProfile.post"
           >
             <ion-card
               class="cardContainer"
-              [routerLink]="['/', 'feeds', item.id]"
+              [routerLink]="['/', 'feeds-detail', item.id]"
             >
               <div class="imageContainer">
                 <img
@@ -185,8 +194,8 @@
                   {{ item.item_name }}
                 </p>
                 <p class="textTimeStamp">
-                  <ion-icon name="hourglass" slot="icon-only"></ion-icon> Posted
-                  day ago
+                  <ion-icon name="hourglass" slot="icon-only"></ion-icon
+                  >{{ item.timestamp }}
                 </p>
                 <p>
                   <ion-row class="userInfoContainer">
@@ -261,3 +270,7 @@
     </div>
   </ion-row>
 </ion-footer>
+
+<div class="spin" *ngIf="isLoading">
+  <ion-spinner name="crescent"></ion-spinner>
+</div>

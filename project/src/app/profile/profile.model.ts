@@ -27,4 +27,5 @@ export type PostObject = {
   category: string;
   description: string;
   tag: 'AVAILABLE' | 'UNAVAILABLE' | 'EXPIRED';
+  timestamp: string;
 };

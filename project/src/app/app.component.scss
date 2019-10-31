@@ -1,4 +1,4 @@
-.drawer1 {
+.settingsContainer {
   --ion-background-color: #3c4cac;
 }
 
@@ -6,26 +6,30 @@
   vertical-align: middle;
 }
 
-.iconDrawer1 {
+.iconBack {
   width: 20px;
   height: 20px;
   padding-right: 10px;
   color: #ffffff;
 }
 
-.displayDrawer1 {
+.textSettings {
   color: #ffffff;
   font-family: neusa-next-std, sans-serif;
   font-size: 18px;
 }
 
-.displayDrawer2 {
+.textEditProfile,
+.textAbout {
   color: #6c7293;
   font-family: neusa-next-std, sans-serif;
   font-size: 14px;
 }
 
-.iconDrawer2 {
+.iconAccount,
+.iconEdit,
+.iconMore,
+.iconAbout {
   width: 20px;
   height: 20px;
   padding-right: 10px;

@@ -9,12 +9,12 @@ import {StatusBar} from '@ionic-native/status-bar/ngx';
 import {AppComponent} from './app.component';
 import {AppRoutingModule} from './app-routing.module';
 
-import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
-import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
-import { FormsModule } from '@angular/forms';
-import { IonicStorageModule } from '@ionic/storage';
-import { Camera } from '@ionic-native/camera/ngx';
-import { ImagePicker } from '@ionic-native/image-picker/ngx';
+import {LocalNotifications} from '@ionic-native/local-notifications/ngx';
+import {BarcodeScanner} from '@ionic-native/barcode-scanner/ngx';
+import {FormsModule} from '@angular/forms';
+import {IonicStorageModule} from '@ionic/storage';
+import {Camera} from '@ionic-native/camera/ngx';
+import {ImagePicker} from '@ionic-native/image-picker/ngx';
 
 @NgModule({
   declarations: [AppComponent],

@@ -2,8 +2,11 @@ import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import fetch from 'node-fetch';
 
+import {Storage} from '@ionic/Storage';
+
 import {Profile} from './profile.model';
 import {ProfileService} from './profile.service';
+import {timestampFormat} from '../helpers/timestampFormat';
 
 @Component({
   selector: 'app-profile',
@@ -11,9 +14,10 @@ import {ProfileService} from './profile.service';
   styleUrls: ['./profile.page.scss'],
 })
 export class ProfilePage implements OnInit {
-  flagAvailablePost: boolean;
-  flagUnavailablePost: boolean;
   idx: number;
+  isLoading: boolean;
+  isAvailable: boolean;
+  isUnavailable: boolean;
   loadedProfile: Profile = {
     user: {
       id: 0,
@@ -30,44 +34,18 @@ export class ProfilePage implements OnInit {
     },
     post: [],
   };
-  loadedPostAvailable: Profile = {
-    user: {
-      id: 0,
-      email: '',
-      username: '',
-      full_name: '',
-      password: '',
-      telephone: '',
-      location: '',
-      avatar: '',
-      gender: '',
-      following: [],
-      follower: [],
-    },
-    post: [],
-  };
-  loadedPostUnavailable: Profile = {
-    user: {
-      id: 0,
-      email: '',
-      username: '',
-      full_name: '',
-      password: '',
-      telephone: '',
-      location: '',
-      avatar: '',
-      gender: '',
-      following: [],
-      follower: [],
-    },
-    post: [],
-  };
 
-  constructor(private profileService: ProfileService, private router: Router) {}
+  constructor(
+    private profileService: ProfileService,
+    private router: Router,
+    private storage: Storage,
+  ) {}
 
   async ngOnInit() {
-    this.flagAvailablePost = false;
-    this.flagUnavailablePost = false;
+    this.isLoading = true;
+    this.isAvailable = false;
+    this.isUnavailable = false;
+    let a = this.storage.get('userToken');
 
     let response = await fetch(
       'https://cibo-cove-231019.herokuapp.com/api/page/profile/',
@@ -76,26 +54,29 @@ export class ProfilePage implements OnInit {
         headers: {
           'Content-Type': 'application/json',
           Authorization:
-            // 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNTcyMzMxNTQwfQ.SzEBfwLMu0IQtMebyVaNwgUdDoorCptgS4wyWzW3t0U',
-            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNTcyNDQyODI0fQ.U5fV2f9RYNeoIqE7Gr4w-BlVdSGC3-hOM17UfDE5fUI',
+            //'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNTcyNjA2NzAyfQ.Jw_leIeKhXJ31_UkdsdvqVtBZOaZQUFQJ_wm7JdpHd8',
+            // this.storage.get('userToken'),
+            a,
         },
       },
     );
 
     let result = await response.json();
+    console.log(result);
     this.profileService.addProfile(result.data[0]);
     this.loadedProfile = this.profileService.getProfile();
-    console.log('HASIL=>', this.loadedProfile);
 
     for (let key of this.loadedProfile.post) {
+      key.timestamp = timestampFormat(key.timestamp);
+
       if (key.tag === 'AVAILABLE' || key.tag === 'EXPIRED') {
-        this.flagAvailablePost = true;
-        this.loadedPostAvailable.post.push(key);
+        this.isAvailable = true;
       } else if (key.tag === 'UNAVAILABLE') {
-        this.flagUnavailablePost = true;
-        this.loadedPostUnavailable.post.push(key);
+        this.isUnavailable = true;
       }
     }
+
+    this.isLoading = false;
   }
 
   onClickAdd() {

@@ -45,14 +45,14 @@ ion-toolbar {
 
 .textUserFullNameHeader {
   font-family: neusa-next-std, sans-serif;
-  font-size: 20;
+  font-size: 20px;
   color: #ffffff;
   font-weight: bold;
 }
 
 .textUserNameHeader {
   font-family: neusa-next-std, sans-serif;
-  font-size: 14;
+  font-size: 14px;
   color: #ffffff;
   font-weight: bold;
   padding-top: 2px;
@@ -61,7 +61,7 @@ ion-toolbar {
 
 .textUserLocationHeader {
   font-family: qanelas;
-  font-size: 12;
+  font-size: 12px;
   color: #ffffff;
 }
 
@@ -72,14 +72,14 @@ ion-toolbar {
 
 .textAmount {
   font-family: neusa-next-std, sans-serif;
-  font-size: 14;
+  font-size: 14px;
   color: #3c4cac;
   font-weight: bold;
 }
 
 .textUserStatus {
   font-family: neusa-next-std, sans-serif;
-  font-size: 14;
+  font-size: 14px;
   color: #707070;
 }
 
@@ -303,7 +303,7 @@ ion-toolbar {
 
 .statusExpired {
   border-radius: 3px;
-  background: #ffdf00;
+  background: #5a5a5a;
   padding: 3px;
   font-size: 11px;
   width: 70px;
@@ -358,6 +358,19 @@ ion-toolbar {
 .textAvailableEmpty,
 .textUnavailableEmpty {
   font-family: neusa-next-std, sans-serif;
-  font-size: 16;
+  font-size: 16px;
   color: #5d5d5d;
+}
+
+.spin {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+ion-spinner {
+  width: 100px;
+  height: 100px;
+  stroke: #444;
+  fill: #222;
 }
