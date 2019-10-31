@@ -45,7 +45,7 @@ const routes: Routes = [
   },
   {
     path: 'profile',
-    canLoad: [AuthGuard],
+    // canLoad: [AuthGuard],
     loadChildren: './profile/profile.module#ProfilePageModule',
   },
   {
@@ -67,7 +67,6 @@ const routes: Routes = [
 
   // { path: 'chat-list', loadChildren: './chat-list/chat-list.module#ChatListPageModule' },
   // { path: 'chat', loadChildren: './chat-list/chat/chat.module#ChatPageModule' },
-
 ];
 
 @NgModule({

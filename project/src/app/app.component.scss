@@ -20,10 +20,9 @@
 }
 
 .displayDrawer2 {
-  color: #3c4cac;
+  color: #6c7293;
   font-family: neusa-next-std, sans-serif;
-  font-size: 18px;
-  font-weight: bold;
+  font-size: 14px;
 }
 
 .iconDrawer2 {
@@ -31,4 +30,39 @@
   height: 20px;
   padding-right: 10px;
   color: #3c4cac;
+}
+
+.textAccount,
+.textMore {
+  color: #3c4cac;
+  font-family: neusa-next-std, sans-serif;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+hr {
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid #3c4cac;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  margin-left: 20px;
+  margin-right: 20px;
+  padding: 0;
+}
+
+.btnLogout {
+  margin-left: 70px;
+  margin-right: 70px;
+  text-transform: none;
+  color: #ffffff;
+  font-family: neusa-next-std, sans-serif;
+  font-size: 18px;
+}
+
+.iconLogout {
+  width: 25px;
+  height: 25px;
+  margin-right: 7px;
 }

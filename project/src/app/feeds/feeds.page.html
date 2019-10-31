@@ -38,6 +38,9 @@
           >
             {{ item.status }}
           </div>
+          <div class="tagPositionExpired statusExpired">
+            Expired
+          </div>
           <div
             *ngIf="item.status == 'Unavailable'"
             class="tagPosition statusUnavailable"

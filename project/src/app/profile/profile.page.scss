@@ -1,10 +1,18 @@
 ion-content {
-  --background: linear-gradient(
+  --background: none;
+  background-image: linear-gradient(
     117deg,
-    rgba(251, 195, 74, 1) 13.5%,
-    rgba(241, 102, 129, 1) 33.33%,
-    rgba(237, 68, 149, 1) 100%
+    rgba(251, 195, 74, 1),
+    rgba(241, 102, 129, 1)
   ) !important;
+  background-position: center top;
+  background-repeat: no-repeat;
+  background-size: 100% 220px;
+}
+
+ion-card-content {
+  margin-bottom: 0px;
+  padding-bottom: 5px;
 }
 
 ion-toolbar {
@@ -37,26 +45,29 @@ ion-toolbar {
 
 .textUserFullNameHeader {
   font-family: neusa-next-std, sans-serif;
-  font-size: 20pt;
+  font-size: 20;
   color: #ffffff;
   font-weight: bold;
 }
 
 .textUserNameHeader {
   font-family: neusa-next-std, sans-serif;
-  font-size: 14pt;
+  font-size: 14;
   color: #ffffff;
   font-weight: bold;
+  padding-top: 2px;
+  padding-bottom: 4px;
 }
 
 .textUserLocationHeader {
-  font-family: Qanelas;
-  font-size: 12pt;
+  font-family: qanelas;
+  font-size: 12;
   color: #ffffff;
 }
 
 .userStatusContainer {
-  padding-top: 18px;
+  margin-left: -10px;
+  padding-top: 22px;
 }
 
 .textAmount {
@@ -72,15 +83,17 @@ ion-toolbar {
   color: #707070;
 }
 
-.userGivenContainer {
-  margin-left: -23px;
+.userPostContainer {
+  margin-left: -20px;
+  margin-right: 0px;
 }
 
-.userTakenContainer {
-  padding-right: 5px;
+.userFollowerContainer {
+  margin-right: 10px;
+  padding-left: 0px;
 }
 
-.userFriendsContainer {
+.userFollowingContainer {
   padding-right: 10px;
 }
 
@@ -119,13 +132,13 @@ ion-toolbar {
 }
 
 .settingsContainer {
-  margin-bottom: -50px;
+  margin-bottom: -80px;
 }
 
 .settingsIcon {
   width: 24px;
   height: 24px;
-  color: #ffffff;
+  color: #000000;
 }
 
 .footerContainer {
@@ -162,23 +175,24 @@ ion-toolbar {
     .avatarContainerHeader {
       height: 150px;
       position: relative;
-      margin-left: 20px;
+      margin-left: 15px;
 
       img {
         width: 130px;
         height: 130px;
         display: block;
+        object-fit: cover;
         border-radius: 50%;
         position: absolute;
-        margin-left: 5px;
+        margin-left: 0px;
         bottom: calc(-1 * (80px + 20px));
         background-color: #fff;
       }
 
       .textHeaderContainer {
         display: block;
-        margin-left: 150px;
-        padding-top: 38px;
+        margin-left: 140px;
+        padding-top: 45px;
         bottom: calc(-1 * (80px + 4px));
       }
 
@@ -208,6 +222,7 @@ ion-toolbar {
 
 .avatarContainer {
   margin-left: 0px;
+  padding-top: 7px;
 }
 
 .userInfoContainer {
@@ -232,10 +247,10 @@ ion-toolbar {
   width: 100%;
   height: 100%;
   margin-top: 18px;
-  //margin-bottom: -10px;
 }
 
 .imageAvailable {
+  object-fit: cover;
   height: 162px;
   font-family: Qanelas;
   font-size: 12px;
@@ -243,6 +258,7 @@ ion-toolbar {
 }
 
 .imageUnavailable {
+  object-fit: cover;
   height: 162px;
   -webkit-filter: grayscale(100%);
   filter: grayscale(100%);
@@ -257,6 +273,12 @@ ion-toolbar {
   height: 30px;
 }
 
+.statusExpired::first-letter,
+.statusAvailable::first-letter,
+.statusUnavailable::first-letter {
+  text-transform: capitalize;
+}
+
 .statusAvailable {
   border-radius: 3px;
   background: #00af72;
@@ -265,6 +287,7 @@ ion-toolbar {
   width: 70px;
   height: 18px;
   font-family: qanelas;
+  text-transform: lowercase;
 }
 
 .statusUnavailable {
@@ -275,6 +298,18 @@ ion-toolbar {
   width: 70px;
   height: 18px;
   font-family: qanelas;
+  text-transform: lowercase;
+}
+
+.statusExpired {
+  border-radius: 3px;
+  background: #ffdf00;
+  padding: 3px;
+  font-size: 11px;
+  width: 70px;
+  height: 18px;
+  font-family: qanelas;
+  text-transform: lowercase;
 }
 
 .textItemName {
@@ -305,4 +340,24 @@ ion-toolbar {
   position: absolute;
   top: 8px;
   right: 16px;
+}
+
+.tagPositionExpired {
+  position: absolute;
+  top: 8px;
+  right: 16px;
+}
+
+.bodyContainerEmpty {
+  display: block;
+  background-color: #ffffff;
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+.textAvailableEmpty,
+.textUnavailableEmpty {
+  font-family: neusa-next-std, sans-serif;
+  font-size: 16;
+  color: #5d5d5d;
 }
