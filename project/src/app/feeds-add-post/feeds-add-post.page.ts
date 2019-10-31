@@ -1,9 +1,9 @@
-import { Feeds } from './../feeds/feeds.model';
-import { Router } from '@angular/router';
+import {Feeds} from './../feeds/feeds.model';
+import {Router} from '@angular/router';
 import {Component, OnInit} from '@angular/core';
 import {NavController, Platform} from '@ionic/angular';
-import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
-import { AppService } from '../app.service';
+import {LocalNotifications} from '@ionic-native/local-notifications/ngx';
+import {AppService} from '../app.service';
 
 @Component({
   selector: 'app-feeds-add-post',
@@ -11,7 +11,6 @@ import { AppService } from '../app.service';
   styleUrls: ['./feeds-add-post.page.scss'],
 })
 export class FeedsAddPostPage implements OnInit {
-
   scanBarcodeFeeds: Feeds = {
     id: '',
     item_name: '',
@@ -32,8 +31,9 @@ export class FeedsAddPostPage implements OnInit {
     private navCtrl: NavController,
     private localNotifications: LocalNotifications,
     private router: Router,
-    private appService: AppService) {
-    this.localNotifications.on('click').subscribe(notification => {
+    private appService: AppService,
+  ) {
+    this.localNotifications.on('click').subscribe((notification) => {
       this.router.navigateByUrl('/request');
     });
   }
@@ -43,15 +43,15 @@ export class FeedsAddPostPage implements OnInit {
   }
 
   onClickClose() {
-    this.navCtrl.setDirection('back');
+    this.navCtrl.back();
   }
 
-  addPost(){
+  addPost() {
     this.localNotifications.schedule({
       text: 'Hi! You you have a new request!',
-      trigger: { at: new Date(new Date().getTime() + 5000) },
+      trigger: {at: new Date(new Date().getTime() + 5000)},
       led: 'FF0000',
-      sound:  'file://sound.mp3',
+      sound: 'file://sound.mp3',
       smallIcon: '../../assets/images/LogoCibo.png',
       icon: '../../assets/images/LogoCibo.png',
       vibrate: true,
