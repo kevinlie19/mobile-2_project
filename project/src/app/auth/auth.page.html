@@ -10,33 +10,25 @@
       </ion-segment>
       <div [ngSwitch]="segment" class="segment">
         <div *ngSwitchCase="'login'">
-          <form #f="ngForm" (ngSubmit)="onSubmit(f)" *ngIf="login">
+          <form #f="ngForm" (ngSubmit)="onSubmitSignIn(f)" *ngIf="login">
             <ion-grid>
               <ion-row>
                 <ion-col>
                   <ion-list>
                     <ion-item>
                       <div class="middle">
-                        <ion-label position="floating" class="middle"> 
-                          <img src="../assets/icon/icons8-email.png" class="middle">
-                          &nbsp;&nbsp;E-mail / Username
+                        <ion-label position="floating" class="label middle"> 
+                          <img src="../assets/icon/icons8-user.png" class="middle">
+                          &nbsp;&nbsp;Email/Username
                         </ion-label>
                       </div>
                       <ion-input
-                        inputmode="email"
+                        inputmode="name"
                         ngModel
-                        name="email"
+                        name="name"
                         required
-                        email
-                        #emailCtrl="ngModel"
-                        type="email"
+                        type="name"
                       ></ion-input>
-                    </ion-item>
-                    <ion-item
-                      *ngIf="!emailCtrl.valid && emailCtrl.touched"
-                      lines="none"
-                    >
-                      <ion-label>Should be a valid email address</ion-label>
                     </ion-item>
                     <ion-item>
                       <div class="middle">
@@ -68,7 +60,6 @@
                   <ion-button
                     type="submit"
                     color="primary"
-                    (click)="onLogin()"
                     [disabled]="!f.valid"
                     expand="block"
                     shape="round"
@@ -82,7 +73,7 @@
         </div>
       
         <div *ngSwitchCase="'signUp'">
-          <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+          <form #f="ngForm" (ngSubmit)="onSubmitSignUp(f)">
             <ion-grid>
               <ion-row>
                 <ion-col>
@@ -120,7 +111,7 @@
                       <ion-input
                         inputmode="name"
                         ngModel
-                        name="name"
+                        name="username"
                         required
                         type="name"
                       ></ion-input>
@@ -157,7 +148,7 @@
                       <ion-input
                         type="password"
                         ngModel
-                        name="conformPassword"
+                        name="confirmPassword"
                         required
                         #confirmPasswordCtrl="ngModel"
                         minlength="6"
@@ -177,7 +168,6 @@
                     <ion-button
                     type="submit"
                     color="primary"
-                    (click)="onSignUp()"
                     [disabled]="!f.valid"
                     expand="block"
                     shape="round"

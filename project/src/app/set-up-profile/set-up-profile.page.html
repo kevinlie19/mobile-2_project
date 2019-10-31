@@ -6,11 +6,13 @@
       </b>
     </h2>
 
-    <img class="photo" src="../assets/icon/userProfile.png">
+    <img *ngIf="capturedSnapURL===''" class="photo" src="../../assets/images/avatarDefault.png" (click)="changeProfilePicture()">
+
+    <img *ngIf="capturedSnapURL!==''" class="photo" [src]="capturedSnapURL" (click)="changeProfilePicture()"/>
 
     <ion-row center>
       <ion-col text-center>
-        <ion-button class="text-center takePhoto" shape="round" color="tertiary">
+        <ion-button class="text-center takePhoto" shape="round" color="tertiary" (click)="changeProfilePicture()">
           <img src="../assets/icon/icons8-add_image.png">
         </ion-button>
       </ion-col>
@@ -62,9 +64,8 @@
                     &nbsp;&nbsp;Location
                   </ion-label>
                 </div>
-                <ion-select interface="popover">
-                  <ion-select-option value="Tangerang">tangerang</ion-select-option>
-                  <ion-select-option value="Jakarta">Jakarta</ion-select-option>
+                <ion-select (ionChange)="onChange($event)" interface="popover">
+                  <ion-select-option value="{{data.name}}" *ngFor="let data of cityData">{{data.name}}</ion-select-option>
                 </ion-select>
               </ion-item>
             </ion-list>
@@ -74,13 +75,13 @@
           <ion-col text-center class="button">
             <ion-button
               type="submit"
-              color="primary"
+              color="tertiary"
               (click)="next()"
               [disabled]="!f.valid"
               shape="round"
               class="next-button"
               >
-                <ion-icon name="ios-arrow-forward"></ion-icon>
+                <ion-icon name="ios-arrow-forward" class="zoomed"></ion-icon>
             </ion-button>
           </ion-col>
         </ion-row>
