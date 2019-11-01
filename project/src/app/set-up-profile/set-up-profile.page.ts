@@ -180,12 +180,6 @@ export class SetUpProfilePage implements OnInit {
       }
       getDataFromAPI();
     });
-
-    if (this.isSignUp) {
-      // Send a request to login servers
-    } else {
-      // Send a request to signup servers
-    }
   }
 
   takePicture() {

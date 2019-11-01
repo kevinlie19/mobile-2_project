@@ -14,7 +14,6 @@ import { Storage } from '@ionic/storage';
 export class AuthPage implements OnInit {
   isLoading: boolean = false;
   segment: string = 'login';
-  isLogin: boolean = true;
   login: boolean = true;
 
   constructor(
@@ -79,12 +78,6 @@ export class AuthPage implements OnInit {
     if (!form.valid) {
       return;
     }
-
-    if (this.isLogin) {
-      // Send a request to login servers
-    } else {
-      // Send a request to signup servers
-    }
   }
 
   async onSubmitSignUp(form: NgForm) {
@@ -121,12 +114,6 @@ export class AuthPage implements OnInit {
 
     if (!form.valid) {
       return;
-    }
-
-    if (this.isLogin) {
-      // Send a request to login servers
-    } else {
-      // Send a request to signup servers
     }
   }
 
