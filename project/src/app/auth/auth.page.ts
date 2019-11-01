@@ -2,7 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import {NgForm} from '@angular/forms';
 import {Router} from '@angular/router';
 import {AuthService} from './auth.service';
-import {LoadingController} from '@ionic/angular';
+import {LoadingController, AlertController} from '@ionic/angular';
+import { format } from 'url';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-auth',
@@ -10,47 +12,109 @@ import {LoadingController} from '@ionic/angular';
   styleUrls: ['./auth.page.scss'],
 })
 export class AuthPage implements OnInit {
-  isLoading = false;
+  isLoading: boolean = false;
   segment: string = 'login';
-  isLogin = true;
-  login = true;
+  login: boolean = true;
+
   constructor(
     private router: Router,
     private authService: AuthService,
     private loadingCtrl: LoadingController,
+    private storage: Storage,
+    public alertController: AlertController,
   ) {}
 
   ngOnInit() {}
 
-  onSubmit(form: NgForm) {
+  onSubmitSignIn(form: NgForm) {
+    const self = this;
+    this.isLoading = true;
+
+    const email = form.value.name;
+    const password = form.value.password;
+
+    this.loadingCtrl
+    .create({keyboardClose: true, message: 'Signing in...'})
+    .then((loadingEl) => {
+      loadingEl.present();
+
+      async function getDataFromAPI() {
+        const body = {
+          credential : email,
+          password,
+        };
+
+        let response: any = {};
+        await fetch('https://cibo-cove-231019.herokuapp.com/api/auth/sign-in', {
+          method: 'POST',
+          body: JSON.stringify(body),
+          headers: {'Content-Type': 'application/json'},
+        })
+        .then((returnedResponse) => {
+          response = returnedResponse;
+        })
+        .catch((err) => {
+          loadingEl.dismiss();
+        });
+        const data = await response.json();
+
+        if (data.success === true) {
+          loadingEl.dismiss();
+          self.authService.login();
+          self.storage.set('userToken', data.token);
+          self.router.navigateByUrl('/feeds');
+        } else {
+          loadingEl.dismiss();
+          const alert = await self.alertController.create({
+            header: 'Alert',
+            message: data.message,
+            buttons: ['OK']
+          });
+          await alert.present();
+        }
+      }
+      getDataFromAPI();
+    });
     if (!form.valid) {
       return;
     }
-    const email = form.value.email;
-    const password = form.value.password;
-
-    // console.log(email, password);
-
-    if (this.isLogin) {
-      // Send a request to login servers
-    } else {
-      // Send a request to signup servers
-    }
   }
 
-  onLogin() {
+  async onSubmitSignUp(form: NgForm) {
     this.isLoading = true;
-    this.loadingCtrl
-      .create({keyboardClose: true, message: 'Logging in...'})
-      .then((loadingEl) => {
-        loadingEl.present();
-        setTimeout(() => {
-          this.isLoading = false;
-          loadingEl.dismiss();
-          this.router.navigateByUrl('/feeds');
-        }, 1500);
+
+    let match = true;
+
+    const email = form.value.email;
+    const username = form.value.username;
+    const password = form.value.password;
+    const confirmPassword = form.value.confirmPassword;
+
+    if (password !== confirmPassword) {
+      const alert = await this.alertController.create({
+        header: 'Alert',
+        message: 'Confirm password does not match',
+        buttons: ['OK']
       });
+      match = false;
+      await alert.present();
+    }
+    if (match === false) {
+      return;
+    }
+
     this.authService.login();
+    this.authService.setUserInfo(
+      email,
+      username,
+      password
+    );
+    this.authService.login();
+    this.router.navigateByUrl('set-up-profile');
+
+    if (!form.valid) {
+      return;
+    }
   }
 
   onSignUp() {

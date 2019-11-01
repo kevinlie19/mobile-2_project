@@ -15,8 +15,15 @@
 .photo{
   display:block; 
   margin:auto; 
-  width: 180px; 
+  object-fit: cover;
+  width: 130px; 
+  height: 130px;
+  border-radius: 50%;
   margin-top: 30px;
+}
+
+.zoomed{
+  zoom:2.0;
 }
 
 .takePhoto{
