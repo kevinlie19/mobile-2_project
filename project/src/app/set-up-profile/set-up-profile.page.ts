@@ -1,13 +1,13 @@
 import { OnInit, Component } from '@angular/core';
-import {LoadingController, NavController, ActionSheetController, ToastController, Platform} from '@ionic/angular';
 import {Router} from '@angular/router';
-// import {AuthService} from '../auth/auth.service';
-import {AuthService} from '../auth/auth.service';
 import {NgForm} from '@angular/forms';
 
+import {LoadingController, NavController, ActionSheetController, ToastController, Platform} from '@ionic/angular';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { ImagePicker } from '@ionic-native/image-picker/ngx';
+
 import fetch from 'node-fetch';
+import {AuthService} from '../auth/auth.service';
 
 @Component({
   selector: 'app-set-up-profile',
@@ -51,7 +51,7 @@ export class SetUpProfilePage implements OnInit {
   ) {}
 
   async ngOnInit() {
-    let getKey = await fetch(
+    const getKey = await fetch(
       'https://x.rajaapi.com/poe',
       {
         mode: 'cors',
@@ -62,9 +62,9 @@ export class SetUpProfilePage implements OnInit {
         },
       },
     );
-    let token = await getKey.json();
+    const token = await getKey.json();
 
-    let getProvince = await fetch(
+    const getProvince = await fetch(
       'https://x.rajaapi.com/MeP7c5ne' + token.token + '/m/wilayah/provinsi',
       {
         mode: 'cors',
@@ -75,7 +75,7 @@ export class SetUpProfilePage implements OnInit {
         },
       },
     );
-    let province = await getProvince.json();
+    const province = await getProvince.json();
 
     this.cityData = province.data;
   }
@@ -120,15 +120,12 @@ export class SetUpProfilePage implements OnInit {
   }
 
   onSubmit(form: NgForm) {
-    // if (!form.valid) {
-    //   return;
-    // }
     const email = this.authService.getUserInfo().email;
     const username = this.authService.getUserInfo().username;
     const password = this.authService.getUserInfo().password;
-    const fullName = form.value.fullName;
-    const phoneNumber = form.value.phoneNumber;
-    const profilePicture = this.capturedSnapURL;
+    const full_name = form.value.fullName;
+    const telephone = form.value.phoneNumber;
+    const image = this.capturedSnapURL;
     const location = this.selectedLocation;
 
     this.loadingCtrl
@@ -141,10 +138,10 @@ export class SetUpProfilePage implements OnInit {
           email,
           username,
           password,
-          fullName,
-          phoneNumber,
+          full_name,
+          telephone,
           location,
-          profilePicture
+          image
         };
 
         let response: any = {};
