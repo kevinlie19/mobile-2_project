@@ -3,8 +3,7 @@ import {NgForm} from '@angular/forms';
 import {Router} from '@angular/router';
 import {AuthService} from './auth.service';
 import {LoadingController, AlertController} from '@ionic/angular';
-import {format} from 'url';
-import {Storage} from '@ionic/storage';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-auth',
@@ -34,50 +33,46 @@ export class AuthPage implements OnInit {
     const password = form.value.password;
 
     this.loadingCtrl
-      .create({keyboardClose: true, message: 'Signing in...'})
-      .then((loadingEl) => {
-        loadingEl.present();
+    .create({keyboardClose: true, message: 'Signing in...'})
+    .then((loadingEl) => {
+      loadingEl.present();
 
-        async function getDataFromAPI() {
-          const body = {
-            credential: email,
-            password,
-          };
+      async function getDataFromAPI() {
+        const body = {
+          credential : email,
+          password,
+        };
 
-          let response: any = {};
-          await fetch(
-            'https://cibo-cove-231019.herokuapp.com/api/auth/sign-in',
-            {
-              method: 'POST',
-              body: JSON.stringify(body),
-              headers: {'Content-Type': 'application/json'},
-            },
-          )
-            .then((returnedResponse) => {
-              response = returnedResponse;
-            })
-            .catch((err) => {
-              loadingEl.dismiss();
-            });
-          const data = await response.json();
+        const response = await fetch('https://cibo-cove-231019.herokuapp.com/api/auth/sign-in',
+        {
+          mode: 'cors',
+          method: 'POST',
+          body: JSON.stringify(body),
+          headers: {'Content-Type': 'application/json'},
+        })
+        .catch((err) => {
+          loadingEl.dismiss();
+        });
 
-          if (data.success === true) {
-            loadingEl.dismiss();
-            self.authService.login();
-            await self.storage.set('userToken', data.token);
-            self.router.navigateByUrl('/feeds');
-          } else {
-            loadingEl.dismiss();
-            const alert = await self.alertController.create({
-              header: 'Alert',
-              message: data.message,
-              buttons: ['OK'],
-            });
-            await alert.present();
-          }
+        const signInStatus = await response.json();
+
+        if (signInStatus.success === true) {
+          loadingEl.dismiss();
+          self.authService.login();
+          self.storage.set('userToken', signInStatus.token);
+          self.router.navigateByUrl('/feeds');
+        } else {
+          loadingEl.dismiss();
+          const alert = await self.alertController.create({
+            header: 'Alert',
+            message: signInStatus.message,
+            buttons: ['OK']
+          });
+          await alert.present();
         }
-        getDataFromAPI();
-      });
+      }
+      getDataFromAPI();
+    });
     if (!form.valid) {
       return;
     }
@@ -106,7 +101,6 @@ export class AuthPage implements OnInit {
       return;
     }
 
-    this.authService.login();
     this.authService.setUserInfo(email, username, password);
     this.authService.login();
     this.router.navigateByUrl('set-up-profile');

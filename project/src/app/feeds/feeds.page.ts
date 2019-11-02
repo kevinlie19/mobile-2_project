@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+
+import {BarcodeScannerOptions, BarcodeScanner} from '@ionic-native/barcode-scanner/ngx';
+import { Storage } from '@ionic/storage';
+
 import {Feeds} from './feeds.model';
 import {FeedsService} from './feeds.service';
-import {Router} from '@angular/router';
-import {
-  BarcodeScannerOptions,
-  BarcodeScanner
-} from "@ionic-native/barcode-scanner/ngx";
 import { AppService } from '../app.service';
 
 @Component({
@@ -18,6 +18,7 @@ export class FeedsPage implements OnInit {
   encodeData: any;
   scannedData: {};
   barcodeScannerOptions: BarcodeScannerOptions;
+  loginStatus: Boolean = false;
 
   constructor(
     private feedsService: FeedsService,
