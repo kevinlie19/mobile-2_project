@@ -14,6 +14,22 @@
   margin-right: -28px;
 }
 
+.statusExpired {
+  border-radius: 3px;
+  background: #ffdf00;
+  padding: 3px;
+  font-size: 11px;
+  width: 70px;
+  height: 18px;
+  font-family: qanelas;
+}
+
+.tagPositionExpired {
+  position: absolute;
+  top: 8px;
+  left: 16px;
+}
+
 .rowFeedsContainer {
   margin-left: 17px;
   margin-right: 17px;

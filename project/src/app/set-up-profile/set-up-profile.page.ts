@@ -1,10 +1,16 @@
-import { OnInit, Component } from '@angular/core';
+import {OnInit, Component} from '@angular/core';
 import {Router} from '@angular/router';
 import {NgForm} from '@angular/forms';
 
-import {LoadingController, NavController, ActionSheetController, ToastController, Platform} from '@ionic/angular';
-import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
-import { ImagePicker } from '@ionic-native/image-picker/ngx';
+import {
+  LoadingController,
+  NavController,
+  ActionSheetController,
+  ToastController,
+  Platform,
+} from '@ionic/angular';
+import {Camera, CameraOptions} from '@ionic-native/camera/ngx';
+import {ImagePicker} from '@ionic-native/image-picker/ngx';
 
 import fetch from 'node-fetch';
 import {AuthService} from '../auth/auth.service';
@@ -19,22 +25,24 @@ export class SetUpProfilePage implements OnInit {
   isSignUp = true;
   selectedLocation = '';
 
-  cityData = [{
-    id: '',
-    name: ''
-  }];
+  cityData = [
+    {
+      id: '',
+      name: '',
+    },
+  ];
 
   capturedSnapURL: string = '';
 
   cameraOptions: CameraOptions = {
     quality: 100,
     destinationType: this.camera.DestinationType.DATA_URL,
-    allowEdit : true,
+    allowEdit: true,
     correctOrientation: true,
     targetWidth: 130,
     targetHeight: 130,
     encodingType: this.camera.EncodingType.JPEG,
-    mediaType: this.camera.MediaType.PICTURE
+    mediaType: this.camera.MediaType.PICTURE,
   };
 
   constructor(
@@ -47,21 +55,17 @@ export class SetUpProfilePage implements OnInit {
     public actionSheetController: ActionSheetController,
     public toastCtrl: ToastController,
     public platform: Platform,
-
   ) {}
 
   async ngOnInit() {
-    const getKey = await fetch(
-      'https://x.rajaapi.com/poe',
-      {
-        mode: 'cors',
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': '*',
-        },
+    const getKey = await fetch('https://x.rajaapi.com/poe', {
+      mode: 'cors',
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
       },
-    );
+    });
     const token = await getKey.json();
 
     const getProvince = await fetch(
@@ -87,20 +91,24 @@ export class SetUpProfilePage implements OnInit {
   async presentActionSheet() {
     const actionSheet = await this.actionSheetController.create({
       header: 'Select Image Source!',
-      buttons: [{
-        text: 'Load from Gallery',
-        handler: () => {
-          this.selectGalery();
-        }
-      }, {
-        text: 'Use Camera',
-        handler: () => {
-          this.takePicture();
-        }
-      }, {
-        text: 'Cancel',
-        role: 'cancel'
-      }]
+      buttons: [
+        {
+          text: 'Load from Gallery',
+          handler: () => {
+            this.selectGalery();
+          },
+        },
+        {
+          text: 'Use Camera',
+          handler: () => {
+            this.takePicture();
+          },
+        },
+        {
+          text: 'Cancel',
+          role: 'cancel',
+        },
+      ],
     });
     await actionSheet.present();
   }
@@ -129,66 +137,69 @@ export class SetUpProfilePage implements OnInit {
     const location = this.selectedLocation;
 
     this.loadingCtrl
-    .create({keyboardClose: true, message: 'Signing up...'})
-    .then((loadingEl) => {
-      loadingEl.present();
+      .create({keyboardClose: true, message: 'Signing up...'})
+      .then((loadingEl) => {
+        loadingEl.present();
 
-      async function getDataFromAPI() {
-        const body = {
-          email,
-          username,
-          password,
-          full_name,
-          telephone,
-          location,
-          image
-        };
+        async function getDataFromAPI() {
+          const body = {
+            email,
+            username,
+            password,
+            full_name,
+            telephone,
+            location,
+            image,
+          };
 
-        let response: any = {};
-        await fetch('https://cibo-cove-231019.herokuapp.com/api/auth/sign-up', {
-          method: 'POST',
-          body: JSON.stringify(body),
-          headers: {'Content-Type': 'application/json'},
-        })
-        .then((returnedResponse) => {
-          response = returnedResponse;
-        })
-        .catch((err) => {
-          loadingEl.dismiss();
-        });
-        const data = await response.json();
-        console.log(data);
+          let response: any = {};
+          await fetch(
+            'https://cibo-cove-231019.herokuapp.com/api/auth/sign-up',
+            {
+              method: 'POST',
+              body: JSON.stringify(body),
+              headers: {'Content-Type': 'application/json'},
+            },
+          )
+            .then((returnedResponse) => {
+              response = returnedResponse;
+            })
+            .catch((err) => {
+              loadingEl.dismiss();
+            });
+          const data = await response.json();
 
-        if (data.success === true) {
-          loadingEl.dismiss();
-          this.authService.login();
-          console.log('dataToken', data.token);
-          this.storage.set('userToken', data.token);
-          this.router.navigateByUrl('set-up-done');
-
-        } else {
-          loadingEl.dismiss();
-          const alert = await this.alertController.create({
-            header: 'Alert',
-            message: data.message,
-            buttons: ['OK']
-          });
-          loadingEl.dismiss();
-          await alert.present();
-          return;
+          if (data.success === true) {
+            loadingEl.dismiss();
+            this.authService.login();
+            this.storage.set('userToken', data.token);
+            this.router.navigateByUrl('set-up-done');
+          } else {
+            loadingEl.dismiss();
+            const alert = await this.alertController.create({
+              header: 'Alert',
+              message: data.message,
+              buttons: ['OK'],
+            });
+            loadingEl.dismiss();
+            await alert.present();
+            return;
+          }
         }
-      }
-      getDataFromAPI();
-    });
+        getDataFromAPI();
+      });
   }
 
   takePicture() {
-    this.camera.getPicture(this.cameraOptions).then((imageData) => {
-      const base64Image = 'data:image/jpeg;base64,' + imageData;
-      this.capturedSnapURL = base64Image;
-    }, (err) => {
-      console.log(err);
-    });
+    this.camera.getPicture(this.cameraOptions).then(
+      (imageData) => {
+        const base64Image = 'data:image/jpeg;base64,' + imageData;
+        this.capturedSnapURL = base64Image;
+      },
+      (err) => {
+        console.error(err);
+      },
+    );
   }
 
   selectGalery() {
@@ -197,15 +208,18 @@ export class SetUpProfilePage implements OnInit {
       quality: 100,
       outputType: 1,
     };
-    this.imagePicker.getPictures(options).then((imageData) => {
-      const base64Image = 'data:image/jpeg;base64,' + imageData;
-      this.capturedSnapURL = base64Image;
-    }, (err) => {
-      alert(err);
-    });
+    this.imagePicker.getPictures(options).then(
+      (imageData) => {
+        const base64Image = 'data:image/jpeg;base64,' + imageData;
+        this.capturedSnapURL = base64Image;
+      },
+      (err) => {
+        alert(err);
+      },
+    );
   }
 
-  onChange(value){
+  onChange(value) {
     this.selectedLocation = value.detail.value;
-  };
+  }
 }

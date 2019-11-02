@@ -1,12 +1,12 @@
 <ion-app>
   <ion-menu side="end" menuId="m1">
     <ion-header>
-      <ion-toolbar class="drawer1">
-        <ion-title class="displayDrawer1 middle"
+      <ion-toolbar class="settingsContainer middle">
+        <ion-title class="textSettings middle"
           ><ion-menu-toggle class="middle">
             <ion-icon
               name="arrow-back"
-              class="iconDrawer1 middle"
+              class="iconBack middle"
               menuClose
             ></ion-icon></ion-menu-toggle
           >Settings</ion-title
@@ -15,36 +15,67 @@
     </ion-header>
 
     <ion-content class="ion-text-center">
+      <br />
       <ion-list>
-        <ion-menu-toggle class="middle">
+        <div class="middle">
           <ion-item lines="none">
-            <ion-label class="displayDrawer2 middle"
-              ><ion-icon name="create" class="iconDrawer2 middle"></ion-icon
-              >Edit Profile</ion-label
+            <ion-label class="textAccount"
+              ><ion-icon name="person" class="iconAccount middle"></ion-icon
+              >Account</ion-label
             >
           </ion-item>
-        </ion-menu-toggle>
+          <hr />
+          <ion-menu-toggle>
+            <ion-item lines="none" (click)="onClickEdit()">
+              <ion-label class="textEditProfile middle"
+                ><ion-icon
+                  name="arrow-forward"
+                  class="iconEdit"
+                  float-right
+                ></ion-icon
+                >Edit Profile</ion-label
+              >
+            </ion-item>
+          </ion-menu-toggle>
+
+          <br />
+
+          <ion-item lines="none">
+            <ion-label class="textMore"
+              ><ion-icon
+                name="information-circle-outline"
+                class="iconMore middle"
+              ></ion-icon
+              >More</ion-label
+            >
+          </ion-item>
+          <hr />
+          <ion-menu-toggle>
+            <ion-item lines="none">
+              <ion-label class="textAbout middle"
+                ><ion-icon
+                  name="arrow-forward"
+                  class="iconAbout"
+                  float-right
+                ></ion-icon
+                >About The App</ion-label
+              >
+            </ion-item>
+          </ion-menu-toggle>
+        </div>
       </ion-list>
     </ion-content>
     <ion-footer no-border>
       <ion-menu-toggle class="middle">
-        <ion-item lines="none">
-          <ion-label class="displayDrawer2 middle"
-            ><ion-icon
-              name="information-circle-outline"
-              class="iconDrawer2 middle"
-            ></ion-icon
-            >About</ion-label
-          >
-        </ion-item>
-      </ion-menu-toggle>
-      <ion-menu-toggle class="middle">
-        <ion-item lines="none">
-          <ion-label class="displayDrawer2 middle"
-            ><ion-icon name="log-out" class="iconDrawer2 middle"></ion-icon>Log
-            Out</ion-label
-          >
-        </ion-item>
+        <ion-button
+          expand="block"
+          shape="round"
+          color="tertiary"
+          class="btnLogout"
+          (click)="onClickLogout()"
+          ><ion-icon name="log-out" class="iconLogout"></ion-icon>Log
+          Out</ion-button
+        >
       </ion-menu-toggle>
       <br /><br />
     </ion-footer>
