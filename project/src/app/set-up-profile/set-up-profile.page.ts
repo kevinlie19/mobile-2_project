@@ -2,18 +2,13 @@ import {OnInit, Component} from '@angular/core';
 import {Router} from '@angular/router';
 import {NgForm} from '@angular/forms';
 
-import {
-  LoadingController,
-  NavController,
-  ActionSheetController,
-  ToastController,
-  Platform,
-} from '@ionic/angular';
-import {Camera, CameraOptions} from '@ionic-native/camera/ngx';
-import {ImagePicker} from '@ionic-native/image-picker/ngx';
+import {LoadingController, NavController, ActionSheetController, ToastController, Platform, AlertController} from '@ionic/angular';
+import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
+import { ImagePicker } from '@ionic-native/image-picker/ngx';
 
 import fetch from 'node-fetch';
 import {AuthService} from '../auth/auth.service';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-set-up-profile',
@@ -51,6 +46,8 @@ export class SetUpProfilePage implements OnInit {
     private authService: AuthService,
     private camera: Camera,
     private imagePicker: ImagePicker,
+    private alertController: AlertController,
+    private storage: Storage,
     public navCtrl: NavController,
     public actionSheetController: ActionSheetController,
     public toastCtrl: ToastController,
@@ -113,78 +110,59 @@ export class SetUpProfilePage implements OnInit {
     await actionSheet.present();
   }
 
-  next() {
-    this.isLoading = true;
-    this.loadingCtrl
-      .create({keyboardClose: true, message: 'Signing in...'})
-      .then((loadingEl) => {
-        loadingEl.present();
-        setTimeout(() => {
-          this.isLoading = false;
-          loadingEl.dismiss();
-          this.router.navigateByUrl('/set-up-done');
-        }, 1500);
-      });
-  }
-
   onSubmit(form: NgForm) {
+    const self = this;
     const email = this.authService.getUserInfo().email;
     const username = this.authService.getUserInfo().username;
     const password = this.authService.getUserInfo().password;
     const full_name = form.value.fullName;
-    const telephone = form.value.phoneNumber;
+    const phone_number = form.value.phoneNumber;
     const image = this.capturedSnapURL;
     const location = this.selectedLocation;
 
     this.loadingCtrl
-      .create({keyboardClose: true, message: 'Signing up...'})
-      .then((loadingEl) => {
-        loadingEl.present();
+    .create({keyboardClose: true, message: 'Signing up...'})
+    .then((loadingEl) => {
+      loadingEl.present();
 
-        async function getDataFromAPI() {
-          const body = {
-            email,
-            username,
-            password,
-            full_name,
-            telephone,
-            location,
-            image,
-          };
+      async function getDataFromAPI() {
+        const body = {
+          email,
+          username,
+          password,
+          full_name,
+          phone_number,
+          location,
+          image
+        };
 
-          let response: any = {};
-          await fetch(
-            'https://cibo-cove-231019.herokuapp.com/api/auth/sign-up',
-            {
-              method: 'POST',
-              body: JSON.stringify(body),
-              headers: {'Content-Type': 'application/json'},
-            },
-          )
-            .then((returnedResponse) => {
-              response = returnedResponse;
-            })
-            .catch((err) => {
-              loadingEl.dismiss();
-            });
-          const data = await response.json();
+        const response = await fetch('https://cibo-cove-231019.herokuapp.com/api/auth/sign-up', {
+          mode: 'cors',
+          method: 'POST',
+          body: JSON.stringify(body),
+          headers: {'Content-Type': 'application/json'},
+        })
+        .catch((err) => {
+          loadingEl.dismiss();
+        });
 
-          if (data.success === true) {
-            loadingEl.dismiss();
-            this.authService.login();
-            this.storage.set('userToken', data.token);
-            this.router.navigateByUrl('set-up-done');
-          } else {
-            loadingEl.dismiss();
-            const alert = await this.alertController.create({
-              header: 'Alert',
-              message: data.message,
-              buttons: ['OK'],
-            });
-            loadingEl.dismiss();
-            await alert.present();
-            return;
-          }
+        const signInStatus = await response.json();
+
+        if (signInStatus.success === true) {
+          loadingEl.dismiss();
+          self.authService.login();
+          self.storage.set('userToken', signInStatus.token);
+          self.router.navigateByUrl('set-up-done');
+        } else {
+          loadingEl.dismiss();
+          const alert = await self.alertController.create({
+            header: 'Alert',
+            message: signInStatus.message,
+            buttons: ['OK']
+          });
+          loadingEl.dismiss();
+          await alert.present();
+          return;
         }
         getDataFromAPI();
       });
