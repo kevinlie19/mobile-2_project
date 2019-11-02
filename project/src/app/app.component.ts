@@ -4,7 +4,7 @@ import {Router} from '@angular/router';
 import {Platform} from '@ionic/angular';
 import {SplashScreen} from '@ionic-native/splash-screen/ngx';
 import {StatusBar} from '@ionic-native/status-bar/ngx';
-// import {Storage} from '@ionic/storage';
+import {Storage} from '@ionic/storage';
 import {AuthService} from './auth/auth.service';
 
 @Component({
@@ -18,7 +18,7 @@ export class AppComponent {
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     private router: Router,
-    // private storage: Storage,
+    private storage: Storage,
     private authService: AuthService,
   ) {
     this.initializeApp();
@@ -36,7 +36,7 @@ export class AppComponent {
   }
 
   onClickLogout() {
-    // this.storage.remove('userToken');
+    this.storage.remove('userToken');
     this.authService.logout();
     this.router.navigateByUrl('/auth');
   }

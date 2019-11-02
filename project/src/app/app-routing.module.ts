@@ -45,7 +45,7 @@ const routes: Routes = [
   },
   {
     path: 'profile',
-    //canLoad: [AuthGuard],
+    canLoad: [AuthGuard],
     loadChildren: './profile/profile.module#ProfilePageModule',
   },
   {

@@ -3,8 +3,8 @@ import {NgForm} from '@angular/forms';
 import {Router} from '@angular/router';
 import {AuthService} from './auth.service';
 import {LoadingController, AlertController} from '@ionic/angular';
-import { format } from 'url';
-import { Storage } from '@ionic/storage';
+import {format} from 'url';
+import {Storage} from '@ionic/storage';
 
 @Component({
   selector: 'app-auth',
@@ -34,47 +34,50 @@ export class AuthPage implements OnInit {
     const password = form.value.password;
 
     this.loadingCtrl
-    .create({keyboardClose: true, message: 'Signing in...'})
-    .then((loadingEl) => {
-      loadingEl.present();
+      .create({keyboardClose: true, message: 'Signing in...'})
+      .then((loadingEl) => {
+        loadingEl.present();
 
-      async function getDataFromAPI() {
-        const body = {
-          credential : email,
-          password,
-        };
+        async function getDataFromAPI() {
+          const body = {
+            credential: email,
+            password,
+          };
 
-        let response: any = {};
-        await fetch('https://cibo-cove-231019.herokuapp.com/api/auth/sign-in', {
-          method: 'POST',
-          body: JSON.stringify(body),
-          headers: {'Content-Type': 'application/json'},
-        })
-        .then((returnedResponse) => {
-          response = returnedResponse;
-        })
-        .catch((err) => {
-          loadingEl.dismiss();
-        });
-        const data = await response.json();
+          let response: any = {};
+          await fetch(
+            'https://cibo-cove-231019.herokuapp.com/api/auth/sign-in',
+            {
+              method: 'POST',
+              body: JSON.stringify(body),
+              headers: {'Content-Type': 'application/json'},
+            },
+          )
+            .then((returnedResponse) => {
+              response = returnedResponse;
+            })
+            .catch((err) => {
+              loadingEl.dismiss();
+            });
+          const data = await response.json();
 
-        if (data.success === true) {
-          loadingEl.dismiss();
-          self.authService.login();
-          self.storage.set('userToken', data.token);
-          self.router.navigateByUrl('/feeds');
-        } else {
-          loadingEl.dismiss();
-          const alert = await self.alertController.create({
-            header: 'Alert',
-            message: data.message,
-            buttons: ['OK']
-          });
-          await alert.present();
+          if (data.success === true) {
+            loadingEl.dismiss();
+            self.authService.login();
+            await self.storage.set('userToken', data.token);
+            self.router.navigateByUrl('/feeds');
+          } else {
+            loadingEl.dismiss();
+            const alert = await self.alertController.create({
+              header: 'Alert',
+              message: data.message,
+              buttons: ['OK'],
+            });
+            await alert.present();
+          }
         }
-      }
-      getDataFromAPI();
-    });
+        getDataFromAPI();
+      });
     if (!form.valid) {
       return;
     }
@@ -94,7 +97,7 @@ export class AuthPage implements OnInit {
       const alert = await this.alertController.create({
         header: 'Alert',
         message: 'Confirm password does not match',
-        buttons: ['OK']
+        buttons: ['OK'],
       });
       match = false;
       await alert.present();
@@ -104,11 +107,7 @@ export class AuthPage implements OnInit {
     }
 
     this.authService.login();
-    this.authService.setUserInfo(
-      email,
-      username,
-      password
-    );
+    this.authService.setUserInfo(email, username, password);
     this.authService.login();
     this.router.navigateByUrl('set-up-profile');
 
