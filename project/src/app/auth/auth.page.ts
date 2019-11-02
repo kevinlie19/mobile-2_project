@@ -54,18 +54,18 @@ export class AuthPage implements OnInit {
           loadingEl.dismiss();
         });
 
-        const signUpStatus = await response.json();
+        const signInStatus = await response.json();
 
-        if (signUpStatus.success === true) {
+        if (signInStatus.success === true) {
           loadingEl.dismiss();
           self.authService.login();
-          self.storage.set('userToken', signUpStatus.token);
+          self.storage.set('userToken', signInStatus.token);
           self.router.navigateByUrl('/feeds');
         } else {
           loadingEl.dismiss();
           const alert = await self.alertController.create({
             header: 'Alert',
-            message: signUpStatus.message,
+            message: signInStatus.message,
             buttons: ['OK']
           });
           await alert.present();
@@ -101,7 +101,6 @@ export class AuthPage implements OnInit {
       return;
     }
 
-    this.authService.login();
     this.authService.setUserInfo(email, username, password);
     this.authService.login();
     this.router.navigateByUrl('set-up-profile');

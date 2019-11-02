@@ -146,18 +146,18 @@ export class SetUpProfilePage implements OnInit {
           loadingEl.dismiss();
         });
 
-        const signInStatus = await response.json();
+        const signUpStatus = await response.json();
 
-        if (signInStatus.success === true) {
+        if (signUpStatus.success === true) {
           loadingEl.dismiss();
           self.authService.login();
-          self.storage.set('userToken', signInStatus.token);
+          self.storage.set('userToken', signUpStatus.token);
           self.router.navigateByUrl('set-up-done');
         } else {
           loadingEl.dismiss();
           const alert = await self.alertController.create({
             header: 'Alert',
-            message: signInStatus.message,
+            message: signUpStatus.message,
             buttons: ['OK']
           });
           loadingEl.dismiss();
