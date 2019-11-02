@@ -164,8 +164,9 @@ export class SetUpProfilePage implements OnInit {
           await alert.present();
           return;
         }
-        getDataFromAPI();
-      });
+      }
+      getDataFromAPI();
+    });
   }
 
   takePicture() {

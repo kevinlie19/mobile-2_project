@@ -43,7 +43,7 @@ export class AuthPage implements OnInit {
           password,
         };
 
-        const response = await fetch('https://cibo-cove-231019.herokuapp.com/api/auth/sign-in', 
+        const response = await fetch('https://cibo-cove-231019.herokuapp.com/api/auth/sign-in',
         {
           mode: 'cors',
           method: 'POST',
@@ -70,8 +70,9 @@ export class AuthPage implements OnInit {
           });
           await alert.present();
         }
-        getDataFromAPI();
-      });
+      }
+      getDataFromAPI();
+    });
     if (!form.valid) {
       return;
     }
