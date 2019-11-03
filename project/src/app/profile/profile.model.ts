@@ -9,7 +9,7 @@ export type userDetail = {
   username: string;
   full_name: string;
   password: string;
-  telephone: string;
+  phone_number: string;
   location: string;
   avatar: string;
   gender: string;

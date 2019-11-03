@@ -25,7 +25,7 @@ export class ProfilePage implements OnInit {
       username: '',
       full_name: '',
       password: '',
-      telephone: '',
+      phone_number: '',
       location: '',
       avatar: '',
       gender: '',
@@ -49,9 +49,11 @@ export class ProfilePage implements OnInit {
     let response = await fetch(
       'https://cibo-cove-231019.herokuapp.com/api/page/profile/',
       {
+        mode: 'cors',
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
           Authorization: userToken,
         },
       },
@@ -72,6 +74,10 @@ export class ProfilePage implements OnInit {
     }
 
     this.isLoading = false;
+  }
+
+  ionViewWillEnter() {
+    this.ngOnInit();
   }
 
   onClickAdd() {

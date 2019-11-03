@@ -12,84 +12,93 @@
   <br />
   <ion-row class="avatarContainer">
     <img
-      src="https://www.venmond.com/demo/vendroid/img/avatar/big.jpg"
+      *ngIf="loadedProfile.user.avatar == null"
       class="displayAvatar"
+      src="assets/images/avatarDefault.png"
     />
-    <button class="btnChangeAvatar" (click)="onClickAvatar()">
+    <img
+      *ngIf="loadedProfile.user.avatar != null"
+      class="displayAvatar"
+      [src]="capturedSnapURL"
+    />
+    <button class="btnChangeAvatar" (click)="changeProfilePicture()">
       <ion-icon name="camera" class="displayCameraIcon"></ion-icon>
     </button>
   </ion-row>
-  <div class="editDataContainer">
-    <div class="editFieldContainer">
-      <ion-row class="textFullName">Full Name</ion-row>
-      <ion-row class="editFullNameContainer"
-        ><ion-input
-          placeholder="Item Name"
-          class="editFullName"
-          value="Cecillia K."
-          name="fullName"
-          required
-        ></ion-input
-      ></ion-row>
-      <ion-row class="textPhoneNumber">Phone Number</ion-row>
-      <ion-row class="editPhoneNumberContainer"
-        ><ion-input
-          type="number"
-          placeholder="Phone Number"
-          class="editPhoneNumber"
-          value="023899230123"
-          name="phoneNumber"
-          required
-        ></ion-input
-      ></ion-row>
-      <ion-row class="textGender">Gender</ion-row>
-      <ion-row class="editGenderContainer"
-        ><ion-select
-          placeholder="Gender"
-          class="editGender"
-          value="Female"
-          name="gender"
-          required
-        >
-          <ion-select-option value="Male">Male</ion-select-option>
-          <ion-select-option value="Female" [selected]="true"
-            >Female</ion-select-option
+  <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+    <div class="editDataContainer">
+      <div class="editFieldContainer">
+        <ion-row class="textFullName">Full Name</ion-row>
+        <ion-row class="editFullNameContainer"
+          ><ion-input
+            inputmode="name"
+            ngModel="{{ loadedProfile.user.full_name }}"
+            class="editFullName"
+            name="fullName"
+            type="text"
+            required
+          ></ion-input
+        ></ion-row>
+        <ion-row class="textPhoneNumber">Phone Number</ion-row>
+        <ion-row class="editPhoneNumberContainer"
+          ><ion-input
+            inputmode="number"
+            ngModel="{{ loadedProfile.user.phone_number }}"
+            type="number"
+            class="editPhoneNumber"
+            name="phoneNumber"
+            required
+          ></ion-input
+        ></ion-row>
+        <ion-row class="textGender">Gender</ion-row>
+        <ion-row class="editGenderContainer"
+          ><ion-select
+            class="editGender"
+            placeholder="Select Your Gender"
+            interface="popover"
+            (ionChange)="onChangeGender($event)"
+            name="gender"
+            [(ngModel)]="loadedProfile.user.gender"
+            required
           >
-          <ion-select-option value="Others">Others</ion-select-option>
-        </ion-select></ion-row
-      >
-      <ion-row class="textPhoneNumber">Phone Number</ion-row>
-      <ion-row class="editPhoneNumberContainer"
-        ><ion-input
-          type="number"
-          placeholder="Phone Number"
-          class="editPhoneNumber"
-          value="023899230123"
-          name="phoneNumber"
-          required
-        ></ion-input
-      ></ion-row>
-      <ion-row class="textDateOfBirth">Date Of Birth</ion-row>
-      <ion-row class="editDateOfBirthContainer"
-        ><ion-datetime
-          displayFormat="DD/MM/YYYY"
-          placeholder="Date Of Birth"
-          class="editDateOfBirth"
-          value="01/01/1999"
-          name="dateOfBirth"
-          required
-        ></ion-datetime
-      ></ion-row>
+            <ion-select-option value="Male">Male</ion-select-option>
+            <ion-select-option value="Female">Female</ion-select-option>
+            <ion-select-option value="Other">Other</ion-select-option>
+          </ion-select></ion-row
+        >
+        <ion-row class="textLocation">Location</ion-row>
+        <ion-row class="editLocationContainer"
+          ><ion-select
+            placeholder="Select Your Location"
+            class="editLocation"
+            (ionChange)="onChangeLocation($event)"
+            interface="popover"
+            required
+          >
+            <ion-select-option
+              [selected]="true"
+              value="{{ loadedProfile.user.location }}"
+              >{{ loadedProfile.user.location }}</ion-select-option
+            >
+            <ion-select-option
+              value="{{ data.name }}"
+              *ngFor="let data of cityData"
+              >{{ data.name }}</ion-select-option
+            >
+          </ion-select></ion-row
+        >
+      </div>
     </div>
-  </div>
-  <br /><br />
-  <ion-button
-    type="submit"
-    expand="block"
-    shape="round"
-    color="tertiary"
-    class="btnSave"
-    >Save Changes</ion-button
-  >
-  <br /><br />
+    <br /><br />
+    <ion-button
+      type="submit"
+      expand="block"
+      shape="round"
+      color="tertiary"
+      class="btnSave"
+      [disabled]="!f.valid"
+      >Save Changes</ion-button
+    >
+    <br /><br />
+  </form>
 </ion-content>
