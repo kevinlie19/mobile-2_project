@@ -1,0 +1,97 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="onClickBack()">
+        <ion-icon name="arrow-back" class="backIcon"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-row class="headerDetailContainer">
+      <ion-col no-padding>
+        <img
+          src="http://swipemarket.com/wp-content/uploads/2014/06/Untitled-6.jpg"
+          class="imgAvatarHeader"
+        />
+      </ion-col>
+      <ion-col size="8" no-padding>
+        <div class="textNameHeader">
+          {{ loadedMessage.full_name }}
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content #scrollElement>
+  <ion-list class="chatContainer" *ngFor="let msg of loadedMessage.messages">
+    <ion-row class="chatReceiver" *ngIf="msg.userId === otherUser">
+      <ion-col>
+        <img class="imgAvatar" [src]="msg.userAvatar" />
+      </ion-col>
+      <ion-col size="chatDetailContainer">
+        <ion-row class="messageContainer">
+          {{ msg.message }}
+        </ion-row>
+        <ion-row
+          class="messageContainer"
+          style=" word-wrap: break-word;"
+          *ngIf="isRowFull"
+        >
+          {{ msg.message }}
+          <br />
+        </ion-row>
+        <ion-row class="textTimeReceiver">
+          {{ msg.time }}
+        </ion-row>
+      </ion-col>
+    </ion-row>
+    <ion-row class="chatSender" *ngIf="msg.userId === myUser">
+      <ion-col width-50 size="chatDetailContainer">
+        <ion-row class="messageContainer">
+          {{ msg.message }}
+        </ion-row>
+        <ion-row class="textTimeSender">
+          {{ msg.time }}
+        </ion-row>
+      </ion-col>
+      <ion-col width-50>
+        <img class="imgAvatar" [src]="msg.userAvatar" />
+      </ion-col>
+    </ion-row>
+  </ion-list>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar class="footerContainer">
+    <form #f="ngForm">
+      <div class="inputMsgContainer">
+        <textarea
+          placeholder="Type your message"
+          name="msgToSend"
+          [(ngModel)]="msgToSend"
+          required
+          cols="40"
+          class="textInput"
+        >
+        </textarea>
+        <ion-buttons>
+          <ion-button
+            (click)="sendMsg()"
+            [disabled]="!f.valid"
+            class="btnSendIos"
+            *ngIf="isIos"
+          >
+            <ion-icon slot="icon-only" name="send" mode="md"></ion-icon>
+          </ion-button>
+          <ion-button
+            (click)="sendMsg()"
+            [disabled]="!f.valid"
+            class="btnSendAndroid"
+            *ngIf="!isIos"
+          >
+            <ion-icon slot="icon-only" name="send" mode="md"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </div>
+    </form>
+  </ion-toolbar>
+</ion-footer>

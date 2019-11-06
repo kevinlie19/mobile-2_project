@@ -1,0 +1,77 @@
+.toolbarContainer {
+  height: 86px;
+  text-align: center;
+}
+
+ion-toolbar {
+  --background: #3c4cac;
+}
+
+.headerTitle {
+  font-family: neusa-next-std, sans-serif;
+  font-size: 18px;
+  font-weight: bold;
+  color: #ffffff;
+  margin-top: 29px;
+  margin-bottom: 19px;
+  margin-right: 30px;
+}
+
+.backIcon {
+  width: 25px;
+  height: 25px;
+  color: #ffffff;
+  padding-top: 10px;
+}
+
+.listChatContainer {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.itemContainer {
+  box-shadow: #00000029 0px 3px 6px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  height: 70px;
+  background-color: #ffffff;
+}
+
+.textTime {
+  font-family: qanelas;
+  font-size: 12px;
+  color: #5d5d5d;
+  padding-left: 40px;
+  float: right;
+}
+
+.textName {
+  font-family: neusa-next-std, sans-serif;
+  font-size: 16px;
+  color: #3c4cac;
+  vertical-align: middle;
+}
+
+ion-avatar {
+  margin-top: 0px;
+}
+
+.chatDetailContainer {
+  padding-top: 0px;
+  padding-left: 10px;
+}
+
+.textLastChat {
+  display: block;
+  width: 150px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.imgAvatar {
+  width: 45px;
+  height: 45px;
+  object-fit: cover;
+  border-radius: 50%;
+}

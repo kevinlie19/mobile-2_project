@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-toolbar class="toolbarContainer">
+    <div class="headerTitle">Messages</div>
+    <ion-buttons slot="start" (click)="onClickBack()">
+      <ion-button>
+        <ion-icon name="arrow-back" class="backIcon"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <br />
+  <ion-list class="listChatContainer" *ngFor="let item of loadedChatList">
+    <ion-item
+      class="itemContainer"
+      [routerLink]="['/', 'chat', item.id]"
+      lines="none"
+    >
+      <div>
+        <img src="{{ item.avatar }}" class="imgAvatar" />
+      </div>
+      <div class="chatDetailContainer">
+        <div class="textName">{{ item.full_name }}</div>
+        <div class="textLastChat">
+          {{ item.last_chat }}
+        </div>
+      </div>
+      <div class="textTime">
+        {{ item.time }}
+      </div>
+    </ion-item>
+  </ion-list>
+</ion-content>

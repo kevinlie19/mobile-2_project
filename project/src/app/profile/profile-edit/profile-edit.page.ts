@@ -73,7 +73,7 @@ export class ProfileEditPage implements OnInit {
 
   async ngOnInit() {
     this.loadedProfile = this.profileService.getProfile();
-    this.capturedSnapURL = this.loadedProfile.user.avatar;
+    this.capturedSnapURL = this.loadedProfile.user[0].avatar;
 
     let getProvinceToken = await fetch('https://x.rajaapi.com/poe', {
       mode: 'cors',
@@ -189,14 +189,14 @@ export class ProfileEditPage implements OnInit {
         loadingEl.present();
 
         async function getDataFromAPI() {
-          if (image === self.loadedProfile.user.avatar) {
+          if (image === self.loadedProfile.user[0].avatar) {
             body = {
               full_name,
               phone_number,
               location,
               gender,
             };
-          } else if (image !== self.loadedProfile.user.avatar) {
+          } else if (image !== self.loadedProfile.user[0].avatar) {
             body = {
               image,
               full_name,

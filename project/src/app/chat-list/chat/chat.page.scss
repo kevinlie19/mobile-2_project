@@ -1,0 +1,137 @@
+ion-content {
+  --background: linear-gradient(
+      155deg,
+      rgba(251, 195, 74, 1),
+      rgba(240, 93, 135, 1)
+    )
+    no-repeat 100% 100%;
+}
+
+.backIcon {
+  width: 25px;
+  height: 25px;
+  color: #3c4cac;
+}
+
+.imgAvatarHeader {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  box-shadow: #00000029 0px 3px 6px;
+  object-fit: cover;
+  margin-top: 15px;
+  margin-bottom: 10px;
+}
+
+ion-toolbar {
+  height: 70px;
+}
+
+.textNameHeader {
+  font-family: neusa-next-std, sans-serif;
+  font-size: 22px;
+  font-weight: bold;
+  color: #3c4cac;
+  padding-top: 25px;
+  padding-left: 10px;
+  padding-bottom: 10px;
+  white-space: nowrap;
+}
+
+.headerDetailContainer {
+  float: left;
+  display: flex;
+  justify-content: space-between;
+}
+
+.chatReceiver {
+  float: left;
+  margin-left: 20px;
+  padding-bottom: 20px;
+}
+
+.chatSender {
+  float: right;
+  margin-right: 20px;
+  padding-bottom: 20px;
+}
+
+.imgAvatar {
+  width: 36px;
+  height: 36px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.messageContainer {
+  background-color: #ffffff;
+  max-width: 200px;
+  box-shadow: #00000029 0px 3px 6px;
+  font-family: qanelas;
+  font-size: 12px;
+  font-weight: 500;
+  color: #6b6b6b96;
+  padding: 10px;
+}
+
+.chatDetailContainer {
+  padding-left: 0px;
+}
+
+.chatContainer {
+  padding-top: 15px;
+  padding-bottom: 0px;
+  background: transparent;
+}
+
+.textTimeReceiver {
+  padding-top: 5px;
+  font-family: qanelas;
+  font-weight: lighter;
+  font-size: 11px;
+  color: #ffffff;
+  float: left;
+}
+
+.textTimeSender {
+  padding-top: 5px;
+  font-family: qanelas;
+  font-weight: lighter;
+  font-size: 11px;
+  color: #ffffff;
+  float: right;
+}
+
+.inputMsgContainer {
+  height: 53px;
+  display: flex;
+  margin-top: 8px;
+  margin-bottom: 5px;
+  margin-left: 16px;
+  margin-right: 16px;
+  background-color: #ffffff;
+  flex: 1;
+}
+
+.textInput {
+  padding-left: 10px;
+  padding-top: 17px;
+  border: none;
+  resize: none;
+  white-space: both;
+}
+
+.btnSendAndroid {
+  width: 20px;
+  height: 20px;
+}
+
+.btnSendIos {
+  width: 20x;
+  height: 20px;
+}
+
+.footerContainer {
+  --background: transparent;
+  text-align: center;
+}
