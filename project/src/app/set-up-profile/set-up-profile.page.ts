@@ -2,7 +2,6 @@ import {OnInit, Component} from '@angular/core';
 import {Router} from '@angular/router';
 import {NgForm} from '@angular/forms';
 
-import {HttpClient} from '@angular/common/http';
 import {
   LoadingController,
   NavController,
@@ -14,9 +13,9 @@ import {
 import {Camera, CameraOptions} from '@ionic-native/camera/ngx';
 import {ImagePicker} from '@ionic-native/image-picker/ngx';
 
-// import fetch from 'node-fetch';
 import {AuthService} from '../auth/auth.service';
 import {Storage} from '@ionic/storage';
+import {APISetting} from './../const/API';
 
 @Component({
   selector: 'app-set-up-profile',
@@ -143,33 +142,30 @@ export class SetUpProfilePage implements OnInit {
       .then(async (loadingEl) => {
         loadingEl.present();
 
-        let response = await fetch(
-          'https://cibo-cove-231019.herokuapp.com/api/auth/sign-up',
-          {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(data),
-          },
-        );
+        let response = await fetch(APISetting.API_ENDPOINT + 'auth/sign-up', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify(data),
+        });
 
-        let signInStatus;
-        if (response.status == 200) {
-          signInStatus = await response.json();
+        let signUpStatus;
+        if (response.status === 200) {
+          signUpStatus = await response.json();
         } else {
           console.log(response);
           loadingEl.dismiss();
         }
 
-        if (signInStatus.success === true) {
+        if (signUpStatus.success === true) {
           loadingEl.dismiss();
           self.authService.login();
-          self.storage.set('userToken', signInStatus.token);
+          self.storage.set('userToken', signUpStatus.token);
           self.router.navigateByUrl('/set-up-done');
         } else {
           loadingEl.dismiss();
           const alert = await self.alertController.create({
             header: 'Alert',
-            message: signInStatus.message,
+            message: signUpStatus.message,
             buttons: ['OK'],
           });
           await alert.present();
@@ -180,8 +176,12 @@ export class SetUpProfilePage implements OnInit {
   takePicture() {
     this.camera.getPicture(this.cameraOptions).then(
       (imageData) => {
-        this.profilePicture = 'data:image/jpeg;base64,' + imageData;
-        this.capturedSnapURL = imageData;
+        if (imageData.length === 0) {
+          this.profilePicture = this.profilePicture;
+        } else {
+          this.profilePicture = 'data:image/jpeg;base64,' + imageData;
+          this.capturedSnapURL = imageData;
+        }
       },
       (err) => {
         console.error(err);
@@ -194,15 +194,15 @@ export class SetUpProfilePage implements OnInit {
       maximumImagesCount: 1,
       outputType: 1,
       quality: 100,
-      destinationType: this.camera.DestinationType.FILE_URI,
-      encodingType: this.camera.EncodingType.JPEG,
-      mediaType: this.camera.MediaType.PICTURE,
-      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
     };
     this.imagePicker.getPictures(options).then(
       (imageData) => {
-        this.profilePicture = 'data:image/jpeg;base64,' + imageData;
-        this.capturedSnapURL = imageData;
+        if (imageData.length === 0) {
+          this.profilePicture = this.profilePicture;
+        } else {
+          this.profilePicture = 'data:image/jpeg;base64,' + imageData;
+          this.capturedSnapURL = imageData;
+        }
       },
       (err) => {
         alert(err);

@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {NgForm} from '@angular/forms';
-import fetch from 'node-fetch';
 
 import {
   ActionSheetController,
@@ -14,6 +13,7 @@ import {Storage} from '@ionic/storage';
 
 import {Profile} from '../profile.model';
 import {ProfileService} from '../profile.service';
+import {APISetting} from './../../const/API';
 
 @Component({
   selector: 'app-profile-edit',
@@ -139,8 +139,12 @@ export class ProfileEditPage implements OnInit {
   takePicture() {
     this.camera.getPicture(this.cameraOptions).then(
       (imageData) => {
-        const base64Image = 'data:image/jpeg;base64,' + imageData;
-        this.capturedSnapURL = base64Image;
+        if (imageData.length === 0) {
+          this.capturedSnapURL = this.capturedSnapURL;
+        } else {
+          const base64Image = 'data:image/jpeg;base64,' + imageData;
+          this.capturedSnapURL = base64Image;
+        }
       },
       (err) => {
         console.error(err);
@@ -156,8 +160,12 @@ export class ProfileEditPage implements OnInit {
     };
     this.imagePicker.getPictures(options).then(
       (imageData) => {
-        const base64Image = 'data:image/jpeg;base64,' + imageData;
-        this.capturedSnapURL = base64Image;
+        if (imageData.length === 0) {
+          this.capturedSnapURL = this.capturedSnapURL;
+        } else {
+          const base64Image = 'data:image/jpeg;base64,' + imageData;
+          this.capturedSnapURL = base64Image;
+        }
       },
       (err) => {
         alert(err);
@@ -207,7 +215,7 @@ export class ProfileEditPage implements OnInit {
           }
 
           let response = await fetch(
-            'https://cibo-cove-231019.herokuapp.com/api/feature/edit-profile',
+            APISetting.API_ENDPOINT + 'feature/edit-profile',
             {
               method: 'POST',
               headers: {
@@ -219,7 +227,7 @@ export class ProfileEditPage implements OnInit {
           );
 
           let editProfileStatus;
-          if (response.status == 200) {
+          if (response.status === 200) {
             editProfileStatus = await response.json();
           } else {
             console.log(response);

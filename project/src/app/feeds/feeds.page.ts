@@ -5,7 +5,6 @@ import {
   BarcodeScannerOptions,
   BarcodeScanner,
 } from '@ionic-native/barcode-scanner/ngx';
-import {Storage} from '@ionic/storage';
 
 import {Feeds} from './feeds.model';
 import {FeedsService} from './feeds.service';
@@ -21,7 +20,6 @@ export class FeedsPage implements OnInit {
   encodeData: any;
   scannedData: {};
   barcodeScannerOptions: BarcodeScannerOptions;
-  // tslint:disable-next-line: no-inferrable-types
   loginStatus: boolean = false;
 
   constructor(
