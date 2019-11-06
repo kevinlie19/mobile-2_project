@@ -2,13 +2,21 @@ import {OnInit, Component} from '@angular/core';
 import {Router} from '@angular/router';
 import {NgForm} from '@angular/forms';
 
-import {LoadingController, NavController, ActionSheetController, ToastController, Platform, AlertController} from '@ionic/angular';
-import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
-import { ImagePicker } from '@ionic-native/image-picker/ngx';
+import {HttpClient} from '@angular/common/http';
+import {
+  LoadingController,
+  NavController,
+  ActionSheetController,
+  ToastController,
+  Platform,
+  AlertController,
+} from '@ionic/angular';
+import {Camera, CameraOptions} from '@ionic-native/camera/ngx';
+import {ImagePicker} from '@ionic-native/image-picker/ngx';
 
-import fetch from 'node-fetch';
+// import fetch from 'node-fetch';
 import {AuthService} from '../auth/auth.service';
-import { Storage } from '@ionic/storage';
+import {Storage} from '@ionic/storage';
 
 @Component({
   selector: 'app-set-up-profile',
@@ -17,7 +25,7 @@ import { Storage } from '@ionic/storage';
 })
 export class SetUpProfilePage implements OnInit {
   isLoading = false;
-  isSignUp = true;
+  isSignUp: boolean = true;
   selectedLocation = '';
 
   cityData = [
@@ -27,7 +35,8 @@ export class SetUpProfilePage implements OnInit {
     },
   ];
 
-  capturedSnapURL: string = '';
+  capturedSnapURL = '';
+  profilePicture = '';
 
   cameraOptions: CameraOptions = {
     quality: 100,
@@ -110,70 +119,66 @@ export class SetUpProfilePage implements OnInit {
     await actionSheet.present();
   }
 
-  onSubmit(form: NgForm) {
-    const self = this;
-    const email = this.authService.getUserInfo().email;
-    const username = this.authService.getUserInfo().username;
-    const password = this.authService.getUserInfo().password;
-    const full_name = form.value.fullName;
-    const phone_number = form.value.phoneNumber;
-    const image = this.capturedSnapURL;
-    const location = this.selectedLocation;
+  async onSubmit(form: NgForm) {
+    let self = this;
+    let email = this.authService.getUserInfo().email;
+    let username = this.authService.getUserInfo().username;
+    let password = this.authService.getUserInfo().password;
+    let full_name = form.value.fullName;
+    let phone_number = form.value.phoneNumber;
+    let location = this.selectedLocation;
+    let image = this.profilePicture;
 
+    let data = {
+      email,
+      username,
+      password,
+      full_name,
+      phone_number,
+      location,
+      image,
+    };
     this.loadingCtrl
-    .create({keyboardClose: true, message: 'Signing up...'})
-    .then((loadingEl) => {
-      loadingEl.present();
+      .create({keyboardClose: true, message: 'Signing up...'})
+      .then(async (loadingEl) => {
+        loadingEl.present();
 
-      async function getDataFromAPI() {
-        const body = {
-          email,
-          username,
-          password,
-          full_name,
-          phone_number,
-          location,
-          image
-        };
-
-        const response = await fetch('https://cibo-cove-231019.herokuapp.com/api/auth/sign-up', {
-          mode: 'cors',
+        let response = await fetch('http://10.41.2.78:8080/api/auth/sign-up', {
           method: 'POST',
-          body: JSON.stringify(body),
           headers: {'Content-Type': 'application/json'},
-        })
-        .catch((err) => {
-          loadingEl.dismiss();
+          body: JSON.stringify(data),
         });
 
-        const signUpStatus = await response.json();
+        let signInStatus;
+        if (response.status == 200) {
+          signInStatus = await response.json();
+        } else {
+          console.log(response);
+          loadingEl.dismiss();
+        }
 
-        if (signUpStatus.success === true) {
+        if (signInStatus.success === true) {
           loadingEl.dismiss();
           self.authService.login();
-          self.storage.set('userToken', signUpStatus.token);
-          self.router.navigateByUrl('set-up-done');
+          self.storage.set('userToken', signInStatus.token);
+          self.router.navigateByUrl('/feeds');
         } else {
           loadingEl.dismiss();
           const alert = await self.alertController.create({
             header: 'Alert',
-            message: signUpStatus.message,
-            buttons: ['OK']
+            message: signInStatus.message,
+            buttons: ['OK'],
           });
-          loadingEl.dismiss();
           await alert.present();
-          return;
         }
-      }
-      getDataFromAPI();
-    });
+      });
   }
 
   takePicture() {
     this.camera.getPicture(this.cameraOptions).then(
       (imageData) => {
-        const base64Image = 'data:image/jpeg;base64,' + imageData;
-        this.capturedSnapURL = base64Image;
+        this.profilePicture = 'data:image/jpeg;base64,' + imageData;
+        this.capturedSnapURL = imageData;
       },
       (err) => {
         console.error(err);
@@ -184,13 +189,17 @@ export class SetUpProfilePage implements OnInit {
   selectGalery() {
     const options = {
       maximumImagesCount: 1,
-      quality: 100,
       outputType: 1,
+      quality: 100,
+      destinationType: this.camera.DestinationType.FILE_URI,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE,
+      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
     };
     this.imagePicker.getPictures(options).then(
       (imageData) => {
-        const base64Image = 'data:image/jpeg;base64,' + imageData;
-        this.capturedSnapURL = base64Image;
+        this.profilePicture = 'data:image/jpeg;base64,' + imageData;
+        this.capturedSnapURL = imageData;
       },
       (err) => {
         alert(err);

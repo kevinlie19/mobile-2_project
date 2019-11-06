@@ -1,10 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {NgForm} from '@angular/forms';
 import {Router} from '@angular/router';
-import fetch from 'node-fetch';
-import {AuthService} from './auth.service';
 import {LoadingController, AlertController} from '@ionic/angular';
 import {Storage} from '@ionic/storage';
+
+import fetch from 'node-fetch';
+import {AuthService} from './auth.service';
 
 @Component({
   selector: 'app-auth',
