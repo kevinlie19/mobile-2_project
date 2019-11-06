@@ -12,14 +12,16 @@
   <br />
   <ion-row class="avatarContainer">
     <img
-      *ngIf="loadedProfile.user.avatar == null"
+      *ngIf="capturedSnapURL === null"
       class="displayAvatar"
       src="assets/images/avatarDefault.png"
+      (click)="changeProfilePicture()"
     />
     <img
-      *ngIf="loadedProfile.user.avatar != null"
+      *ngIf="capturedSnapURL !== null"
       class="displayAvatar"
       [src]="capturedSnapURL"
+      (click)="changeProfilePicture()"
     />
     <button class="btnChangeAvatar" (click)="changeProfilePicture()">
       <ion-icon name="camera" class="displayCameraIcon"></ion-icon>
@@ -32,7 +34,7 @@
         <ion-row class="editFullNameContainer"
           ><ion-input
             inputmode="name"
-            ngModel="{{ loadedProfile.user.full_name }}"
+            ngModel="{{ loadedProfile.user[0].full_name }}"
             class="editFullName"
             name="fullName"
             type="text"
@@ -43,7 +45,7 @@
         <ion-row class="editPhoneNumberContainer"
           ><ion-input
             inputmode="number"
-            ngModel="{{ loadedProfile.user.phone_number }}"
+            ngModel="{{ loadedProfile.user[0].phone_number }}"
             type="number"
             class="editPhoneNumber"
             name="phoneNumber"
@@ -58,12 +60,12 @@
             interface="popover"
             (ionChange)="onChangeGender($event)"
             name="gender"
-            [(ngModel)]="loadedProfile.user.gender"
+            [(ngModel)]="loadedProfile.user[0].gender"
             required
           >
-            <ion-select-option value="Male">Male</ion-select-option>
-            <ion-select-option value="Female">Female</ion-select-option>
-            <ion-select-option value="Other">Other</ion-select-option>
+            <ion-select-option value="MALE">Male</ion-select-option>
+            <ion-select-option value="FEMALE">Female</ion-select-option>
+            <ion-select-option value="OTHER">Other</ion-select-option>
           </ion-select></ion-row
         >
         <ion-row class="textLocation">Location</ion-row>
@@ -77,8 +79,8 @@
           >
             <ion-select-option
               [selected]="true"
-              value="{{ loadedProfile.user.location }}"
-              >{{ loadedProfile.user.location }}</ion-select-option
+              value="{{ loadedProfile.user[0].location }}"
+              >{{ loadedProfile.user[0].location }}</ion-select-option
             >
             <ion-select-option
               value="{{ data.name }}"

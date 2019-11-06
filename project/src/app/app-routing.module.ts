@@ -6,23 +6,24 @@ const routes: Routes = [
   {
     path: '',
     redirectTo: 'splash',
-    pathMatch: 'full'
+    pathMatch: 'full',
   },
   {
     path: 'splash',
-    loadChildren: './splash/splash.module#SplashPageModule'
+    loadChildren: './splash/splash.module#SplashPageModule',
   },
   {
     path: 'welcome',
-    loadChildren: './welcome/welcome.module#WelcomePageModule'
+    loadChildren: './welcome/welcome.module#WelcomePageModule',
   },
   {
     path: 'auth',
-    loadChildren: './auth/auth.module#AuthPageModule'
+    loadChildren: './auth/auth.module#AuthPageModule',
   },
   {
     path: 'set-up-profile',
-    loadChildren: './set-up-profile/set-up-profile.module#SetUpProfilePageModule',
+    loadChildren:
+      './set-up-profile/set-up-profile.module#SetUpProfilePageModule',
   },
   {
     path: 'set-up-done',
@@ -60,11 +61,20 @@ const routes: Routes = [
   },
   {
     path: 'profile-edit',
-    loadChildren: './profile/profile-edit/profile-edit.module#ProfileEditPageModule',
+    loadChildren:
+      './profile/profile-edit/profile-edit.module#ProfileEditPageModule',
   },
   {
     path: 'search',
     loadChildren: './search/search.module#SearchPageModule',
+  },
+  {
+    path: 'chat-list',
+    loadChildren: './chat-list/chat-list.module#ChatListPageModule',
+  },
+  {
+    path: 'chat/:chatId',
+    loadChildren: './chat-list/chat/chat.module#ChatPageModule',
   },
 ];
 

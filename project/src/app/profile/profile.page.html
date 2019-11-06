@@ -17,21 +17,21 @@
         <ion-row>
           <img
             src="assets/images/avatarDefault.png"
-            *ngIf="loadedProfile.user.avatar == null"
+            *ngIf="loadedProfile.user[0].avatar == null"
           />
           <img
-            src="{{ loadedProfile.user.avatar }}"
-            *ngIf="loadedProfile.user.avatar != null"
+            src="{{ loadedProfile.user[0].avatar }}"
+            *ngIf="loadedProfile.user[0].avatar != null"
           />
           <ion-col class="textHeaderContainer" no-padding>
             <ion-row class="textUserFullNameHeader">
-              {{ loadedProfile.user.full_name }}
+              {{ loadedProfile.user[0].full_name }}
             </ion-row>
             <ion-row class="textUserNameHeader">
-              {{ loadedProfile.user.username }}
+              {{ loadedProfile.user[0].username }}
             </ion-row>
             <ion-row class="textUserLocationHeader">
-              {{ loadedProfile.user.location }}
+              {{ loadedProfile.user[0].location }}
             </ion-row>
             <ion-row class="userStatusContainer">
               <ion-col col-2 no-padding class="userPostContainer">
@@ -47,7 +47,7 @@
               <ion-col col-2 no-padding class="userFollowerContainer">
                 <ion-row class="textAmount">
                   <ion-col col-12 no-padding text-center>{{
-                    loadedProfile.user.follower.length
+                    loadedProfile.user[0].follower.length
                   }}</ion-col></ion-row
                 >
                 <ion-row class="textUserStatus">
@@ -59,7 +59,7 @@
               <ion-col col-2 no-padding class="userFollowingContainer">
                 <ion-row class="textAmount">
                   <ion-col col-12 no-padding text-center>{{
-                    loadedProfile.user.following.length
+                    loadedProfile.user[0].following.length
                   }}</ion-col></ion-row
                 >
                 <ion-row class="textUserStatus">
@@ -131,22 +131,22 @@
                   <ion-row class="userInfoContainer">
                     <ion-col size="4" class="avatarContainer">
                       <img
-                        src="{{ loadedProfile.user.avatar }}"
+                        src="{{ loadedProfile.user[0].avatar }}"
                         class="imageAvatar"
-                        *ngIf="loadedProfile.user.avatar != null"
+                        *ngIf="loadedProfile.user[0].avatar != null"
                       />
                       <img
                         src="assets/images/avatarDefault.png"
                         class="imageAvatar"
-                        *ngIf="loadedProfile.user.avatar == null"
+                        *ngIf="loadedProfile.user[0].avatar == null"
                       />
                     </ion-col>
                     <ion-col size="8" class="userContainer">
                       <ion-row class="textUserName">
-                        {{ loadedProfile.user.full_name }}
+                        {{ loadedProfile.user[0].full_name }}
                       </ion-row>
                       <ion-row class="textUserLocation">
-                        {{ loadedProfile.user.location }}
+                        {{ loadedProfile.user[0].location }}
                       </ion-row>
                     </ion-col>
                   </ion-row>
@@ -201,22 +201,22 @@
                   <ion-row class="userInfoContainer">
                     <ion-col size="4" class="avatarContainer">
                       <img
-                        src="{{ loadedProfile.user.avatar }}"
+                        src="{{ loadedProfile.user[0].avatar }}"
                         class="imageAvatar"
-                        *ngIf="loadedProfile.user.avatar != null"
+                        *ngIf="loadedProfile.user[0].avatar != null"
                       />
                       <img
                         src="assets/images/avatarDefault.png"
                         class="imageAvatar"
-                        *ngIf="loadedProfile.user.avatar == null"
+                        *ngIf="loadedProfile.user[0].avatar == null"
                       />
                     </ion-col>
                     <ion-col size="8" class="userContainer">
                       <ion-row class="textUserName">
-                        {{ loadedProfile.user.full_name }}
+                        {{ loadedProfile.user[0].full_name }}
                       </ion-row>
                       <ion-row class="textUserLocation">
-                        {{ loadedProfile.user.location }}
+                        {{ loadedProfile.user[0].location }}
                       </ion-row>
                     </ion-col>
                   </ion-row>
