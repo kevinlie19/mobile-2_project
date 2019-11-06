@@ -210,17 +210,21 @@ export class ProfileEditPage implements OnInit {
             'https://cibo-cove-231019.herokuapp.com/api/feature/edit-profile',
             {
               method: 'POST',
-              body: JSON.stringify(body),
               headers: {
                 'Content-Type': 'application/json',
-                Authorization: userToken,
+                authorization: userToken,
               },
+              body: JSON.stringify(body),
             },
-          ).catch((err) => {
-            loadingEl.dismiss();
-          });
+          );
 
-          let editProfileStatus = await response.json();
+          let editProfileStatus;
+          if (response.status == 200) {
+            editProfileStatus = await response.json();
+          } else {
+            console.log(response);
+            loadingEl.dismiss();
+          }
 
           if (editProfileStatus.success === true) {
             loadingEl.dismiss();

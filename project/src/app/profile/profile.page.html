@@ -84,10 +84,7 @@
         <p class="textAvailableTitle">
           Available
         </p>
-        <div
-          class="bodyContainerEmpty ion-text-center"
-          *ngIf="!isAvailable"
-        >
+        <div class="bodyContainerEmpty ion-text-center" *ngIf="!isAvailable">
           <p class="textAvailableEmpty">There are no available posts!</p>
         </div>
         <ion-row class="rowFeedsContainer" *ngIf="isAvailable">
@@ -98,16 +95,16 @@
             <ion-card
               class="cardContainer"
               [routerLink]="['/', 'feeds-detail', item.id]"
-              *ngIf="item.tag == 'AVAILABLE' || item.tag == 'EXPIRED'"
+              *ngIf="item.tag == 'Available' || item.tag == 'Expired'"
             >
               <div class="imageContainer">
                 <img
-                  *ngIf="item.tag == 'AVAILABLE' || item.tag == 'EXPIRED'"
-                  src="{{ item.image_url }}"
+                  *ngIf="item.tag == 'Available' || item.tag == 'Expired'"
+                  src="{{ item.image }}"
                   class="imageAvailable"
                 />
                 <div
-                  *ngIf="item.tag == 'AVAILABLE'"
+                  *ngIf="item.tag == 'Available'"
                   class="tagPosition statusAvailable"
                 >
                   {{ item.tag }}
@@ -160,10 +157,7 @@
           Unavailable
         </p>
 
-        <div
-          class="bodyContainerEmpty ion-text-center"
-          *ngIf="!isUnavailable"
-        >
+        <div class="bodyContainerEmpty ion-text-center" *ngIf="!isUnavailable">
           <p class="textUnavailableEmpty">There are no unavailable posts!</p>
         </div>
 
@@ -178,12 +172,12 @@
             >
               <div class="imageContainer">
                 <img
-                  *ngIf="item.tag == 'UNAVAILABLE'"
-                  src="{{ item.image_url }}"
+                  *ngIf="item.tag == 'Unavailable'"
+                  src="{{ item.image }}"
                   class="imageUnavailable"
                 />
                 <div
-                  *ngIf="item.tag == 'UNAVAILABLE'"
+                  *ngIf="item.tag == 'Unavailable'"
                   class="tagPosition statusUnavailable"
                 >
                   {{ item.tag }}

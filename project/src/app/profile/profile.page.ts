@@ -66,9 +66,9 @@ export class ProfilePage implements OnInit {
     for (let key of this.loadedProfile.post) {
       key.timestamp = timestampFormat(key.timestamp);
 
-      if (key.tag === 'AVAILABLE' || key.tag === 'EXPIRED') {
+      if (key.tag === 'Available' || key.tag === 'Expired') {
         this.isAvailable = true;
-      } else if (key.tag === 'UNAVAILABLE') {
+      } else if (key.tag === 'Unavailable') {
         this.isUnavailable = true;
       }
     }

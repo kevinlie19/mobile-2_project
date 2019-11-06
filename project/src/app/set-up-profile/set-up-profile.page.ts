@@ -143,11 +143,14 @@ export class SetUpProfilePage implements OnInit {
       .then(async (loadingEl) => {
         loadingEl.present();
 
-        let response = await fetch('http://10.41.2.78:8080/api/auth/sign-up', {
-          method: 'POST',
-          headers: {'Content-Type': 'application/json'},
-          body: JSON.stringify(data),
-        });
+        let response = await fetch(
+          'https://cibo-cove-231019.herokuapp.com/api/auth/sign-up',
+          {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(data),
+          },
+        );
 
         let signInStatus;
         if (response.status == 200) {
@@ -161,7 +164,7 @@ export class SetUpProfilePage implements OnInit {
           loadingEl.dismiss();
           self.authService.login();
           self.storage.set('userToken', signInStatus.token);
-          self.router.navigateByUrl('/feeds');
+          self.router.navigateByUrl('/set-up-done');
         } else {
           loadingEl.dismiss();
           const alert = await self.alertController.create({

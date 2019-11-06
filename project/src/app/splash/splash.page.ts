@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
-import { Storage } from '@ionic/storage';
+import {Storage} from '@ionic/storage';
 
 @Component({
   selector: 'app-splash',
@@ -8,8 +8,7 @@ import { Storage } from '@ionic/storage';
   styleUrls: ['./splash.page.scss'],
 })
 export class SplashPage implements OnInit {
-  constructor(private router: Router,
-    private storage: Storage) {}
+  constructor(private router: Router, private storage: Storage) {}
 
   ngOnInit() {
     setTimeout(() => {
