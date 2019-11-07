@@ -22,8 +22,6 @@ import {timestampFormat} from '../helpers/timestampFormat';
 export class FeedsDetailPage implements OnInit {
   loadedFeedDetail: FeedDetails;
   isFeedOwnedByMe: boolean;
-  buyDate: Date;
-  expDate: Date;
   textBuyDate: string;
   textExpDate: string;
   feedId: number;
@@ -83,21 +81,21 @@ export class FeedsDetailPage implements OnInit {
         this.loadedFeedDetail.post[0].timestamp,
       );
 
-      this.buyDate = new Date(this.loadedFeedDetail.post[0].buy_date);
+      let buyDate = new Date(this.loadedFeedDetail.post[0].buy_date);
       this.textBuyDate =
-        this.buyDate.getDate() +
+        buyDate.getDate() +
         ' ' +
-        this.months[this.buyDate.getMonth()] +
+        this.months[buyDate.getMonth()] +
         ' ' +
-        this.buyDate.getFullYear();
+        buyDate.getFullYear();
 
-      this.expDate = new Date(this.loadedFeedDetail.post[0].exp_date);
+      let expDate = new Date(this.loadedFeedDetail.post[0].exp_date);
       this.textExpDate =
-        this.expDate.getDate() +
+        expDate.getDate() +
         ' ' +
-        this.months[this.expDate.getMonth()] +
+        this.months[expDate.getMonth()] +
         ' ' +
-        this.expDate.getFullYear();
+        expDate.getFullYear();
     });
   }
 
