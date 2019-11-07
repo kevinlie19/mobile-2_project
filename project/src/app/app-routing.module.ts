@@ -34,7 +34,7 @@ const routes: Routes = [
     loadChildren: './feeds/feeds.module#FeedsPageModule',
   },
   {
-    path: 'feeds-detail/:feedsId',
+    path: ':fromPage/feeds-detail/:feedsId',
     loadChildren: './feeds-detail/feeds-detail.module#FeedsDetailPageModule',
   },
   {
