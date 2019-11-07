@@ -58,18 +58,18 @@
         {{ loadedFeedDetail.post[0].description }}
       </ion-row>
       <ion-row class="buyDateContainer">
-        <ion-col no-padding float-left>
+        <ion-col no-padding text-left>
           Buy Date :
         </ion-col>
-        <ion-col no-padding float-right>
+        <ion-col no-padding text-right>
           {{ textBuyDate }}
         </ion-col>
       </ion-row>
       <ion-row class="expDateContainer">
-        <ion-col no-padding float-left>
+        <ion-col no-padding text-left>
           Exp Date :
         </ion-col>
-        <ion-col no-padding float-right>
+        <ion-col no-padding text-right>
           {{ textExpDate }}
         </ion-col>
       </ion-row>
@@ -87,7 +87,7 @@
             expand="block"
             shape="round"
             class="btnEdit"
-            [routerLink]="['/', 'feeds-edit-post']"
+            (click)="onClickEdit()"
             >EDIT</ion-button
           >
         </ion-col>

@@ -25,20 +25,6 @@ export class FeedsDetailPage implements OnInit {
   textBuyDate: string;
   textExpDate: string;
   feedId: number;
-  months = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December',
-  ];
 
   constructor(
     private feedsService: FeedsService,
@@ -65,10 +51,11 @@ export class FeedsDetailPage implements OnInit {
         this.loadedFeedDetail = this.myProfileService.getProfile();
         this.loadedFeedDetail.post = this.loadedFeedDetail.post.filter(
           (post) => {
-            return post.id === Number(paramMap.get('feedsId'));
+            return post.id === this.feedId;
           },
         );
         this.feedDetailService.addFeed(this.loadedFeedDetail);
+        console.log(this.loadedFeedDetail);
       } else if (paramMap.get('fromPage') === 'profile-user') {
         this.isFeedOwnedByMe = false;
         // akan di-update setelah page profile-user selesai di-connect
@@ -81,11 +68,26 @@ export class FeedsDetailPage implements OnInit {
         this.loadedFeedDetail.post[0].timestamp,
       );
 
+      let months = [
+        'January',
+        'February',
+        'March',
+        'April',
+        'May',
+        'June',
+        'July',
+        'August',
+        'September',
+        'October',
+        'November',
+        'December',
+      ];
+
       let buyDate = new Date(this.loadedFeedDetail.post[0].buy_date);
       this.textBuyDate =
         buyDate.getDate() +
         ' ' +
-        this.months[buyDate.getMonth()] +
+        months[buyDate.getMonth()] +
         ' ' +
         buyDate.getFullYear();
 
@@ -93,7 +95,7 @@ export class FeedsDetailPage implements OnInit {
       this.textExpDate =
         expDate.getDate() +
         ' ' +
-        this.months[expDate.getMonth()] +
+        months[expDate.getMonth()] +
         ' ' +
         expDate.getFullYear();
     });
@@ -105,6 +107,10 @@ export class FeedsDetailPage implements OnInit {
 
   onClickRequest() {
     // akan di-update setelah sistem API request sudah fix
+  }
+
+  onClickEdit() {
+    // akan di-update setelah halaman feeds-edit-post selesai di-connect
   }
 
   async onClickDelete() {
