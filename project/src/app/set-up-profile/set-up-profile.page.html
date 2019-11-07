@@ -6,18 +6,33 @@
       </b>
     </h2>
 
-    <img *ngIf="capturedSnapURL===''" class="photo" src="../../assets/images/avatarDefault.png" (click)="changeProfilePicture()">
+    <img
+      *ngIf="profilePicture === ''"
+      class="photo"
+      src="../../assets/images/avatarDefault.png"
+      (click)="changeProfilePicture()"
+    />
 
-    <img *ngIf="capturedSnapURL!==''" class="photo" [src]="capturedSnapURL" (click)="changeProfilePicture()"/>
+    <img
+      *ngIf="profilePicture !== ''"
+      class="photo"
+      [src]="profilePicture"
+      (click)="changeProfilePicture()"
+    />
 
     <ion-row center>
       <ion-col text-center>
-        <ion-button class="text-center takePhoto" shape="round" color="tertiary" (click)="changeProfilePicture()">
-          <img src="../assets/icon/addImage.png">
+        <ion-button
+          class="text-center takePhoto"
+          shape="round"
+          color="tertiary"
+          (click)="changeProfilePicture()"
+        >
+          <img src="../assets/icon/addImage.png" />
         </ion-button>
       </ion-col>
     </ion-row>
-    
+
     <form #f="ngForm" (ngSubmit)="onSubmit(f)" class="form">
       <ion-grid>
         <ion-row>
@@ -25,8 +40,8 @@
             <ion-list class="list">
               <ion-item class="item">
                 <div class="middle">
-                  <ion-label position="floating" class="middle"> 
-                    <img src="../assets/icon/userIcon.png" class="middle">
+                  <ion-label position="floating" class="middle">
+                    <img src="../assets/icon/userIcon.png" class="middle" />
                     &nbsp;&nbsp;Full Name
                   </ion-label>
                 </div>
@@ -42,8 +57,8 @@
             <ion-list class="list">
               <ion-item class="item">
                 <div class="middle">
-                  <ion-label position="floating" class="middle"> 
-                    <img src="../assets/icon/phoneIcon.png" class="middle">
+                  <ion-label position="floating" class="middle">
+                    <img src="../assets/icon/phoneIcon.png" class="middle" />
                     &nbsp;&nbsp;Phone Number
                   </ion-label>
                 </div>
@@ -59,13 +74,17 @@
             <ion-list class="list">
               <ion-item class="item">
                 <div class="middle">
-                  <ion-label position="floating" class="middle"> 
-                    <img src="../assets/icon/markerIcon.png" class="middle">
+                  <ion-label position="floating" class="middle">
+                    <img src="../assets/icon/markerIcon.png" class="middle" />
                     &nbsp;&nbsp;Location
                   </ion-label>
                 </div>
                 <ion-select (ionChange)="onChange($event)" interface="popover">
-                  <ion-select-option value="{{data.name}}" *ngFor="let data of cityData">{{data.name}}</ion-select-option>
+                  <ion-select-option
+                    value="{{ data.name }}"
+                    *ngFor="let data of cityData"
+                    >{{ data.name }}</ion-select-option
+                  >
                 </ion-select>
               </ion-item>
             </ion-list>
@@ -79,8 +98,8 @@
               [disabled]="!f.valid"
               shape="round"
               class="next-button"
-              >
-                <ion-icon name="ios-arrow-forward" class="zoomed"></ion-icon>
+            >
+              <ion-icon name="ios-arrow-forward" class="zoomed"></ion-icon>
             </ion-button>
           </ion-col>
         </ion-row>

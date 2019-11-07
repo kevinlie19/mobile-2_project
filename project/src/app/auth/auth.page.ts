@@ -1,10 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {NgForm} from '@angular/forms';
 import {Router} from '@angular/router';
-import fetch from 'node-fetch';
-import {AuthService} from './auth.service';
 import {LoadingController, AlertController} from '@ionic/angular';
 import {Storage} from '@ionic/storage';
+
+import {AuthService} from './auth.service';
+import {APISetting} from './../const/API';
 
 @Component({
   selector: 'app-auth',
@@ -45,18 +46,22 @@ export class AuthPage implements OnInit {
           };
 
           const response = await fetch(
-            'https://cibo-cove-231019.herokuapp.com/api/auth/sign-in',
+            APISetting.API_ENDPOINT + 'auth/sign-in',
             {
               mode: 'cors',
               method: 'POST',
               body: JSON.stringify(body),
               headers: {'Content-Type': 'application/json'},
             },
-          ).catch((err) => {
-            loadingEl.dismiss();
-          });
+          );
 
-          const signInStatus = await response.json();
+          let signInStatus;
+          if (response.status === 200) {
+            signInStatus = await response.json();
+          } else {
+            console.log(response);
+            loadingEl.dismiss();
+          }
 
           if (signInStatus.success === true) {
             loadingEl.dismiss();

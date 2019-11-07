@@ -1,12 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
-import fetch from 'node-fetch';
 
 import {Storage} from '@ionic/storage';
 
 import {Profile} from './profile.model';
 import {ProfileService} from './profile.service';
 import {timestampFormat} from '../helpers/timestampFormat';
+import {APISetting} from './../const/API';
 
 @Component({
   selector: 'app-profile',
@@ -46,18 +46,15 @@ export class ProfilePage implements OnInit {
     this.isAvailable = false;
     this.isUnavailable = false;
     let userToken = await this.storage.get('userToken');
-    let response = await fetch(
-      'https://cibo-cove-231019.herokuapp.com/api/page/profile/',
-      {
-        mode: 'cors',
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': '*',
-          Authorization: userToken,
-        },
+    let response = await fetch(APISetting.API_ENDPOINT + 'page/profile/', {
+      mode: 'cors',
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+        Authorization: userToken,
       },
-    );
+    });
 
     let result = await response.json();
     this.profileService.addProfile(result.data[0]);
@@ -66,9 +63,9 @@ export class ProfilePage implements OnInit {
     for (let key of this.loadedProfile.post) {
       key.timestamp = timestampFormat(key.timestamp);
 
-      if (key.tag === 'AVAILABLE' || key.tag === 'EXPIRED') {
+      if (key.tag === 'Available' || key.tag === 'Expired') {
         this.isAvailable = true;
-      } else if (key.tag === 'UNAVAILABLE') {
+      } else if (key.tag === 'Unavailable') {
         this.isUnavailable = true;
       }
     }

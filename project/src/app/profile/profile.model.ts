@@ -21,11 +21,11 @@ export type PostObject = {
   id: number;
   user_id: number;
   item_name: number;
-  image_url: string;
+  image: string;
   buy_date: Date;
   exp_date: Date;
   category: string;
   description: string;
-  tag: 'AVAILABLE' | 'UNAVAILABLE' | 'EXPIRED';
+  tag: 'Available' | 'Unavailable' | 'Expired';
   timestamp: string;
 };
