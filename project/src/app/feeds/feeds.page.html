@@ -16,6 +16,12 @@
 
 <ion-content>
   <ion-row class="rowFeedsContainer">
+    <div
+      class="bodyContainerEmpty ion-text-center"
+      *ngIf="loadedFeeds.length === 0"
+    >
+      <p class="textUnavailableEmpty">There is no post. Go get a friend!!!</p>
+    </div>
     <ion-col class="colFeedsContainer" *ngFor="let item of loadedFeeds">
       <ion-card
         class="cardContainer"
