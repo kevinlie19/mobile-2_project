@@ -5,7 +5,6 @@ import {Storage} from '@ionic/storage';
 
 import {Profile} from './profile.model';
 import {ProfileService} from './profile.service';
-import {timestampFormat} from '../helpers/timestampFormat';
 import {APISetting} from './../const/API';
 
 @Component({
@@ -18,22 +17,7 @@ export class ProfilePage implements OnInit {
   isLoading: boolean;
   isAvailable: boolean;
   isUnavailable: boolean;
-  loadedProfile: Profile = {
-    user: {
-      id: 0,
-      email: '',
-      username: '',
-      full_name: '',
-      password: '',
-      phone_number: '',
-      location: '',
-      avatar: '',
-      gender: '',
-      following: [],
-      follower: [],
-    },
-    post: [],
-  };
+  loadedProfile: Profile;
 
   constructor(
     private profileService: ProfileService,
@@ -56,13 +40,12 @@ export class ProfilePage implements OnInit {
       },
     });
 
-    let result = await response.json();
+    const result = await response.json();
+
     this.profileService.addProfile(result.data[0]);
     this.loadedProfile = this.profileService.getProfile();
 
     for (let key of this.loadedProfile.post) {
-      key.timestamp = timestampFormat(key.timestamp);
-
       if (key.tag === 'Available' || key.tag === 'Expired') {
         this.isAvailable = true;
       } else if (key.tag === 'Unavailable') {

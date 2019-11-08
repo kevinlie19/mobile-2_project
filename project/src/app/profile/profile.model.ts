@@ -20,10 +20,10 @@ export type userDetail = {
 export type PostObject = {
   id: number;
   user_id: number;
-  item_name: number;
+  item_name: string;
   image: string;
-  buy_date: Date;
-  exp_date: Date;
+  buy_date: string;
+  exp_date: string;
   category: string;
   description: string;
   tag: 'Available' | 'Unavailable' | 'Expired';

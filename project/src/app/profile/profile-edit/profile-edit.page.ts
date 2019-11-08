@@ -14,6 +14,7 @@ import {Storage} from '@ionic/storage';
 import {Profile} from '../profile.model';
 import {ProfileService} from '../profile.service';
 import {APISetting} from './../../const/API';
+import {provinceFormat} from 'src/app/helpers/provinceFormat';
 
 @Component({
   selector: 'app-profile-edit',
@@ -101,6 +102,10 @@ export class ProfileEditPage implements OnInit {
     let province = await getProvinceList.json();
 
     this.cityData = province.data;
+
+    for (let item of this.cityData) {
+      item.name = provinceFormat(item.name);
+    }
   }
 
   onClickClose() {
