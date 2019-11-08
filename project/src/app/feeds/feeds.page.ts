@@ -9,6 +9,10 @@ import {
 import {Feeds} from './feeds.model';
 import {FeedsService} from './feeds.service';
 import {AppService} from '../app.service';
+import {Storage} from '@ionic/storage';
+import {LoadingController} from '@ionic/angular';
+
+import {APISetting} from './../const/API';
 
 @Component({
   selector: 'app-feeds',
@@ -27,6 +31,8 @@ export class FeedsPage implements OnInit {
     private router: Router,
     private barcodeScanner: BarcodeScanner,
     private appService: AppService,
+    private storage: Storage,
+    private loadingCtrl: LoadingController,
   ) {
     this.barcodeScannerOptions = {
       showTorchButton: true,
@@ -34,8 +40,54 @@ export class FeedsPage implements OnInit {
     };
   }
 
-  ngOnInit() {
-    this.loadedFeeds = this.feedsService.allFeeds;
+  async ngOnInit() {
+    const self = this;
+    let userToken = await this.storage.get('userToken');
+    this.loadingCtrl
+      .create({keyboardClose: true, message: 'Loading ...'})
+      .then((loadingEl) => {
+        loadingEl.present();
+
+        async function getDataFromAPI() {
+          let response = await fetch(APISetting.API_ENDPOINT + 'page/home', {
+            method: 'GET',
+            headers: {
+              authorization: userToken,
+            },
+          });
+
+          let post;
+          if (response.status === 200) {
+            post = await response.json();
+          } else {
+            console.log(response);
+            loadingEl.dismiss();
+          }
+          console.log(post.data);
+
+          if (post.success === true) {
+            loadingEl.dismiss();
+
+            self.feedsService.addFeeds(post.data);
+            self.loadedFeeds = self.feedsService.getFeeds();
+          } else {
+            loadingEl.dismiss();
+            let alert = await this.alertCtrl.create({
+              title: 'Alert',
+              message: post.message,
+              buttons: [
+                {
+                  text: 'OK',
+                  handler: () => {},
+                },
+              ],
+            });
+            await alert.present();
+            return;
+          }
+        }
+        getDataFromAPI();
+      });
   }
 
   onClickAdd() {
@@ -73,15 +125,15 @@ export class FeedsPage implements OnInit {
           this.appService.setScanBarcodeFeeds({
             id: 'f1',
             item_name: 'Sari Roti',
-            status: 'Available',
+            tag: 'Available',
             category: 'Bread',
             description:
               'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
             buyDate: '11/17/2019',
             expDate: '11/31/2019',
-            timestamps: '1',
+            timestamp: '1',
             // tslint:disable-next-line: max-line-length
-            itemImageUrl:
+            image:
               'https://www.rotinyaindonesia.com/contents/sari-roti-p40cyI20181009132656.png',
             username: 'Cecilia K.',
             location: 'Jakarta Selatan',
@@ -96,15 +148,15 @@ export class FeedsPage implements OnInit {
           this.appService.setScanBarcodeFeeds({
             id: 'f2',
             item_name: 'Susu Bear Brand',
-            status: 'Available',
+            tag: 'Available',
             category: 'Milk',
             description:
               'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
             buyDate: '11/17/2019',
             expDate: '11/31/2019',
-            timestamps: '1',
+            timestamp: '1',
             // tslint:disable-next-line: max-line-length
-            itemImageUrl:
+            image:
               // tslint:disable-next-line: max-line-length
               'https://ecs7.tokopedia.net/img/cache/700/product-1/2017/10/24/803115/803115_1bff2b5d-59af-4506-bcba-f027e09275cc_1250_1664.jpg',
             username: 'Cecilia K.',
