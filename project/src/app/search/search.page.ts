@@ -42,7 +42,7 @@ export class SearchPage implements OnInit {
   }
 
   onClickAdd() {
-    this.router.navigateByUrl('/feeds-add-post');
+    this.router.navigateByUrl('/add-item');
   }
 
   onClickRequest() {

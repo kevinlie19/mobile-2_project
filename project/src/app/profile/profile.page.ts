@@ -45,14 +45,17 @@ export class ProfilePage implements OnInit {
     this.profileService.addProfile(result.data[0]);
     this.loadedProfile = this.profileService.getProfile();
 
+    console.log('loaded profile', this.loadedProfile.post);
     for (let key of this.loadedProfile.post) {
-      if (key.tag === 'Available' || key.tag === 'Expired') {
+      if (
+        key.tag.toLowerCase() === 'available' ||
+        key.tag.toLowerCase() === 'expired'
+      ) {
         this.isAvailable = true;
       } else if (key.tag === 'Unavailable') {
         this.isUnavailable = true;
       }
     }
-
     this.isLoading = false;
   }
 
@@ -61,7 +64,7 @@ export class ProfilePage implements OnInit {
   }
 
   onClickAdd() {
-    this.router.navigateByUrl('/feeds-add-post');
+    this.router.navigateByUrl('/add-item');
   }
 
   onClickRequest() {
