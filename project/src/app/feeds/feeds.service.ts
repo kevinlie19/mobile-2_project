@@ -1,65 +1,22 @@
 import {Injectable} from '@angular/core';
 import {Feeds} from './feeds.model';
+import {timestampFormat} from '../helpers/timestampFormat';
 
 @Injectable({
   providedIn: 'root',
 })
 export class FeedsService {
-  private _feeds: Feeds[] = [
-    {
-      id: 'p1',
-      item_name: 'Chocolate Brownie',
-      status: 'Available',
-      category: 'Dessert',
-      description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-      buyDate: '10 September 2019',
-      expDate: '1 November 2019',
-      timestamps: '1',
-      // tslint:disable-next-line: max-line-length
-      itemImageUrl: 'https://www.chelsea.co.nz/files/cache/c7eb8909bcbfb9ff878c499feb1dcbd5_f1433.jpg',
-      username: 'Cecilia K.',
-      location: 'Jakarta Selatan',
-      avatar: 'https://www.venmond.com/demo/vendroid/img/avatar/big.jpg',
-    },
-    {
-      id: 'p2',
-      item_name: 'Golden Potatoes',
-      status: 'Available',
-      category: 'Dessert',
-      description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-      buyDate: '10 September 2019',
-      expDate: '1 November 2019',
-      timestamps: '2',
-      itemImageUrl:
-        'https://www.foxandbriar.com/wp-content/uploads/2016/03/Rosemary-Garlic-Potatoes-4-of-4.jpg',
-      username: 'John Doe',
-      location: 'Jakarta Pusat',
-      avatar:
-        'http://preview.premium-contao-themes.com/cords/demo/files/cto_layout/img/placeholder/team_1.jpg',
-    },
-    {
-      id: 'p3',
-      item_name: 'Fish',
-      status: 'Unavailable',
-      category: 'Meat',
-      description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-      buyDate: '10 September 2019',
-      expDate: '1 November 2019',
-      timestamps: '5',
-      itemImageUrl:
-        'https://img.etimg.com/thumb/msid-68495044,width-643,imgsize-1335371,resizemode-4/fish.jpg',
-      username: 'Bill Tranquilo',
-      location: 'Tangerang',
-      avatar:
-        'http://www.analyticalones.com/wp-content/uploads/2013/03/Bill-avatar.jpg',
-    },
-  ];
+  private _feeds: Feeds[];
 
-  get allFeeds() {
-    return [...this._feeds];
+  addFeeds(result: Feeds[]) {
+    for (let key of result) {
+      key.timestamp = timestampFormat(key.timestamp);
+    }
+    this._feeds = result;
+  }
+
+  getFeeds() {
+    return this._feeds;
   }
 
   getFeedById(id: string) {

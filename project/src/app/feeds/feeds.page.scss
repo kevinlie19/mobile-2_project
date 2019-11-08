@@ -189,3 +189,20 @@ ion-content {
 ion-card {
   background-color: #ffffff;
 }
+
+.textAvailableEmpty {
+  font-family: neusa-next-std, sans-serif;
+  font-size: 16px;
+  color: #5d5d5d;
+}
+
+.bodyContainerEmpty {
+  display: block;
+  background-color: #ffffff;
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+.bodyContainerNoPost {
+  text-align: center;
+}

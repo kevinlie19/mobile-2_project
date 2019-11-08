@@ -5,7 +5,7 @@ import {LoadingController, AlertController} from '@ionic/angular';
 import {Storage} from '@ionic/storage';
 
 import {AuthService} from './auth.service';
-import {APISetting} from './../const/API';
+import {APISetting} from '../constant/API';
 
 @Component({
   selector: 'app-auth',

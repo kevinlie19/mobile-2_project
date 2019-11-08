@@ -14,7 +14,24 @@
   </ion-toolbar>
 </ion-header>
 
+<ion-content *ngIf="isLoading" color="medium"></ion-content>
+
 <ion-content>
+  <div class="bodyContainerNoPost">
+    <b
+      ><p class="textAvailableEmpty">Welcome to CIBO</p>
+      <p class="textAvailableEmpty">
+        Follow people to start seeing the post they shared
+      </p>
+      <p class="textAvailableEmpty">or upload post of your own</p>
+      <p class="textAvailableEmpty">
+        Lets start share your food and reduce food waste
+      </p></b
+    >
+  </div>
+</ion-content>
+
+<ion-content *ngIf="isEmpty">
   <ion-row class="rowFeedsContainer">
     <ion-col class="colFeedsContainer" *ngFor="let item of loadedFeeds">
       <ion-card
@@ -23,29 +40,29 @@
       >
         <div class="imageContainer">
           <img
-            *ngIf="item.status == 'Available'"
-            src="{{ item.itemImageUrl }}"
+            *ngIf="item.tag.toLowerCase() == 'available'"
+            src="{{ item.image }}"
             class="imageAvailable"
           />
           <img
-            *ngIf="item.status == 'Unavailable'"
-            src="{{ item.itemImageUrl }}"
+            *ngIf="item.tag.toLowerCase() == 'unavailable'"
+            src="{{ item.image }}"
             class="imageUnavailable"
           />
           <div
-            *ngIf="item.status == 'Available'"
+            *ngIf="item.tag.toLowerCase() == 'available'"
             class="tagPosition statusAvailable"
           >
-            {{ item.status }}
+            {{ item.tag }}
           </div>
           <div class="tagPositionExpired statusExpired">
             Expired
           </div>
           <div
-            *ngIf="item.status == 'Unavailable'"
+            *ngIf="item.tag.toLowerCase() == 'unavailable'"
             class="tagPosition statusUnavailable"
           >
-            {{ item.status }}
+            {{ item.tag }}
           </div>
         </div>
         <ion-card-content>
@@ -54,7 +71,7 @@
           </p>
           <p class="textTimeStamp">
             <ion-icon name="hourglass" slot="icon-only"></ion-icon> Posted
-            {{ item.timestamps }} day ago
+            {{ item.timestamp }} day ago
           </p>
           <p>
             <ion-row class="userInfoContainer">

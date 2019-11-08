@@ -1,21 +1,20 @@
-import { Feeds } from './feeds/feeds.model';
-import { Injectable } from '@angular/core';
+import {Feeds} from './feeds/feeds.model';
+import {Injectable} from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AppService {
-
   private _scanBarcodeFeeds: Feeds = {
     id: '',
     item_name: '',
-    status: '',
+    tag: '',
     category: '',
     description: '',
     buyDate: '',
     expDate: '',
-    timestamps: '',
-    itemImageUrl: '',
+    timestamp: '',
+    image: '',
     username: '',
     location: '',
     avatar: '',
@@ -25,26 +24,26 @@ export class AppService {
     return this._scanBarcodeFeeds;
   }
 
-  setScanBarcodeFeeds(scanBarcodeFeeds: Feeds){
+  setScanBarcodeFeeds(scanBarcodeFeeds: Feeds) {
     this._scanBarcodeFeeds = scanBarcodeFeeds;
   }
 
-  resetScanBarcodeFeeds(){
+  resetScanBarcodeFeeds() {
     this._scanBarcodeFeeds = {
       id: '',
       item_name: '',
-      status: '',
+      tag: '',
       category: '',
       description: '',
       buyDate: '',
       expDate: '',
-      timestamps: '',
-      itemImageUrl: '',
+      timestamp: '',
+      image: '',
       username: '',
       location: '',
       avatar: '',
     };
   }
 
-  constructor() { }
+  constructor() {}
 }
