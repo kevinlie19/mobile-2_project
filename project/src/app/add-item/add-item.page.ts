@@ -11,7 +11,7 @@ import {Router} from '@angular/router';
 import {Camera, CameraOptions} from '@ionic-native/camera/ngx';
 import {ImagePicker} from '@ionic-native/image-picker/ngx';
 import {Storage} from '@ionic/storage';
-import {APISetting} from './../const/API';
+import {APISetting} from '../constant/API';
 
 @Component({
   selector: 'app-add-item',

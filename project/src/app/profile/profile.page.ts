@@ -5,7 +5,7 @@ import {Storage} from '@ionic/storage';
 
 import {Profile} from './profile.model';
 import {ProfileService} from './profile.service';
-import {APISetting} from './../const/API';
+import {APISetting} from '../constant/API';
 
 @Component({
   selector: 'app-profile',
@@ -45,7 +45,6 @@ export class ProfilePage implements OnInit {
     this.profileService.addProfile(result.data[0]);
     this.loadedProfile = this.profileService.getProfile();
 
-    console.log('loaded profile', this.loadedProfile.post);
     for (let key of this.loadedProfile.post) {
       if (
         key.tag.toLowerCase() === 'available' ||

@@ -12,7 +12,7 @@ import {AppService} from '../app.service';
 import {Storage} from '@ionic/storage';
 import {LoadingController} from '@ionic/angular';
 
-import {APISetting} from './../const/API';
+import {APISetting} from '../constant/API';
 
 @Component({
   selector: 'app-feeds',
@@ -20,6 +20,8 @@ import {APISetting} from './../const/API';
   styleUrls: ['./feeds.page.scss'],
 })
 export class FeedsPage implements OnInit {
+  isLoading: boolean;
+  isEmpty: boolean;
   loadedFeeds: Feeds[];
   encodeData: any;
   scannedData: {};
@@ -41,6 +43,8 @@ export class FeedsPage implements OnInit {
   }
 
   async ngOnInit() {
+    this.isLoading = true;
+    this.isEmpty = false;
     const self = this;
     let userToken = await this.storage.get('userToken');
     this.loadingCtrl
@@ -63,13 +67,17 @@ export class FeedsPage implements OnInit {
             console.log(response);
             loadingEl.dismiss();
           }
-          console.log(post.data);
 
           if (post.success === true) {
             loadingEl.dismiss();
 
             self.feedsService.addFeeds(post.data);
             self.loadedFeeds = self.feedsService.getFeeds();
+            if (self.loadedFeeds.length === 0) {
+              self.isEmpty = true;
+            } else {
+              self.isEmpty = false;
+            }
           } else {
             loadingEl.dismiss();
             let alert = await this.alertCtrl.create({
@@ -88,6 +96,7 @@ export class FeedsPage implements OnInit {
         }
         getDataFromAPI();
       });
+    this.isLoading = false;
   }
 
   onClickAdd() {

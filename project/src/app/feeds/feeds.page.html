@@ -14,14 +14,25 @@
   </ion-toolbar>
 </ion-header>
 
+<ion-content *ngIf="isLoading" color="medium"></ion-content>
+
 <ion-content>
-  <ion-row class="rowFeedsContainer">
-    <div
-      class="bodyContainerEmpty ion-text-center"
-      *ngIf="loadedFeeds.length === 0"
+  <div class="bodyContainerNoPost">
+    <b
+      ><p class="textAvailableEmpty">Welcome to CIBO</p>
+      <p class="textAvailableEmpty">
+        Follow people to start seeing the post they shared
+      </p>
+      <p class="textAvailableEmpty">or upload post of your own</p>
+      <p class="textAvailableEmpty">
+        Lets start share your food and reduce food waste
+      </p></b
     >
-      <p class="textUnavailableEmpty">There is no post. Go get a friend!!!</p>
-    </div>
+  </div>
+</ion-content>
+
+<ion-content *ngIf="isEmpty">
+  <ion-row class="rowFeedsContainer">
     <ion-col class="colFeedsContainer" *ngFor="let item of loadedFeeds">
       <ion-card
         class="cardContainer"

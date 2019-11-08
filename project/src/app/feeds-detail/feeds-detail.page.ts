@@ -12,7 +12,7 @@ import {FeedsService} from '../feeds/feeds.service';
 import {FeedDetails} from './feeds-detail.model';
 import {ProfileService} from '../profile/profile.service';
 import {FeedsDetailService} from './feeds-detail.service';
-import {APISetting} from '../const/API';
+import {APISetting} from '../constant/API';
 
 @Component({
   selector: 'app-feeds-detail',

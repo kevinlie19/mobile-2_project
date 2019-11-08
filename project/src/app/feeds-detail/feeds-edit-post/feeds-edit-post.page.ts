@@ -13,7 +13,7 @@ import {Storage} from '@ionic/storage';
 
 import {FeedsDetailService} from '../feeds-detail.service';
 import {FeedDetails} from '../feeds-detail.model';
-import {APISetting} from 'src/app/const/API';
+import {APISetting} from 'src/app/constant/API';
 
 @Component({
   selector: 'app-feeds-edit-post',
