@@ -1,18 +1,23 @@
 import {Injectable} from '@angular/core';
+
 import {Profile} from './profile.model';
+import {timestampFormat} from '../helpers/timestampFormat';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProfileService {
-  myProfile: Profile;
+  _myProfile: Profile;
 
   addProfile(result: Profile) {
-    this.myProfile = result;
+    for (let key of result.post) {
+      key.timestamp = timestampFormat(key.timestamp);
+    }
+    this._myProfile = result;
   }
 
   getProfile() {
-    return this.myProfile;
+    return this._myProfile;
   }
 
   constructor() {}

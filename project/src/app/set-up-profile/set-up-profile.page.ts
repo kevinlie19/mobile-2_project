@@ -16,6 +16,7 @@ import {ImagePicker} from '@ionic-native/image-picker/ngx';
 import {AuthService} from '../auth/auth.service';
 import {Storage} from '@ionic/storage';
 import {APISetting} from './../const/API';
+import {provinceFormat} from '../helpers/provinceFormat';
 
 @Component({
   selector: 'app-set-up-profile',
@@ -87,6 +88,10 @@ export class SetUpProfilePage implements OnInit {
     const province = await getProvince.json();
 
     this.cityData = province.data;
+
+    for (let item of this.cityData) {
+      item.name = provinceFormat(item.name);
+    }
   }
 
   changeProfilePicture() {

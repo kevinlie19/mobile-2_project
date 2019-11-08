@@ -94,7 +94,7 @@
           >
             <ion-card
               class="cardContainer"
-              [routerLink]="['/', 'feeds-detail', item.id]"
+              [routerLink]="['/', 'profile', 'feeds-detail', item.id]"
               *ngIf="item.tag == 'Available' || item.tag == 'Expired'"
             >
               <div class="imageContainer">
@@ -168,7 +168,7 @@
           >
             <ion-card
               class="cardContainer"
-              [routerLink]="['/', 'feeds-detail', item.id]"
+              [routerLink]="['/', 'profile', 'feeds-detail', item.id]"
             >
               <div class="imageContainer">
                 <img

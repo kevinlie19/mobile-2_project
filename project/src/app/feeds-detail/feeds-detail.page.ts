@@ -12,7 +12,7 @@ import {FeedsService} from '../feeds/feeds.service';
 import {FeedDetails} from './feeds-detail.model';
 import {ProfileService} from '../profile/profile.service';
 import {FeedsDetailService} from './feeds-detail.service';
-import {timestampFormat} from '../helpers/timestampFormat';
+import {APISetting} from '../const/API';
 
 @Component({
   selector: 'app-feeds-detail',
@@ -55,7 +55,6 @@ export class FeedsDetailPage implements OnInit {
           },
         );
         this.feedDetailService.addFeed(this.loadedFeedDetail);
-        console.log(this.loadedFeedDetail);
       } else if (paramMap.get('fromPage') === 'profile-user') {
         this.isFeedOwnedByMe = false;
         // akan di-update setelah page profile-user selesai di-connect
@@ -63,10 +62,6 @@ export class FeedsDetailPage implements OnInit {
         this.isFeedOwnedByMe = false;
         // akan di-update setelah page feeds selesai di-connect
       }
-
-      this.loadedFeedDetail.post[0].timestamp = timestampFormat(
-        this.loadedFeedDetail.post[0].timestamp,
-      );
 
       let months = [
         'January',
@@ -134,7 +129,8 @@ export class FeedsDetailPage implements OnInit {
                 async function deleteFeed() {
                   const userToken = await self.storage.get('userToken');
                   const apiUrl =
-                    'https://cibo-cove-231019.herokuapp.com/api/feature/delete-post/' +
+                    APISetting.API_ENDPOINT +
+                    'feature/delete-post/' +
                     self.feedId;
                   const response = await fetch(apiUrl, {
                     mode: 'cors',
