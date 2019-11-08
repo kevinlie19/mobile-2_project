@@ -101,6 +101,7 @@ export class AddItemPage implements OnInit {
             {
               method: 'POST',
               headers: {
+                'Content-Type': 'application/json',
                 authorization: userToken,
               },
               body: JSON.stringify(body),
@@ -161,12 +162,14 @@ export class AddItemPage implements OnInit {
           text: 'Load from Gallery',
           handler: () => {
             this.selectGalery();
+            return;
           },
         },
         {
           text: 'Use Camera',
           handler: () => {
             this.takePicture();
+            return;
           },
         },
         {

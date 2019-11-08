@@ -95,22 +95,22 @@
             <ion-card
               class="cardContainer"
               [routerLink]="['/', 'profile', 'feeds-detail', item.id]"
-              *ngIf="item.tag == 'Available' || item.tag == 'Expired'"
+              *ngIf="item.tag.toLowerCase() == 'available' || item.tag.toLowerCase() == 'expired'"
             >
               <div class="imageContainer">
                 <img
-                  *ngIf="item.tag == 'Available' || item.tag == 'Expired'"
+                  *ngIf="item.tag.toLowerCase() == 'available' || item.tag.toLowerCase() == 'expired'"
                   src="{{ item.image }}"
                   class="imageAvailable"
                 />
                 <div
-                  *ngIf="item.tag == 'Available'"
+                  *ngIf="item.tag.toLowerCase() == 'available'"
                   class="tagPosition statusAvailable"
                 >
                   {{ item.tag }}
                 </div>
                 <div
-                  *ngIf="item.tag == 'EXPIRED'"
+                  *ngIf="item.tag.toLowerCase() == 'expired'"
                   class="tagPositionExpired statusExpired"
                 >
                   {{ item.tag }}
@@ -172,12 +172,12 @@
             >
               <div class="imageContainer">
                 <img
-                  *ngIf="item.tag == 'Unavailable'"
+                  *ngIf="item.tag.toLowerCase() == 'unavailable'"
                   src="{{ item.image }}"
                   class="imageUnavailable"
                 />
                 <div
-                  *ngIf="item.tag == 'Unavailable'"
+                  *ngIf="item.tag.toLowerCase() == 'unavailable'"
                   class="tagPosition statusUnavailable"
                 >
                   {{ item.tag }}
