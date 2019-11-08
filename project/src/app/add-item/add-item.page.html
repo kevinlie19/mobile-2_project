@@ -11,14 +11,24 @@
   </ion-row>
   <br />
   <ion-row class="boxImage">
-    <ion-row class="boxImageContent">
+    <ion-row class="boxImageContent" (click)="changeImage()">
       <div class="iconBoxImage">
         <img
-          src="assets/add-item/icons8-add_camera.png"
+          *ngIf="image === ''"
+          src="../../assets/add-item/icons8-add_camera.png"
           class="ion-text-center"
+          (click)="changeImage()"
+        />
+        <img
+          *ngIf="image !== ''"
+          [src]="image"
+          class="ion-text-center"
+          (click)="changeImage()"
         />
       </div>
-      <div class="ion-text-center textPhoto">Take a photo of your food.</div>
+      <div class="ion-text-center textPhoto" (click)="changeImage()">
+        Take a photo of your food.
+      </div>
     </ion-row>
   </ion-row>
   <br />
@@ -26,8 +36,8 @@
     <ion-input
       placeholder="Item Name"
       class="textItemName"
-      ngModel
-      name="itemName"
+      [(ngModel)]="item_name"
+      name="item_name"
       required
     ></ion-input>
   </ion-row>
@@ -38,7 +48,7 @@
         displayFormat="MM/DD/YYYY"
         placeholder="Buy Date"
         class="textBuyDate"
-        ngModel
+        [(ngModel)]="buy_date"
         name="dateBuy"
         required
       ></ion-datetime>
@@ -48,7 +58,7 @@
         displayFormat="MM/DD/YYYY"
         placeholder="Exp Date"
         class="textExpDate"
-        ngModel
+        [(ngModel)]="exp_date"
         name="dateExp"
         required
       ></ion-datetime>
@@ -59,12 +69,22 @@
     <ion-select
       placeholder="Category"
       class="textCategory"
-      ngModel
+      [(ngModel)]="category"
       name="category"
       required
     >
-      <ion-select-option value="meat">Meat</ion-select-option>
-      <ion-select-option value="vegetables">Vegetables</ion-select-option>
+      <ion-select-option value="Vegetables">Vegetables</ion-select-option>
+      <ion-select-option value="Fruits">Fruits</ion-select-option>
+      <ion-select-option value="Grains, Beans and Nuts"
+        >Grains, Beans and Nuts</ion-select-option
+      >
+      <ion-select-option value="Meat and Poultry"
+        >Meat and Poultry</ion-select-option
+      >
+      <ion-select-option value="Dairy Foods">Dairy Foods</ion-select-option>
+      <ion-select-option value="Fish and Seafood"
+        >Fish and Seafood</ion-select-option
+      >
     </ion-select>
   </ion-row>
   <br />
@@ -74,10 +94,23 @@
       cols="6"
       placeholder="Description"
       class="textDescription"
-      ngModel
+      [(ngModel)]="description"
       name="desc"
       required
     ></ion-textarea>
+  </ion-row>
+  <br />
+  <ion-row class="boxTag">
+    <ion-select
+      placeholder="Available"
+      class="textTag"
+      [(ngModel)]="tag"
+      name="tag"
+      required
+    >
+      <ion-select-option value="Available">Avaiable</ion-select-option>
+      <ion-select-option value="Expired">Expired</ion-select-option>
+    </ion-select>
   </ion-row>
   <br />
   <ion-button
@@ -87,6 +120,7 @@
     shape="round"
     color="tertiary"
     class="btnPost"
+    (click)="addPost()"
     >POST</ion-button
   >
   <br /><br />
