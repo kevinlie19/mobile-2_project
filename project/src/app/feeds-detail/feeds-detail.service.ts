@@ -15,13 +15,5 @@ export class FeedsDetailService {
     return this.selectedFeed;
   }
 
-  getSelectedFeed(id: number) {
-    for (let i in this.selectedFeed.post) {
-      if (this.selectedFeed.post[i].id === id) {
-        return this.selectedFeed.post[i];
-      }
-    }
-  }
-
   constructor() {}
 }

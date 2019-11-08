@@ -104,10 +104,6 @@ export class FeedsDetailPage implements OnInit {
     // akan di-update setelah sistem API request sudah fix
   }
 
-  onClickEdit() {
-    // akan di-update setelah halaman feeds-edit-post selesai di-connect
-  }
-
   async onClickDelete() {
     const self = this;
 
