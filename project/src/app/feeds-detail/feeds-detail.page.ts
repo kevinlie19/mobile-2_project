@@ -12,7 +12,8 @@ import {FeedsService} from '../feeds/feeds.service';
 import {FeedDetails} from './feeds-detail.model';
 import {ProfileService} from '../profile/profile.service';
 import {FeedsDetailService} from './feeds-detail.service';
-import {APISetting} from '../constant/API';
+import {APISetting} from '../const/API';
+import {ProfileUserService} from '../profile-user/profile-user.service';
 
 @Component({
   selector: 'app-feeds-detail',
@@ -29,6 +30,7 @@ export class FeedsDetailPage implements OnInit {
   constructor(
     private feedsService: FeedsService,
     private myProfileService: ProfileService,
+    private userProfileService: ProfileUserService,
     private feedDetailService: FeedsDetailService,
     private route: ActivatedRoute,
     private navCtrl: NavController,
@@ -57,10 +59,17 @@ export class FeedsDetailPage implements OnInit {
         this.feedDetailService.addFeed(this.loadedFeedDetail);
       } else if (paramMap.get('fromPage') === 'profile-user') {
         this.isFeedOwnedByMe = false;
-        // akan di-update setelah page profile-user selesai di-connect
+        this.loadedFeedDetail = this.userProfileService.getUserProfile();
+        this.loadedFeedDetail.post = this.loadedFeedDetail.post.filter(
+          (post) => {
+            return post.id === this.feedId;
+          },
+        );
+        this.feedDetailService.addFeed(this.loadedFeedDetail);
       } else if (paramMap.get('fromPage') === 'feeds') {
         this.isFeedOwnedByMe = false;
         // akan di-update setelah page feeds selesai di-connect
+        // ini akan gw lakuin di PR berikutnya setelah lu approve PR skrg dan merge feeds punya fian
       }
 
       let months = [

@@ -1,14 +1,22 @@
 ion-content {
-  --background: linear-gradient(
+  --background: none;
+  background-image: linear-gradient(
     117deg,
-    rgba(251, 195, 74, 1) 13.5%,
-    rgba(241, 102, 129, 1) 33.33%,
-    rgba(237, 68, 149, 1) 100%
+    rgba(251, 195, 74, 1),
+    rgba(241, 102, 129, 1)
   ) !important;
+  background-position: center top;
+  background-repeat: no-repeat;
+  background-size: 100% 220px;
 }
 
 ion-toolbar {
   --background: transparent;
+}
+
+ion-card-content {
+  margin-bottom: 0px;
+  padding-bottom: 5px;
 }
 
 .textUserFullNameHeader {
@@ -32,6 +40,7 @@ ion-toolbar {
 }
 
 .userStatusContainer {
+  margin-left: -10px;
   padding-top: 18px;
 }
 
@@ -48,16 +57,25 @@ ion-toolbar {
   color: #707070;
 }
 
-.userGivenContainer {
-  margin-left: -23px;
+.userPostContainer {
+  margin-left: -20px;
+  margin-right: 0px;
 }
 
-.userTakenContainer {
-  padding-right: 5px;
+.userFollowerContainer {
+  margin-right: 10px;
+  padding-left: 0px;
 }
 
-.userFriendsContainer {
+.userFollowingContainer {
   padding-right: 10px;
+}
+
+.bodyContainerEmpty {
+  display: block;
+  background-color: #ffffff;
+  padding-top: 50px;
+  padding-bottom: 50px;
 }
 
 .bodyContainerFollowed {
@@ -86,6 +104,12 @@ ion-toolbar {
   color: #5d5d5d;
 }
 
+.statusExpired::first-letter,
+.statusAvailable::first-letter,
+.statusUnavailable::first-letter {
+  text-transform: capitalize;
+}
+
 .statusExpired {
   border-radius: 3px;
   background: #ffdf00;
@@ -94,6 +118,7 @@ ion-toolbar {
   width: 70px;
   height: 18px;
   font-family: qanelas;
+  text-transform: lowercase;
 }
 
 .tagPositionExpired {
@@ -115,6 +140,13 @@ ion-toolbar {
   font-weight: bold;
   padding-top: 10px;
   padding-left: 20px;
+}
+
+.textAvailableEmpty,
+.textUnavailableEmpty {
+  font-family: neusa-next-std, sans-serif;
+  font-size: 16px;
+  color: #5d5d5d;
 }
 
 .textAvailableTitle {
@@ -149,8 +181,12 @@ ion-toolbar {
 }
 
 .footerContainer {
-  margin-left: 27px;
-  margin-right: 27px;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
 }
 
 .footerMiddleContainer {
@@ -164,8 +200,8 @@ ion-toolbar {
 }
 
 .iconAdd {
-  width: 29px;
-  height: 29px;
+  width: 29pt;
+  height: 29pt;
   color: #ffffff;
 }
 
@@ -178,22 +214,23 @@ ion-toolbar {
     .avatarContainerHeader {
       height: 150px;
       position: relative;
-      margin-left: 20px;
+      margin-left: 15px;
 
       img {
         width: 130px;
         height: 130px;
         display: block;
+        object-fit: cover;
         border-radius: 50%;
         position: absolute;
-        margin-left: 5px;
+        margin-left: 0px;
         bottom: calc(-1 * (80px + 20px));
         background-color: #fff;
       }
 
       .textHeaderContainer {
         display: block;
-        margin-left: 150px;
+        margin-left: 140px;
         margin-top: 5px;
         bottom: calc(-1 * (80px + 4px));
       }
@@ -216,6 +253,7 @@ ion-toolbar {
 
 .iconFollowContainer {
   height: 25px;
+  text-transform: none;
 }
 
 .rowFeedsContainer {
@@ -259,10 +297,10 @@ ion-toolbar {
   width: 100%;
   height: 100%;
   margin-top: 18px;
-  //margin-bottom: -10px;
 }
 
 .imageAvailable {
+  object-fit: cover;
   height: 162px;
   font-family: Qanelas;
   font-size: 12px;
@@ -270,6 +308,7 @@ ion-toolbar {
 }
 
 .imageUnavailable {
+  object-fit: cover;
   height: 162px;
   -webkit-filter: grayscale(100%);
   filter: grayscale(100%);
@@ -292,6 +331,7 @@ ion-toolbar {
   width: 70px;
   height: 18px;
   font-family: qanelas;
+  text-transform: lowercase;
 }
 
 .statusUnavailable {
@@ -302,6 +342,7 @@ ion-toolbar {
   width: 70px;
   height: 18px;
   font-family: qanelas;
+  text-transform: lowercase;
 }
 
 .textItemName {
@@ -332,4 +373,18 @@ ion-toolbar {
   position: absolute;
   top: 8px;
   right: 16px;
+}
+
+.spin {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+ion-spinner {
+  width: 100px;
+  height: 100px;
+  stroke: #444;
+  fill: #222;
 }

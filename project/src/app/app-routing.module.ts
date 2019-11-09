@@ -56,7 +56,7 @@ const routes: Routes = [
     loadChildren: './profile/profile.module#ProfilePageModule',
   },
   {
-    path: 'profile-user',
+    path: 'profile-user/:userId',
     loadChildren: './profile-user/profile-user.module#ProfileUserPageModule',
   },
   {
