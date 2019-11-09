@@ -1,20 +1,27 @@
-<ion-content>
+<ion-content *ngIf="isLoading" color="medium"></ion-content>
+
+<ion-content *ngIf="!isLoading">
   <div class="pageContainer">
     <div class="headerContainer">
       <div class="avatarContainerHeader">
         <ion-row>
           <img
-            src="http://preview.premium-contao-themes.com/cords/demo/files/cto_layout/img/placeholder/team_1.jpg"
+            src="assets/images/avatarDefault.png"
+            *ngIf="loadedUserProfile.user[0].avatar == null"
+          />
+          <img
+            src="{{ loadedUserProfile.user[0].avatar }}"
+            *ngIf="loadedUserProfile.user[0].avatar != null"
           />
           <ion-col class="textHeaderContainer" no-padding>
             <ion-row class="textUserFullNameHeader">
-              John Doe
+              {{ loadedUserProfile.user[0].full_name }}
             </ion-row>
             <ion-row class="textUserNameHeader">
-              @johnnydoe
+              {{ loadedUserProfile.user[0].username }}
             </ion-row>
             <ion-row class="textUserLocationHeader">
-              Jakarta Pusat
+              {{ loadedUserProfile.user[0].location }}
             </ion-row>
             <ion-row *ngIf="!isFollowed">
               <ion-button
@@ -44,33 +51,37 @@
               >
             </ion-row>
             <ion-row class="userStatusContainer">
-              <ion-col col-2 no-padding class="userGivenContainer">
+              <ion-col col-2 no-padding class="userPostContainer">
                 <ion-row class="textAmount">
-                  <ion-col col-12 no-padding text-center>50</ion-col></ion-row
+                  <ion-col col-12 no-padding text-center>{{
+                    loadedUserProfile.post.length
+                  }}</ion-col></ion-row
+                >
+                <ion-row class="textUserStatus">
+                  <ion-col col-12 no-padding text-center>Post</ion-col></ion-row
+                >
+              </ion-col>
+              <ion-col col-2 no-padding class="userFollowerContainer">
+                <ion-row class="textAmount">
+                  <ion-col col-12 no-padding text-center>{{
+                    loadedUserProfile.user[0].follower.length
+                  }}</ion-col></ion-row
                 >
                 <ion-row class="textUserStatus">
                   <ion-col col-12 no-padding text-center
-                    >Given</ion-col
+                    >Follower</ion-col
                   ></ion-row
                 >
               </ion-col>
-              <ion-col col-2 no-padding class="userTakenContainer">
+              <ion-col col-2 no-padding class="userFollowingContainer">
                 <ion-row class="textAmount">
-                  <ion-col col-12 no-padding text-center>10</ion-col></ion-row
-                >
+                  <ion-col col-12 no-padding text-center>{{
+                    loadedUserProfile.user[0].following.length
+                  }}</ion-col>
+                </ion-row>
                 <ion-row class="textUserStatus">
                   <ion-col col-12 no-padding text-center
-                    >Taken</ion-col
-                  ></ion-row
-                >
-              </ion-col>
-              <ion-col col-2 no-padding class="userFriendsContainer">
-                <ion-row class="textAmount">
-                  <ion-col col-12 no-padding text-center>100</ion-col></ion-row
-                >
-                <ion-row class="textUserStatus">
-                  <ion-col col-12 no-padding text-center
-                    >Friends</ion-col
+                    >Following</ion-col
                   ></ion-row
                 >
               </ion-col>
@@ -79,7 +90,7 @@
         </ion-row>
       </div>
     </div>
-    
+
     <div class="bodyContainerFollowed" *ngIf="isFollowed">
       <div>
         <div>
@@ -91,37 +102,38 @@
         <p class="textAvailableTitle">
           Available
         </p>
-        <ion-row class="rowFeedsContainer">
+        <div class="bodyContainerEmpty ion-text-center" *ngIf="!isAvailable">
+          <p class="textAvailableEmpty">There are no available posts!</p>
+        </div>
+        <ion-row class="rowFeedsContainer" *ngIf="isAvailable">
           <ion-col
             class="colFeedsContainer"
-            *ngFor="let item of loadedAvailable"
+            *ngFor="let item of loadedUserProfile.post"
           >
             <ion-card
               class="cardContainer"
-              [routerLink]="['/', 'feeds', item.id]"
+              [routerLink]="['/', 'profile-user', 'feeds-detail', item.id]"
             >
               <div class="imageContainer">
                 <img
-                  *ngIf="item.status == 'Available'"
-                  src="{{ item.itemImageUrl }}"
+                  *ngIf="
+                    item.tag.toLowerCase() === 'available' ||
+                    item.tag.toLowerCase() === 'expired'
+                  "
+                  src="{{ item.image }}"
                   class="imageAvailable"
                 />
-                <img
-                  *ngIf="item.status == 'Unavailable'"
-                  src="{{ item.itemImageUrl }}"
-                  class="imageUnavailable"
-                />
                 <div
-                  *ngIf="item.status == 'Available'"
+                  *ngIf="item.tag.toLowerCase() === 'available'"
                   class="tagPosition statusAvailable"
                 >
-                  {{ item.status }}
+                  {{ item.tag }}
                 </div>
                 <div
-                  *ngIf="item.status == 'Unavailable'"
-                  class="tagPosition statusUnavailable"
+                  *ngIf="item.tag.toLowerCase() === 'expired'"
+                  class="tagPositionExpired statusExpired"
                 >
-                  {{ item.status }}
+                  {{ item.tag }}
                 </div>
               </div>
               <ion-card-content>
@@ -129,20 +141,29 @@
                   {{ item.item_name }}
                 </p>
                 <p class="textTimeStamp">
-                  <ion-icon name="hourglass" slot="icon-only"></ion-icon> Posted
-                  {{ item.timestamps }} day ago
+                  <ion-icon name="hourglass" slot="icon-only"></ion-icon>
+                  {{ item.timestamp }}
                 </p>
                 <p>
                   <ion-row class="userInfoContainer">
                     <ion-col size="4" class="avatarContainer">
-                      <img src="{{ item.avatar }}" class="imageAvatar" />
+                      <img
+                        src="{{ loadedUserProfile.user[0].avatar }}"
+                        class="imageAvatar"
+                        *ngIf="loadedUserProfile.user[0].avatar != null"
+                      />
+                      <img
+                        src="assets/images/avatarDefault.png"
+                        class="imageAvatar"
+                        *ngIf="loadedUserProfile.user[0].avatar == null"
+                      />
                     </ion-col>
                     <ion-col size="8" class="userContainer">
                       <ion-row class="textUserName">
-                        {{ item.username }}
+                        {{ loadedUserProfile.user[0].full_name }}
                       </ion-row>
                       <ion-row class="textUserLocation">
-                        {{ item.location }}
+                        {{ loadedUserProfile.user[0].location }}
                       </ion-row>
                     </ion-col>
                   </ion-row>
@@ -156,37 +177,30 @@
           Unavailable
         </p>
 
-        <ion-row class="rowFeedsContainer">
+        <div class="bodyContainerEmpty ion-text-center" *ngIf="!isUnavailable">
+          <p class="textUnavailableEmpty">There are no unavailable posts!</p>
+        </div>
+
+        <ion-row class="rowFeedsContainer" *ngIf="isUnavailable">
           <ion-col
             class="colFeedsContainer"
-            *ngFor="let item of loadedUnavailable"
+            *ngFor="let item of loadedUserProfile.post"
           >
             <ion-card
               class="cardContainer"
-              [routerLink]="['/', 'feeds', item.id]"
+              [routerLink]="['/', 'profile-user', 'feeds-detail', item.id]"
             >
               <div class="imageContainer">
                 <img
-                  *ngIf="item.status == 'Available'"
-                  src="{{ item.itemImageUrl }}"
-                  class="imageAvailable"
-                />
-                <img
-                  *ngIf="item.status == 'Unavailable'"
-                  src="{{ item.itemImageUrl }}"
+                  *ngIf="item.tag.toLowerCase() == 'unavailable'"
+                  src="{{ item.image }}"
                   class="imageUnavailable"
                 />
                 <div
-                  *ngIf="item.status == 'Available'"
-                  class="tagPosition statusAvailable"
-                >
-                  {{ item.status }}
-                </div>
-                <div
-                  *ngIf="item.status == 'Unavailable'"
+                  *ngIf="item.tag.toLowerCase() == 'unavailable'"
                   class="tagPosition statusUnavailable"
                 >
-                  {{ item.status }}
+                  {{ item.tag }}
                 </div>
               </div>
               <ion-card-content>
@@ -194,20 +208,29 @@
                   {{ item.item_name }}
                 </p>
                 <p class="textTimeStamp">
-                  <ion-icon name="hourglass" slot="icon-only"></ion-icon> Posted
-                  {{ item.timestamps }} day ago
+                  <ion-icon name="hourglass" slot="icon-only"></ion-icon>
+                  {{ item.timestamps }}
                 </p>
                 <p>
                   <ion-row class="userInfoContainer">
                     <ion-col size="4" class="avatarContainer">
-                      <img src="{{ item.avatar }}" class="imageAvatar" />
+                      <img
+                        src="{{ loadedProfile.user[0].avatar }}"
+                        class="imageAvatar"
+                        *ngIf="loadedUserProfile.user[0].avatar != null"
+                      />
+                      <img
+                        src="assets/images/avatarDefault.png"
+                        class="imageAvatar"
+                        *ngIf="loadedUserProfile.user[0].avatar == null"
+                      />
                     </ion-col>
                     <ion-col size="8" class="userContainer">
                       <ion-row class="textUserName">
-                        {{ item.username }}
+                        {{ loadedUserProfile.user[0].full_name }}
                       </ion-row>
                       <ion-row class="textUserLocation">
-                        {{ item.location }}
+                        {{ loadedUserProfile.user[0].location }}
                       </ion-row>
                     </ion-col>
                   </ion-row>
@@ -222,49 +245,52 @@
   </div>
   <div class="bodyContainerUnfollow ion-text-center" *ngIf="!isFollowed">
     <ion-icon name="lock" class="iconLock"></ion-icon>
-    <p class="unfollowInfo1">You must follow John Doe</p>
+    <p class="unfollowInfo1">
+      You must follow {{ loadedUserProfile.user[0].full_name }}
+    </p>
     <p class="unfollowInfo2">to see their profile</p>
   </div>
 </ion-content>
-
 <ion-footer>
-  <ion-toolbar>
-    <ion-row class="footerContainer">
-      <ion-col size="2">
-        <ion-buttons>
-          <ion-button (click)="onClickHome()">
-            <ion-icon slot="icon-only" name="home"></ion-icon>
-          </ion-button>
-        </ion-buttons>
-      </ion-col>
-      <ion-col size="2">
-        <ion-buttons>
-          <ion-button>
-            <ion-icon slot="icon-only" name="search"></ion-icon>
-          </ion-button>
-        </ion-buttons>
-      </ion-col>
-      <ion-col size="4" class="footerMiddleContainer">
-        <ion-buttons>
-          <ion-button class="iconAddContainer" (click)="onClickAdd()">
-            <ion-icon class="iconAdd" slot="icon-only" name="add"></ion-icon>
-          </ion-button>
-        </ion-buttons>
-      </ion-col>
-      <ion-col size="2">
-        <ion-buttons>
-          <ion-button (click)="onClickRequest()">
-            <ion-icon slot="icon-only" name="notifications"></ion-icon>
-          </ion-button>
-        </ion-buttons>
-      </ion-col>
-      <ion-col size="2">
-        <ion-buttons>
-          <ion-button>
-            <ion-icon slot="icon-only" name="person"></ion-icon>
-          </ion-button>
-        </ion-buttons>
-      </ion-col>
-    </ion-row>
-  </ion-toolbar>
+  <ion-row class="footerContainer">
+    <div>
+      <ion-buttons>
+        <ion-button (click)="onClickHome()">
+          <ion-icon slot="icon-only" name="home"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </div>
+    <div>
+      <ion-buttons>
+        <ion-button (click)="onClickSearch()">
+          <ion-icon slot="icon-only" name="search"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </div>
+    <div>
+      <ion-buttons>
+        <ion-button class="iconAddContainer" (click)="onClickAdd()">
+          <ion-icon class="iconAdd" slot="icon-only" name="add"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </div>
+    <div>
+      <ion-buttons>
+        <ion-button (click)="onClickRequest()">
+          <ion-icon slot="icon-only" name="notifications"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </div>
+    <div>
+      <ion-buttons>
+        <ion-button (click)="onClickProfile()">
+          <ion-icon slot="icon-only" name="person"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </div>
+  </ion-row>
 </ion-footer>
+
+<div class="spin" *ngIf="isLoading">
+  <ion-spinner name="crescent"></ion-spinner>
+</div>
