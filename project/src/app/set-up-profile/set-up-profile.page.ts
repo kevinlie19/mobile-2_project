@@ -15,7 +15,7 @@ import {ImagePicker} from '@ionic-native/image-picker/ngx';
 
 import {AuthService} from '../auth/auth.service';
 import {Storage} from '@ionic/storage';
-import {APISetting} from './../const/API';
+import {APISetting} from '../constant/API';
 import {provinceFormat} from '../helpers/provinceFormat';
 
 @Component({

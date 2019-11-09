@@ -1,13 +1,13 @@
 export type Feeds = {
   id: string;
   item_name: string;
-  status: string;
+  tag: string;
   category: string;
   description: string;
   buyDate: string;
   expDate: string;
-  timestamps: string;
-  itemImageUrl: string;
+  timestamp: string;
+  image: string;
   username: string;
   location: string;
   avatar: string;

@@ -13,7 +13,7 @@ import {Storage} from '@ionic/storage';
 
 import {Profile} from '../profile.model';
 import {ProfileService} from '../profile.service';
-import {APISetting} from './../../const/API';
+import {APISetting} from '../../constant/API';
 import {provinceFormat} from 'src/app/helpers/provinceFormat';
 
 @Component({
