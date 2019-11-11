@@ -1,6 +1,5 @@
 .toolbarContainer {
   --background: #3c4cac;
-  height: 86px;
 }
 
 .headerTitle {
@@ -8,9 +7,7 @@
   font-size: 18px;
   font-weight: bold;
   color: #ffffff;
-  margin-top: 29px;
-  margin-bottom: 19px;
-  text-align: center;
+  vertical-align: middle;
 }
 
 .searchBarContainer {
@@ -18,9 +15,24 @@
   margin: 0 auto;
 }
 
+.searchbar-input.sc-ion-searchbar-md {
+  border-radius: 200px;
+}
+
+.notFoundContainer {
+  display: block;
+  background-color: #ffffff;
+}
+
+.textNotFound {
+  font-family: qanelas;
+  font-size: 16;
+  color: #5d5d5d;
+}
+
 .listSearchContainer {
   box-shadow: #00000029 0px 3px 6px;
-  line-height: 30px;
+  line-height: 25px;
   margin-left: 20px;
   margin-right: 20px;
   background-color: #ffffff;
@@ -44,7 +56,7 @@
   color: #ffffff;
 }
 
-.textUsername {
+.textContainer {
   margin-left: 15px;
   vertical-align: middle;
   font-family: neusa-next-std, sans-serif;
@@ -53,9 +65,13 @@
   color: #3c4cac;
 }
 
+.textContainer::first-line {
+  font-size: 20px;
+}
+
 .footerContainer {
-  margin-left: 20px;
-  margin-right: 20px;
+  margin-left: 27px;
+  margin-right: 27px;
   margin-top: 10px;
   margin-bottom: 10px;
   display: flex;
@@ -68,8 +84,8 @@
 }
 
 .iconAdd {
-  width: 29pt;
-  height: 29pt;
+  width: 29px;
+  height: 29px;
   color: #ffffff;
 }
 

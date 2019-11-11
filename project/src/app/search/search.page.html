@@ -1,60 +1,46 @@
 <ion-header>
-  <ion-toolbar class="toolbarContainer">
-    <div class="headerTitle">Search</div>
+  <ion-toolbar class="toolbarContainer" text-center>
+    <ion-title class="headerTitle">Search</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <br />
-  <ion-searchbar
-    class="searchBarContainer"
-    placeholder="Search for people..."
-    [(ngModel)]="searchKeyword"
-    (ionInput)="filterUsers()"
-  ></ion-searchbar>
-  <ion-list class="listSearchContainer" *ngFor="let search of filteredSearch">
+  <ion-toolbar>
+    <div style="border-radius: 200px;">
+      <ion-searchbar
+        class="searchBarContainer"
+        placeholder="Search for friends"
+        [(ngModel)]="searchKeyword"
+        (ionInput)="onInputSearch($event.target.value)"
+        (ionClear)="onInputSearch($event.target.value)"
+      ></ion-searchbar>
+    </div>
+  </ion-toolbar>
+  <div
+    class="notFoundContainer ion-text-center"
+    *ngIf="(!loadedSearch || loadedSearch.length === 0) && isInputEntered"
+  >
+    <p class="textNotFound">
+      No Users Found!
+    </p>
+  </div>
+  <ion-list
+    class="listSearchContainer"
+    *ngFor="let search of loadedSearch"
+    [routerLink]="['/', 'profile-user', search.id]"
+  >
     <ion-item lines="none">
       <ion-avatar item-left>
-        <img src="{{ search.avatar }}" />
+        <img src="{{ search.avatar }}" *ngIf="search.avatar !== null" />
+        <img
+          src="assets/images/avatarDefault.png"
+          *ngIf="search.avatar === null"
+        />
       </ion-avatar>
-      <p class="textUsername">{{ search.username }}</p>
-      <ion-button
-        *ngIf="search.flagFollow == 1"
-        expand="block"
-        shape="round"
-        color="tertiary"
-        class="btnFollow"
-        (click)="onClickFollow(search.id)"
-        ><ion-icon
-          slot="icon-only"
-          name="person-add"
-          class="iconFollow"
-        ></ion-icon>
-        Follow</ion-button
-      >
-      <ion-button
-        *ngIf="search.flagFollow == 2"
-        expand="block"
-        shape="round"
-        color="medium"
-        class="btnFollow"
-        ><ion-icon slot="icon-only" name="person" class="iconFollow"></ion-icon>
-        Requested</ion-button
-      >
-      <ion-button
-        *ngIf="search.flagFollow == 3"
-        expand="block"
-        shape="round"
-        color="danger"
-        class="btnFollow"
-        (click)="onClickUnfollow(search.id)"
-        ><ion-icon
-          slot="icon-only"
-          name="remove-circle-outline"
-          class="iconFollow"
-        ></ion-icon>
-        Unfollow</ion-button
-      >
+      <p class="textContainer">
+        {{ search.full_name }} <br />{{ search.username }}
+      </p>
     </ion-item>
   </ion-list>
 </ion-content>
@@ -70,7 +56,7 @@
     </div>
     <div>
       <ion-buttons>
-        <ion-button class="iconSelectedContainer">
+        <ion-button class="iconSelectedContainer" (click)="onClickSearch()">
           <ion-icon slot="icon-only" name="search"></ion-icon>
         </ion-button>
       </ion-buttons>

@@ -1,6 +1,17 @@
 <ion-content *ngIf="isLoading" color="medium"></ion-content>
 
 <ion-content *ngIf="!isLoading">
+  <ion-toolbar translucent class="backContainer">
+    <ion-buttons slot="start">
+      <ion-button (click)="onClickBack()"
+        ><ion-icon
+          slot="icon-only"
+          name="arrow-back"
+          class="backIcon"
+        ></ion-icon
+      ></ion-button>
+    </ion-buttons>
+  </ion-toolbar>
   <div class="pageContainer">
     <div class="headerContainer">
       <div class="avatarContainerHeader">

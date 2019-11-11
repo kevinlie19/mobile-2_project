@@ -6,8 +6,18 @@ ion-content {
     rgba(241, 102, 129, 1)
   ) !important;
   background-position: center top;
-  background-repeat: no-repeat;
   background-size: 100% 220px;
+  background-repeat: no-repeat;
+}
+
+.backIcon {
+  width: 24px;
+  height: 24px;
+  color: #000000;
+}
+
+.backContainer {
+  margin-bottom: -80px;
 }
 
 ion-toolbar {
@@ -160,7 +170,7 @@ ion-card-content {
 }
 
 .textUnavailableTitle {
-  padding-top: 0px;
+  padding-top: 15px;
   font-size: 20pt;
   font-family: neusa-next-std, sans-serif;
   font-weight: bold;
