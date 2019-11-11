@@ -13,134 +13,146 @@
     <p class="textTitle">Add Item</p>
   </ion-row>
   <br />
-  <ion-row class="boxImage" *ngIf="image === ''">
-    <ion-row class="boxImageContent" (click)="changeImage()">
-      <div class="iconBoxImage">
-        <img
+  <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+    <ion-row class="boxImage" *ngIf="image === ''">
+      <ion-row class="boxImageContent" (click)="changeImage()">
+        <div class="iconBoxImage">
+          <img
+            *ngIf="image === ''"
+            src="../../assets/add-item/icons8-add_camera.png"
+            class="ion-text-center"
+            (click)="changeImage()"
+          />
+        </div>
+        <div
           *ngIf="image === ''"
-          src="../../assets/add-item/icons8-add_camera.png"
-          class="ion-text-center"
+          class="ion-text-center textPhoto"
           (click)="changeImage()"
-        />
-      </div>
-      <div
-        *ngIf="image === ''"
-        class="ion-text-center textPhoto"
-        (click)="changeImage()"
-      >
-        Take a photo of your food
-      </div>
+        >
+          Take a photo of your food
+        </div>
+      </ion-row>
     </ion-row>
-  </ion-row>
-  <img
-    *ngIf="image !== ''"
-    [src]="image"
-    class="photo"
-    (click)="changeImage()"
-  />
-  <br />
-  <ion-row class="labelItemName">Item Name</ion-row>
-  <ion-row class="boxItemName">
-    <ion-input
-      placeholder="Item Name"
-      class="textItemName"
-      [(ngModel)]="item_name"
-      name="item_name"
-      required
-    ></ion-input>
-  </ion-row>
-  <br />
-  <ion-row class="containerDate">
-    <ion-col>
-      <ion-row class="labelBuyDate">Buy Date</ion-row>
-      <ion-row class="boxBuyDate">
-        <ion-datetime
-          displayFormat="MM/DD/YYYY"
-          placeholder="Buy Date"
-          class="textBuyDate"
-          [(ngModel)]="buy_date"
-          name="dateBuy"
-          required
-        ></ion-datetime>
-      </ion-row>
-    </ion-col>
-    <ion-col>
-      <ion-row class="labelExpDate">Exp Date</ion-row>
-      <ion-row class="boxExpDate">
-        <ion-datetime
-          displayFormat="MM/DD/YYYY"
-          placeholder="Exp Date"
-          class="textExpDate"
-          [(ngModel)]="exp_date"
-          name="dateExp"
-          min="dateBuy"
-          required
-        ></ion-datetime>
-      </ion-row>
-    </ion-col>
-  </ion-row>
-  <br />
-  <ion-row class="labelCategory">Category</ion-row>
-  <ion-row class="boxCategory">
-    <ion-select
-      placeholder="Category"
-      class="textCategory"
-      [(ngModel)]="category"
-      name="category"
-      interface="popover"
-      required
+    <img
+      *ngIf="image !== ''"
+      [src]="image"
+      class="photo"
+      (click)="changeImage()"
+    />
+    <br />
+    <ion-row class="labelItemName">Item Name</ion-row>
+    <ion-row class="boxItemName">
+      <ion-input
+        placeholder="Item Name"
+        class="textItemName"
+        [(ngModel)]="item_name"
+        name="item_name"
+        required
+      ></ion-input>
+    </ion-row>
+    <br />
+    <ion-row class="containerDate">
+      <ion-col>
+        <ion-row class="labelBuyDate">Buy Date</ion-row>
+        <ion-row class="boxBuyDate">
+          <ion-datetime
+            displayFormat="MM/DD/YYYY"
+            placeholder="Buy Date"
+            class="textBuyDate"
+            [(ngModel)]="buy_date"
+            name="dateBuy"
+          ></ion-datetime>
+        </ion-row>
+      </ion-col>
+      <ion-col>
+        <ion-row class="labelExpDate">Exp Date</ion-row>
+        <ion-row class="boxExpDate">
+          <ion-datetime
+            displayFormat="MM/DD/YYYY"
+            placeholder="Exp Date"
+            class="textExpDate"
+            [(ngModel)]="exp_date"
+            name="dateExp"
+            min="{{ buy_date }}"
+            *ngIf="buy_date"
+          ></ion-datetime>
+          <ion-datetime
+            displayFormat="MM/DD/YYYY"
+            placeholder="Exp Date"
+            class="textExpDate"
+            [(ngModel)]="exp_date"
+            name="dateExp"
+            *ngIf="!buy_date"
+          ></ion-datetime>
+        </ion-row>
+      </ion-col>
+    </ion-row>
+    <br />
+    <ion-row class="labelCategory">Category</ion-row>
+    <ion-row class="boxCategory">
+      <ion-select
+        placeholder="Category"
+        class="textCategory"
+        [(ngModel)]="category"
+        name="category"
+        interface="popover"
+        required
+      >
+        <ion-select-option value="Vegetables">Vegetables</ion-select-option>
+        <ion-select-option value="Fruits">Fruits</ion-select-option>
+        <ion-select-option value="Grains, Beans and Nuts"
+          >Grains, Beans and Nuts</ion-select-option
+        >
+        <ion-select-option value="Meat and Poultry"
+          >Meat and Poultry</ion-select-option
+        >
+        <ion-select-option value="Dairy Foods">Dairy Foods</ion-select-option>
+        <ion-select-option value="Fish and Seafood"
+          >Fish and Seafood</ion-select-option
+        >
+      </ion-select>
+    </ion-row>
+    <br />
+    <ion-row class="labelDescription">Description</ion-row>
+    <ion-row class="boxDescription">
+      <ion-textarea
+        rows="6"
+        cols="6"
+        placeholder="Description"
+        class="textDescription"
+        [(ngModel)]="description"
+        name="desc"
+        required
+      ></ion-textarea>
+    </ion-row>
+    <br />
+    <ion-row class="labelTag">Tag</ion-row>
+    <ion-row class="boxTag">
+      <ion-select
+        placeholder="Available"
+        class="textTag"
+        [(ngModel)]="tag"
+        name="tag"
+        interface="popover"
+        required
+      >
+        <ion-select-option value="Available">Available</ion-select-option>
+        <ion-select-option *ngIf="exp_date < currentDate" value="Expired"
+          >Expired</ion-select-option
+        >
+      </ion-select>
+    </ion-row>
+    <br />
+    <ion-button
+      type="submit"
+      expand="block"
+      shape="round"
+      color="tertiary"
+      class="btnPost"
+      [disabled]="!f.valid && (!buy_date || !exp_date)"
+      (click)="addPost()"
+      >POST</ion-button
     >
-      <ion-select-option value="Vegetables">Vegetables</ion-select-option>
-      <ion-select-option value="Fruits">Fruits</ion-select-option>
-      <ion-select-option value="Grains, Beans and Nuts"
-        >Grains, Beans and Nuts</ion-select-option
-      >
-      <ion-select-option value="Meat and Poultry"
-        >Meat and Poultry</ion-select-option
-      >
-      <ion-select-option value="Dairy Foods">Dairy Foods</ion-select-option>
-      <ion-select-option value="Fish and Seafood"
-        >Fish and Seafood</ion-select-option
-      >
-    </ion-select>
-  </ion-row>
-  <br />
-  <ion-row class="labelDescription">Description</ion-row>
-  <ion-row class="boxDescription">
-    <ion-textarea
-      rows="6"
-      cols="6"
-      placeholder="Description"
-      class="textDescription"
-      [(ngModel)]="description"
-      name="desc"
-      required
-    ></ion-textarea>
-  </ion-row>
-  <br />
-  <ion-row class="labelTag">Tag</ion-row>
-  <ion-row class="boxTag">
-    <ion-select
-      placeholder="Available"
-      class="textTag"
-      [(ngModel)]="tag"
-      name="tag"
-      interface="popover"
-      required
-    >
-      <ion-select-option value="Available">Available</ion-select-option>
-      <ion-select-option value="Expired">Expired</ion-select-option>
-    </ion-select>
-  </ion-row>
-  <br />
-  <ion-button
-    type="submit"
-    expand="block"
-    shape="round"
-    color="tertiary"
-    class="btnPost"
-    (click)="addPost()"
-    >POST</ion-button
-  >
+  </form>
   <br /><br />
 </ion-content>
