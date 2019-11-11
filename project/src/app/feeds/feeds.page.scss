@@ -1,6 +1,11 @@
 .toolbarContainer {
   --background: #3c4cac;
-  height: 86px;
+}
+
+.rowToolbar {
+  justify-content: space-between;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 .headerTitle {
@@ -8,26 +13,25 @@
   font-size: 18px;
   font-weight: bold;
   color: #ffffff;
-  margin-top: 29px;
-  margin-bottom: 19px;
   text-align: center;
-  margin-right: -28px;
+  align-self: center;
 }
 
 .statusExpired {
   border-radius: 3px;
-  background: #ffdf00;
+  background: #5a5a5a;
   padding: 3px;
   font-size: 11px;
-  width: 70px;
+  width: 60px;
   height: 18px;
   font-family: qanelas;
+  text-transform: lowercase;
 }
 
 .tagPositionExpired {
   position: absolute;
   top: 8px;
-  left: 16px;
+  left: 8px;
 }
 
 .rowFeedsContainer {
@@ -89,6 +93,7 @@
 }
 
 .imageAvailable {
+  object-fit: cover;
   height: 162px;
   font-family: Qanelas;
   font-size: 12px;
@@ -96,6 +101,7 @@
 }
 
 .imageUnavailable {
+  object-fit: cover;
   height: 162px;
   -webkit-filter: grayscale(100%);
   filter: grayscale(100%);
@@ -110,14 +116,21 @@
   height: 30px;
 }
 
+.statusExpired::first-letter,
+.statusAvailable::first-letter,
+.statusUnavailable::first-letter {
+  text-transform: capitalize;
+}
+
 .statusAvailable {
   border-radius: 3px;
   background: #00af72;
   padding: 3px;
   font-size: 11px;
-  width: 70px;
+  width: 60px;
   height: 18px;
   font-family: qanelas;
+  text-transform: lowercase;
 }
 
 .statusUnavailable {
@@ -125,9 +138,10 @@
   background: #fa4353;
   padding: 3px;
   font-size: 11px;
-  width: 70px;
+  width: 60px;
   height: 18px;
   font-family: qanelas;
+  text-transform: lowercase;
 }
 
 .textItemName {
@@ -172,14 +186,13 @@
 .tagPosition {
   position: absolute;
   top: 8px;
-  right: 16px;
+  right: 8px;
 }
 
-.chattingIcon {
+.headerIcon {
   width: 25px;
   height: 25px;
   color: #ffffff;
-  padding-top: 5px;
 }
 
 ion-content {
@@ -205,4 +218,21 @@ ion-card {
 
 .bodyContainerNoPost {
   text-align: center;
+}
+
+.spin {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+ion-spinner {
+  width: 100px;
+  height: 100px;
+  --color: #3c4cac;
+}
+
+.backgroundLoading {
+  --background: linear-gradient(155deg, #fbc34a, #f05d87);
 }

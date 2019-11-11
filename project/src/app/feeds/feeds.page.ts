@@ -27,6 +27,7 @@ export class FeedsPage implements OnInit {
   scannedData: {};
   barcodeScannerOptions: BarcodeScannerOptions;
   loginStatus: boolean = false;
+  alertCtrl: any;
 
   constructor(
     private feedsService: FeedsService,
@@ -47,55 +48,43 @@ export class FeedsPage implements OnInit {
     this.isEmpty = false;
     const self = this;
     let userToken = await this.storage.get('userToken');
-    this.loadingCtrl
-      .create({keyboardClose: true, message: 'Loading ...'})
-      .then((loadingEl) => {
-        loadingEl.present();
 
-        async function getDataFromAPI() {
-          let response = await fetch(APISetting.API_ENDPOINT + 'page/home', {
-            method: 'GET',
-            headers: {
-              authorization: userToken,
-            },
-          });
+    let response = await fetch(APISetting.API_ENDPOINT + 'page/home', {
+      method: 'GET',
+      headers: {
+        authorization: userToken,
+      },
+    });
 
-          let post;
-          if (response.status === 200) {
-            post = await response.json();
-          } else {
-            console.log(response);
-            loadingEl.dismiss();
-          }
+    let post;
+    if (response.status === 200) {
+      post = await response.json();
+    } else {
+      console.log(response);
+    }
 
-          if (post.success === true) {
-            loadingEl.dismiss();
-
-            self.feedsService.addFeeds(post.data);
-            self.loadedFeeds = self.feedsService.getFeeds();
-            if (self.loadedFeeds.length === 0) {
-              self.isEmpty = true;
-            } else {
-              self.isEmpty = false;
-            }
-          } else {
-            loadingEl.dismiss();
-            let alert = await this.alertCtrl.create({
-              title: 'Alert',
-              message: post.message,
-              buttons: [
-                {
-                  text: 'OK',
-                  handler: () => {},
-                },
-              ],
-            });
-            await alert.present();
-            return;
-          }
-        }
-        getDataFromAPI();
+    if (post.success === true) {
+      self.feedsService.addFeeds(post.data);
+      self.loadedFeeds = self.feedsService.getFeeds();
+      if (self.loadedFeeds.length === 0) {
+        self.isEmpty = true;
+      } else {
+        self.isEmpty = false;
+      }
+    } else {
+      let alert = await this.alertCtrl.create({
+        title: 'Alert',
+        message: post.message,
+        buttons: [
+          {
+            text: 'OK',
+            handler: () => {},
+          },
+        ],
       });
+      await alert.present();
+      return;
+    }
     this.isLoading = false;
   }
 

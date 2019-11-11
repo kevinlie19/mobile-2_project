@@ -5,8 +5,16 @@
     </h1>
     <div class="card">
       <ion-segment [(ngModel)]="segment" color="tertiary">
-        <ion-segment-button value="login" checked class="ion-segment-text" color="secondary"><b>Sign In</b></ion-segment-button>
-        <ion-segment-button value="signUp" class="ion-segment-text"><b>Sign Up</b></ion-segment-button>
+        <ion-segment-button
+          value="login"
+          checked
+          class="ion-segment-text"
+          color="secondary"
+          ><b>Sign In</b></ion-segment-button
+        >
+        <ion-segment-button value="signUp" class="ion-segment-text"
+          ><b>Sign Up</b></ion-segment-button
+        >
       </ion-segment>
       <div [ngSwitch]="segment" class="segment">
         <div *ngSwitchCase="'login'">
@@ -17,9 +25,12 @@
                   <ion-list>
                     <ion-item>
                       <div class="middle">
-                        <ion-label position="floating" class="label middle"> 
-                          <img src="../assets/icon/userIcon.png" class="middle">
-                          &nbsp;&nbsp;Email/Username
+                        <ion-label position="floating" class="label middle">
+                          <img
+                            src="../assets/icon/userIcon.png"
+                            class="middle"
+                          />
+                          &nbsp;&nbsp;Email / Username
                         </ion-label>
                       </div>
                       <ion-input
@@ -28,12 +39,16 @@
                         name="name"
                         required
                         type="name"
+                        [(ngModel)]="name"
                       ></ion-input>
                     </ion-item>
                     <ion-item>
                       <div class="middle">
-                        <ion-label position="floating" class="label middle"> 
-                          <img src="../assets/icon/passwordIcon.png" class="middle">
+                        <ion-label position="floating" class="label middle">
+                          <img
+                            src="../assets/icon/passwordIcon.png"
+                            class="middle"
+                          />
                           &nbsp;&nbsp;Password
                         </ion-label>
                       </div>
@@ -44,6 +59,7 @@
                         required
                         #passwordCtrl="ngModel"
                         minlength="6"
+                        [(ngModel)]="password"
                       ></ion-input>
                     </ion-item>
                     <ion-item
@@ -71,7 +87,7 @@
             </ion-grid>
           </form>
         </div>
-      
+
         <div *ngSwitchCase="'signUp'">
           <form #f="ngForm" (ngSubmit)="onSubmitSignUp(f)">
             <ion-grid>
@@ -80,8 +96,11 @@
                   <ion-list>
                     <ion-item>
                       <div class="middle">
-                        <ion-label position="floating" class="middle"> 
-                          <img src="../assets/icon/emailIcon.png" class="middle">
+                        <ion-label position="floating" class="middle">
+                          <img
+                            src="../assets/icon/emailIcon.png"
+                            class="middle"
+                          />
                           &nbsp;&nbsp;E-mail
                         </ion-label>
                       </div>
@@ -103,8 +122,11 @@
                     </ion-item>
                     <ion-item>
                       <div class="middle">
-                        <ion-label position="floating" class="label middle"> 
-                          <img src="../assets/icon/userIcon.png" class="middle">
+                        <ion-label position="floating" class="label middle">
+                          <img
+                            src="../assets/icon/userIcon.png"
+                            class="middle"
+                          />
                           &nbsp;&nbsp;Username
                         </ion-label>
                       </div>
@@ -118,8 +140,11 @@
                     </ion-item>
                     <ion-item>
                       <div class="middle">
-                        <ion-label position="floating" class="label middle"> 
-                          <img src="../assets/icon/passwordIcon.png" class="middle">
+                        <ion-label position="floating" class="label middle">
+                          <img
+                            src="../assets/icon/passwordIcon.png"
+                            class="middle"
+                          />
                           &nbsp;&nbsp;Password
                         </ion-label>
                       </div>
@@ -140,8 +165,11 @@
                     </ion-item>
                     <ion-item>
                       <div class="middle">
-                        <ion-label position="floating" class="label middle"> 
-                          <img src="../assets/icon/passwordIcon.png" class="middle">
+                        <ion-label position="floating" class="label middle">
+                          <img
+                            src="../assets/icon/passwordIcon.png"
+                            class="middle"
+                          />
                           &nbsp;&nbsp;Confirm Password
                         </ion-label>
                       </div>
@@ -155,7 +183,10 @@
                       ></ion-input>
                     </ion-item>
                     <ion-item
-                      *ngIf="!confirmPasswordCtrl.valid && confirmPasswordCtrl.touched"
+                      *ngIf="
+                        !confirmPasswordCtrl.valid &&
+                        confirmPasswordCtrl.touched
+                      "
                       lines="none"
                     >
                       <ion-label>Should be a valid confirm password</ion-label>
@@ -165,7 +196,7 @@
               </ion-row>
               <ion-row>
                 <ion-col col size-sm="6" offset-sm="3" class="button">
-                    <ion-button
+                  <ion-button
                     type="submit"
                     color="primary"
                     [disabled]="!f.valid"
