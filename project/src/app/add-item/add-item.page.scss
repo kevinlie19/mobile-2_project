@@ -1,7 +1,46 @@
 .pageBackground {
-  --background: linear-gradient(155deg,
-      rgba(251, 195, 74, 1),
-      rgba(240, 93, 135, 1));
+  --background: linear-gradient(
+    155deg,
+    rgba(251, 195, 74, 1),
+    rgba(240, 93, 135, 1)
+  );
+}
+
+ion-toolbar {
+  --background: transparent;
+}
+
+ion-select {
+  width: 100%;
+  margin-left: 4px;
+  margin-right: 20px;
+  vertical-align: middle;
+}
+
+.labelItemName,
+.labelCategory,
+.labelDescription,
+.labelTag {
+  font-family: neusa-next-std, sans-serif;
+  font-size: 16pt;
+  color: #ffffff;
+  margin-top: 14px;
+  margin-bottom: 5px;
+  margin-left: 68px;
+  margin-right: 68px;
+}
+
+.labelBuyDate,
+.labelExpDate {
+  font-family: neusa-next-std, sans-serif;
+  font-size: 16pt;
+  color: #ffffff;
+  margin-top: 14px;
+  margin-bottom: 5px;
+}
+
+.closeIconContainer {
+  margin-bottom: -80px;
 }
 
 .iconClose {
@@ -11,6 +50,7 @@
 }
 
 .textTitle {
+  padding-top: 60px;
   font-family: neusa-next-std, sans-serif;
   font-weight: bold;
   font-size: 24pt;
@@ -67,29 +107,29 @@
   background-color: #ffffff;
 }
 
-.boxBuyDate {
-  box-shadow: #00000029 0px 3px 6px;
-  margin-right: 6px;
-  min-width: 48px;
-  background-color: #ffffff;
-}
-
+.boxBuyDate,
 .boxExpDate {
   box-shadow: #00000029 0px 3px 6px;
-  margin-left: 6px;
-  min-width: 48px;
+  width: 100%;
   background-color: #ffffff;
 }
 
 .containerDate {
-  margin-left: 68px;
-  margin-right: 68px;
+  margin-left: 62px;
+  margin-right: 62px;
   justify-content: space-between;
 }
 
-.textItemName,
+.textItemName {
+  margin-left: 10px;
+  font-family: qanelas;
+  font-size: 12;
+  color: #6b6b6b;
+  text-transform: capitalize;
+}
+
 .textDescription {
-  margin-left: 30px;
+  margin-left: 10px;
   font-family: qanelas;
   font-size: 12;
   color: #6b6b6b;
@@ -106,16 +146,20 @@
 
 .textBuyDate,
 .textExpDate {
-  margin-left: 10px;
-  margin-top: 8px;
+  margin-left: 0px;
+  margin-top: 6px;
+  margin-bottom: 5px;
   font-family: qanelas;
   font-size: 12;
-  color: #6b6b6b;
+}
+
+ion-datetime {
+  --placeholder-color: #999;
+  opacity: 0.6;
 }
 
 .textCategory,
 .textTag {
-  margin-left: 15px;
   margin-top: 10px;
   font-family: qanelas;
   font-size: 12;
@@ -135,6 +179,7 @@
   font-family: qanelas;
   font-size: 12;
   color: #6b6b6b;
+  padding-top: 5px;
 }
 
 .photo {

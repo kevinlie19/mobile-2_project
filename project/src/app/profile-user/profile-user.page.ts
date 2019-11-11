@@ -6,7 +6,7 @@ import {Storage} from '@ionic/storage';
 
 import {UserProfile} from './profile-user.model';
 import {ProfileUserService} from './profile-user.service';
-import {APISetting} from '../const/API';
+import {APISetting} from '../constant/API';
 
 @Component({
   selector: 'app-profile-user',
@@ -79,7 +79,7 @@ export class ProfileUserPage implements OnInit {
 
       for (let key of resultMyUser.data[0].user[0].following) {
         let obj = JSON.parse(key);
-        if (obj.id === this.userId) {
+        if (obj.id === paramMap.get('userId')) {
           this.isFollowed = true;
         }
       }
