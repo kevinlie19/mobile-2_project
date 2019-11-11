@@ -154,6 +154,10 @@ export class AddItemPage implements OnInit {
     this.presentActionSheet();
   }
 
+  onClickClose() {
+    this.navCtrl.back();
+  }
+
   async presentActionSheet() {
     const actionSheet = await this.actionSheetController.create({
       header: 'Select Image Source!',

@@ -1,11 +1,14 @@
-<ion-content class="pageBackground">
-  <ion-toolbar color="translucent">
+<ion-header translucent="true" no-border>
+  <ion-toolbar class="closeIconContainer">
     <ion-buttons slot="end">
       <ion-button (click)="onClickClose()">
         <ion-icon name="close" class="iconClose"></ion-icon
       ></ion-button>
     </ion-buttons>
   </ion-toolbar>
+</ion-header>
+
+<ion-content class="pageBackground">
   <ion-row>
     <p class="textTitle">Edit Item</p>
   </ion-row>
@@ -19,6 +22,7 @@
   </ion-row>
   <br />
   <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+    <ion-row class="labelItemName">Item Name</ion-row>
     <ion-row class="boxItemName">
       <ion-input
         placeholder="Item Name"
@@ -31,28 +35,35 @@
     </ion-row>
     <br />
     <ion-row class="containerDate">
-      <ion-col class="boxBuyDate">
-        <ion-datetime
-          displayFormat="DD/MM/YYYY"
-          placeholder="Buy Date"
-          ngModel="{{ loadedFeed.post[0].buy_date }}"
-          class="textBuyDate"
-          name="buyDate"
-          required
-        ></ion-datetime>
+      <ion-col>
+        <ion-row class="labelBuyDate">Buy Date</ion-row>
+        <ion-row class="boxBuyDate">
+          <ion-datetime
+            displayFormat="DD/MM/YYYY"
+            placeholder="Buy Date"
+            ngModel="{{ loadedFeed.post[0].buy_date }}"
+            class="textBuyDate"
+            name="buyDate"
+            required
+          ></ion-datetime>
+        </ion-row>
       </ion-col>
-      <ion-col class="boxExpDate">
-        <ion-datetime
-          displayFormat="DD/MM/YYYY"
-          placeholder="Exp Date"
-          ngModel="{{ loadedFeed.post[0].exp_date }}"
-          class="textExpDate"
-          name="expDate"
-          required
-        ></ion-datetime>
+      <ion-col>
+        <ion-row class="labelExpDate">Exp Date</ion-row>
+        <ion-row class="boxExpDate">
+          <ion-datetime
+            displayFormat="DD/MM/YYYY"
+            placeholder="Exp Date"
+            ngModel="{{ loadedFeed.post[0].exp_date }}"
+            class="textExpDate"
+            name="expDate"
+            required
+          ></ion-datetime>
+        </ion-row>
       </ion-col>
     </ion-row>
     <br />
+    <ion-row class="labelCategory">Category</ion-row>
     <ion-row class="boxCategory">
       <ion-select
         placeholder="Category"
@@ -77,6 +88,7 @@
       </ion-select>
     </ion-row>
     <br />
+    <ion-row class="labelDescription">Description</ion-row>
     <ion-row class="boxDescription">
       <ion-textarea
         rows="6"
@@ -89,6 +101,7 @@
       ></ion-textarea>
     </ion-row>
     <br />
+    <ion-row class="labelTag">Tag</ion-row>
     <ion-row class="boxTag">
       <ion-select
         placeholder="Tag"

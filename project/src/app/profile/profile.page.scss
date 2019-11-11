@@ -121,7 +121,7 @@ ion-toolbar {
 }
 
 .textUnavailableTitle {
-  padding-top: 0px;
+  padding-top: 15px;
   font-size: 20pt;
   font-family: neusa-next-std, sans-serif;
   font-weight: bold;
@@ -284,7 +284,7 @@ ion-toolbar {
   background: #00af72;
   padding: 3px;
   font-size: 11px;
-  width: 70px;
+  width: 60px;
   height: 18px;
   font-family: qanelas;
   text-transform: lowercase;
@@ -295,7 +295,7 @@ ion-toolbar {
   background: #fa4353;
   padding: 3px;
   font-size: 11px;
-  width: 70px;
+  width: 60px;
   height: 18px;
   font-family: qanelas;
   text-transform: lowercase;
@@ -306,7 +306,7 @@ ion-toolbar {
   background: #5a5a5a;
   padding: 3px;
   font-size: 11px;
-  width: 70px;
+  width: 60px;
   height: 18px;
   font-family: qanelas;
   text-transform: lowercase;
@@ -339,13 +339,13 @@ ion-toolbar {
 .tagPosition {
   position: absolute;
   top: 8px;
-  right: 16px;
+  right: 8px;
 }
 
 .tagPositionExpired {
   position: absolute;
   top: 8px;
-  right: 16px;
+  left: 8px;
 }
 
 .bodyContainerEmpty {

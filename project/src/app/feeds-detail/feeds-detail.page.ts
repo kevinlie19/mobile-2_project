@@ -9,10 +9,10 @@ import {
 import {Storage} from '@ionic/storage';
 
 import {FeedsService} from '../feeds/feeds.service';
-import {FeedDetails} from './feeds-detail.model';
+import {FeedDetails, HomeDetails} from './feeds-detail.model';
 import {ProfileService} from '../profile/profile.service';
 import {FeedsDetailService} from './feeds-detail.service';
-import {APISetting} from '../const/API';
+import {APISetting} from '../constant/API';
 import {ProfileUserService} from '../profile-user/profile-user.service';
 
 @Component({
@@ -22,6 +22,7 @@ import {ProfileUserService} from '../profile-user/profile-user.service';
 })
 export class FeedsDetailPage implements OnInit {
   loadedFeedDetail: FeedDetails;
+  loadedHomeDetail: HomeDetails;
   isFeedOwnedByMe: boolean;
   textBuyDate: string;
   textExpDate: string;
@@ -68,8 +69,25 @@ export class FeedsDetailPage implements OnInit {
         this.feedDetailService.addFeed(this.loadedFeedDetail);
       } else if (paramMap.get('fromPage') === 'feeds') {
         this.isFeedOwnedByMe = false;
-        // akan di-update setelah page feeds selesai di-connect
+        // akan di-uncomment setelah page feeds selesai di-connect
         // ini akan gw lakuin di PR berikutnya setelah lu approve PR skrg dan merge feeds punya fian
+        // (codingan di bawah ini takutnya ada perubahan lg, menunggu hasil fian)
+        // this.loadedHomeDetail = this.feedsService.getFeeds();
+        // this.loadedFeedDetail.user[0].id = this.loadedHomeDetail.user_id;
+        // this.loadedFeedDetail.user[0].username = this.loadedHomeDetail.username;
+        // this.loadedFeedDetail.user[0].full_name = this.loadedHomeDetail.full_name;
+        // this.loadedFeedDetail.user[0].location = this.loadedHomeDetail.location;
+        // this.loadedFeedDetail.user[0].avatar = this.loadedHomeDetail.avatar;
+        // this.loadedFeedDetail.post[0].id = this.loadedHomeDetail.id;
+        // this.loadedFeedDetail.post[0].user_id = this.loadedHomeDetail.user_id;
+        // this.loadedFeedDetail.post[0].item_name = this.loadedHomeDetail.item_name;
+        // this.loadedFeedDetail.post[0].image = this.loadedHomeDetail.image;
+        // this.loadedFeedDetail.post[0].buy_date = this.loadedHomeDetail.buy_date;
+        // this.loadedFeedDetail.post[0].exp_date = this.loadedHomeDetail.exp_date;
+        // this.loadedFeedDetail.post[0].category = this.loadedHomeDetail.category;
+        // this.loadedFeedDetail.post[0].description = this.loadedHomeDetail.description;
+        // this.loadedFeedDetail.post[0].tag = this.loadedHomeDetail.tag;
+        // this.loadedFeedDetail.post[0].timestamp = this.loadedHomeDetail.timestamp;
       }
 
       let months = [
@@ -109,8 +127,63 @@ export class FeedsDetailPage implements OnInit {
     this.navCtrl.back();
   }
 
-  onClickRequest() {
-    // akan di-update setelah sistem API request sudah fix
+  async onClickRequest() {
+    let self = this;
+    self.loadingCtrl
+      .create({keyboardClose: true, message: 'Requesting...'})
+      .then((loadingEl) => {
+        loadingEl.present();
+
+        async function requestFeed() {
+          const userToken = await self.storage.get('userToken');
+          const apiUrl =
+            APISetting.API_ENDPOINT +
+            'feature/request/' +
+            self.loadedFeedDetail.post[0].id;
+          const response = await fetch(apiUrl, {
+            mode: 'cors',
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+              'Access-Control-Allow-Origin': '*',
+              Authorization: userToken,
+            },
+          });
+
+          const requestPostStatus = await response.json();
+
+          if (requestPostStatus.success === true) {
+            loadingEl.dismiss();
+            const alert = await self.alertCtrl.create({
+              message: 'Successfully Requested!',
+              buttons: [
+                {
+                  text: 'OK',
+                  handler: () => {
+                    self.navCtrl.back();
+                  },
+                },
+              ],
+            });
+            await alert.present();
+          } else {
+            loadingEl.dismiss();
+            const alert = await self.alertCtrl.create({
+              header: 'Alert',
+              message: requestPostStatus.message,
+              buttons: [
+                {
+                  text: 'OK',
+                  handler: () => {},
+                },
+              ],
+            });
+            await alert.present();
+            return;
+          }
+        }
+        requestFeed();
+      });
   }
 
   async onClickDelete() {
@@ -165,8 +238,8 @@ export class FeedsDetailPage implements OnInit {
                     await alert.present();
                   } else {
                     loadingEl.dismiss();
-                    const alert = await this.alertCtrl.create({
-                      title: 'Alert',
+                    const alert = await self.alertCtrl.create({
+                      header: 'Alert',
                       message: deletePostStatus.message,
                       buttons: [
                         {

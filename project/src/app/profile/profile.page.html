@@ -1,4 +1,4 @@
-<ion-header translucent="true" no-border>
+<ion-header translucent="true" no-border *ngIf="!isLoading">
   <ion-toolbar class="settingsContainer">
     <ion-buttons slot="end">
       <ion-menu-button menu="m1"
@@ -95,19 +95,28 @@
             <ion-card
               class="cardContainer"
               [routerLink]="['/', 'profile', 'feeds-detail', item.id]"
-              *ngIf="item.tag.toLowerCase() == 'available' || item.tag.toLowerCase() == 'expired'"
+              *ngIf="
+                item.tag.toLowerCase() == 'available' ||
+                item.tag.toLowerCase() == 'expired'
+              "
             >
               <div class="imageContainer">
                 <img
-                  *ngIf="item.tag.toLowerCase() == 'available' || item.tag.toLowerCase() == 'expired'"
+                  *ngIf="
+                    item.tag.toLowerCase() == 'available' ||
+                    item.tag.toLowerCase() == 'expired'
+                  "
                   src="{{ item.image }}"
                   class="imageAvailable"
                 />
                 <div
-                  *ngIf="item.tag.toLowerCase() == 'available'"
+                  *ngIf="
+                    item.tag.toLowerCase() == 'available' ||
+                    item.tag.toLowerCase() == 'expired'
+                  "
                   class="tagPosition statusAvailable"
                 >
-                  {{ item.tag }}
+                  Available
                 </div>
                 <div
                   *ngIf="item.tag.toLowerCase() == 'expired'"

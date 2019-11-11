@@ -124,10 +124,13 @@
                   class="imageAvailable"
                 />
                 <div
-                  *ngIf="item.tag.toLowerCase() === 'available'"
+                  *ngIf="
+                    item.tag.toLowerCase() == 'available' ||
+                    item.tag.toLowerCase() == 'expired'
+                  "
                   class="tagPosition statusAvailable"
                 >
-                  {{ item.tag }}
+                  Available
                 </div>
                 <div
                   *ngIf="item.tag.toLowerCase() === 'expired'"
