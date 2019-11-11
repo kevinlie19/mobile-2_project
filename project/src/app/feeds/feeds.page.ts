@@ -169,4 +169,47 @@ export class FeedsPage implements OnInit {
         console.log('Error', err);
       });
   }
+
+  async doRefresh(event) {
+    let userToken = await this.storage.get('userToken');
+
+    let response = await fetch(APISetting.API_ENDPOINT + 'page/home', {
+      method: 'GET',
+      headers: {
+        authorization: userToken,
+      },
+    });
+
+    let post;
+    if (response.status === 200) {
+      post = await response.json();
+    } else {
+      console.log(response);
+    }
+
+    if (post.success === true) {
+      this.feedsService.addFeeds(post.data);
+      this.loadedFeeds = this.feedsService.getFeeds();
+      if (this.loadedFeeds.length === 0) {
+        this.isEmpty = true;
+      } else {
+        this.isEmpty = false;
+      }
+      event.target.complete();
+    } else {
+      let alert = await this.alertCtrl.create({
+        title: 'Alert',
+        message: post.message,
+        buttons: [
+          {
+            text: 'OK',
+            handler: () => {},
+          },
+        ],
+      });
+      await alert.present();
+      event.target.complete();
+      return;
+    }
+  }
 }
