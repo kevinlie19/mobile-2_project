@@ -17,6 +17,9 @@ export class AuthPage implements OnInit {
   segment: string = 'login';
   login: boolean = true;
 
+  name: string;
+  password: string;
+
   constructor(
     private router: Router,
     private authService: AuthService,
@@ -25,7 +28,10 @@ export class AuthPage implements OnInit {
     public alertController: AlertController,
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.name = '';
+    this.password = '';
+  }
 
   onSubmitSignIn(form: NgForm) {
     const self = this;

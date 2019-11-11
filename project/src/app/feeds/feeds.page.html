@@ -1,22 +1,27 @@
-<ion-header>
+<ion-header *ngIf="!isLoading">
   <ion-toolbar class="toolbarContainer">
-    <div class="headerTitle">Home</div>
-    <ion-buttons slot="start">
-      <ion-button (click)="scanBarcode()">
-        <ion-icon name="barcode" class="chattingIcon"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-    <ion-buttons slot="end">
-      <ion-button>
-        <ion-icon name="chatboxes" class="chattingIcon"></ion-icon>
-      </ion-button>
-    </ion-buttons>
+    <ion-row class="rowToolbar toolbarContainer">
+      <ion-buttons>
+        <ion-button (click)="scanBarcode()">
+          <ion-icon name="barcode" class="headerIcon"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+      <div class="headerTitle">Home</div>
+      <ion-buttons>
+        <ion-button>
+          <ion-icon name="chatboxes" class="headerIcon"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-row>
   </ion-toolbar>
 </ion-header>
 
-<ion-content *ngIf="isLoading" color="medium"></ion-content>
+<ion-content *ngIf="isLoading" class="backgroundLoading"></ion-content>
 
-<ion-content>
+<ion-content *ngIf="!isLoading && isEmpty">
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <div class="bodyContainerNoPost">
     <b
       ><p class="textAvailableEmpty">Welcome to CIBO</p>
@@ -31,7 +36,10 @@
   </div>
 </ion-content>
 
-<ion-content *ngIf="isEmpty">
+<ion-content *ngIf="!isLoading && !isEmpty">
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <ion-row class="rowFeedsContainer">
     <ion-col class="colFeedsContainer" *ngFor="let item of loadedFeeds">
       <ion-card
@@ -134,3 +142,7 @@
     </div>
   </ion-row>
 </ion-footer>
+
+<div class="spin" *ngIf="isLoading">
+  <ion-spinner name="crescent"></ion-spinner>
+</div>

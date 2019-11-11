@@ -26,7 +26,7 @@ import {provinceFormat} from '../helpers/provinceFormat';
 export class SetUpProfilePage implements OnInit {
   isLoading = false;
   isSignUp: boolean = true;
-  selectedLocation = '';
+  selectedLocation: string;
 
   cityData = [
     {
@@ -176,6 +176,9 @@ export class SetUpProfilePage implements OnInit {
           await alert.present();
         }
       });
+    if (!form.valid) {
+      return;
+    }
   }
 
   takePicture() {

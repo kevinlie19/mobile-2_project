@@ -51,6 +51,7 @@
                   name="fullName"
                   required
                   type="name"
+                  class="fullNameInput"
                 ></ion-input>
               </ion-item>
             </ion-list>
@@ -68,6 +69,8 @@
                   name="phoneNumber"
                   required
                   type="tel"
+                  maxlength="13"
+                  minlength="10"
                 ></ion-input>
               </ion-item>
             </ion-list>
@@ -79,8 +82,15 @@
                     &nbsp;&nbsp;Location
                   </ion-label>
                 </div>
-                <ion-select (ionChange)="onChange($event)" interface="popover">
+                <ion-select
+                  (ionChange)="onChange($event)"
+                  [(ngModel)]="selectedLocation"
+                  name="selectedLocation"
+                  interface="popover"
+                  required
+                >
                   <ion-select-option
+                    required
                     value="{{ data.name }}"
                     *ngFor="let data of cityData"
                     >{{ data.name }}</ion-select-option

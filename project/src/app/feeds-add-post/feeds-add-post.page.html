@@ -13,13 +13,22 @@
   <ion-row class="boxImage">
     <ion-row class="boxImageContent">
       <div class="iconBoxImage">
-        <img *ngIf="scanBarcodeFeeds.itemImageUrl === ''"
+        <img
+          *ngIf="scanBarcodeFeeds.image === ''"
           src="assets/feeds-add-post/icons8-add_camera.png"
           class="ion-text-center"
         />
-        <ion-img *ngIf="scanBarcodeFeeds.itemImageUrl !== ''" [src]="scanBarcodeFeeds.itemImageUrl"></ion-img>
+        <ion-img
+          *ngIf="scanBarcodeFeeds.image !== ''"
+          [src]="scanBarcodeFeeds.image"
+        ></ion-img>
       </div>
-      <div *ngIf="scanBarcodeFeeds.itemImageUrl === ''" class="ion-text-center textPhoto">Take a photo of your food.</div>
+      <div
+        *ngIf="scanBarcodeFeeds.image === ''"
+        class="ion-text-center textPhoto"
+      >
+        Take a photo of your food.
+      </div>
     </ion-row>
   </ion-row>
   <br />
@@ -63,13 +72,22 @@
     <ion-select
       placeholder="Category"
       class="textCategory"
-      ngModel
       name="category"
+      interface="popover"
       required
-      [(ngModel)]="scanBarcodeFeeds.category"      
     >
-      <ion-select-option value="meat">Meat</ion-select-option>
-      <ion-select-option value="vegetables">Vegetables</ion-select-option>
+      <ion-select-option value="Vegetables">Vegetables</ion-select-option>
+      <ion-select-option value="Fruits">Fruits</ion-select-option>
+      <ion-select-option value="Grains, Beans and Nuts"
+        >Grains, Beans and Nuts</ion-select-option
+      >
+      <ion-select-option value="Meat and Poultry"
+        >Meat and Poultry</ion-select-option
+      >
+      <ion-select-option value="Dairy Foods">Dairy Foods</ion-select-option>
+      <ion-select-option value="Fish and Seafood"
+        >Fish and Seafood</ion-select-option
+      >
     </ion-select>
   </ion-row>
   <br />
