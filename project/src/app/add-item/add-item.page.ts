@@ -39,6 +39,7 @@ export class AddItemPage implements OnInit {
   category: string;
   description: string;
   tag: string;
+  currentDate: string;
 
   cameraOptions: CameraOptions = {
     quality: 100,
@@ -51,7 +52,9 @@ export class AddItemPage implements OnInit {
     mediaType: this.camera.MediaType.PICTURE,
   };
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.currentDate = new Date().toISOString();
+  }
 
   async addPost() {
     if (
