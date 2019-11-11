@@ -98,6 +98,10 @@ export class ProfileUserPage implements OnInit {
     });
   }
 
+  onClickBack() {
+    this.navCtrl.back();
+  }
+
   onClickAdd() {
     this.router.navigateByUrl('/add-item');
   }

@@ -1,8 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
-import {SearchService} from './search.service';
+
+import {Storage} from '@ionic/storage';
+
 import {Search} from './search.model';
-import {Observable} from 'rxjs';
+import {APISetting} from '../constant/API';
 
 @Component({
   selector: 'app-search',
@@ -10,35 +12,33 @@ import {Observable} from 'rxjs';
   styleUrls: ['./search.page.scss'],
 })
 export class SearchPage implements OnInit {
-  constructor(private searchService: SearchService, private router: Router) {}
+  constructor(private router: Router, private storage: Storage) {}
 
   loadedSearch: Search[];
-  filteredSearch: Search[];
-  searchKeyword: string;
+  isInputEntered: boolean;
 
   ngOnInit() {
-    this.loadedSearch = this.searchService.allUsers;
+    this.isInputEntered = false;
   }
 
-  filterUsers() {
-    if (this.searchKeyword === undefined) {
-      return;
-    } else {
-      this.filteredSearch = this.loadedSearch.filter(
-        (item) =>
-          item.username
-            .toLowerCase()
-            .indexOf(this.searchKeyword.toLowerCase()) > -1,
-      );
-    }
-  }
+  async onInputSearch(keyword: string) {
+    let userToken = await this.storage.get('userToken');
+    let response = await fetch(
+      APISetting.API_ENDPOINT + 'feature/search/?query=' + keyword,
+      {
+        mode: 'cors',
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+          Authorization: userToken,
+        },
+      },
+    );
 
-  onClickFollow(id: string) {
-    this.searchService.setFollow(id);
-  }
-
-  onClickUnfollow(id: string) {
-    this.searchService.setUnfollow(id);
+    const result = await response.json();
+    this.loadedSearch = result.data;
+    this.isInputEntered = true;
   }
 
   onClickAdd() {
