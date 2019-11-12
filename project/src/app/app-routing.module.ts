@@ -79,7 +79,8 @@ const routes: Routes = [
   {
     path: 'add-item',
     loadChildren: './add-item/add-item.module#AddItemPageModule',
-  },
+  },  { path: 'about', loadChildren: './about/about.module#AboutPageModule' },
+
 ];
 
 @NgModule({
