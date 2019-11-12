@@ -101,6 +101,10 @@ ion-card-content {
   overflow: hidden;
 }
 
+.backgroundLoading {
+  --background: linear-gradient(155deg, #fbc34a, #f05d87);
+}
+
 .unfollowInfo1 {
   font-family: qanelas;
   font-size: 16;
@@ -395,6 +399,5 @@ ion-card-content {
 ion-spinner {
   width: 100px;
   height: 100px;
-  stroke: #444;
-  fill: #222;
+  --color: #3c4cac;
 }

@@ -44,11 +44,12 @@
     <ion-col class="colFeedsContainer" *ngFor="let item of loadedFeeds">
       <ion-card
         class="cardContainer"
-        [routerLink]="['/', 'feeds-detail', item.id]"
+        [routerLink]="['/', 'feeds', 'feeds-detail', item.id]"
       >
         <div class="imageContainer">
           <img
-            *ngIf="item.tag.toLowerCase() == 'available'"
+            *ngIf="item.tag.toLowerCase() == 'available' ||
+            item.tag.toLowerCase() == 'expired'"
             src="{{ item.image }}"
             class="imageAvailable"
           />
@@ -58,13 +59,17 @@
             class="imageUnavailable"
           />
           <div
-            *ngIf="item.tag.toLowerCase() == 'available'"
+            *ngIf="item.tag.toLowerCase() == 'available' ||
+            item.tag.toLowerCase() == 'expired'"
             class="tagPosition statusAvailable"
           >
-            {{ item.tag }}
+            Available
           </div>
-          <div class="tagPositionExpired statusExpired">
-            Expired
+          <div
+            *ngIf="item.tag.toLowerCase() == 'expired'"
+            class="tagPositionExpired statusExpired"
+          >
+            {{ item.tag }}
           </div>
           <div
             *ngIf="item.tag.toLowerCase() == 'unavailable'"
@@ -78,8 +83,8 @@
             {{ item.item_name }}
           </p>
           <p class="textTimeStamp">
-            <ion-icon name="hourglass" slot="icon-only"></ion-icon> Posted
-            {{ item.timestamp }} day ago
+            <ion-icon name="hourglass" slot="icon-only"></ion-icon>{{
+            item.timestamp }}
           </p>
           <p>
             <ion-row class="userInfoContainer">

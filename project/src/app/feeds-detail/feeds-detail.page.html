@@ -1,4 +1,4 @@
-<ion-header translucent="true" no-border>
+<ion-header translucent="true" no-border *ngIf="!isLoading">
   <ion-toolbar class="headerContainer">
     <ion-buttons slot="start">
       <ion-button (click)="onClickBack()"
@@ -12,7 +12,9 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content *ngIf="isLoading" class="backgroundLoading"></ion-content>
+
+<ion-content *ngIf="!isLoading && !isFromHomePage">
   <img src="{{ loadedFeedDetail.post[0].image }}" class="imgHeader" />
   <div class="boxContainer">
     <div class="detailContainer">
@@ -78,7 +80,7 @@
         shape="round"
         class="btnRequest"
         *ngIf="!isFeedOwnedByMe"
-        (click)="onClickRequest()"
+        (click)="onClickRequest(loadedFeedDetail.post[0].id)"
         >REQUEST</ion-button
       >
       <ion-row class="btnOwnerContainer" *ngIf="isFeedOwnedByMe">
@@ -105,3 +107,101 @@
     </div>
   </div>
 </ion-content>
+
+<ion-content *ngIf="!isLoading && isFromHomePage">
+  <img src="{{ loadedHomeDetail.image }}" class="imgHeader" />
+  <div class="boxContainer">
+    <div class="detailContainer">
+      <ion-row class="textItemName">
+        {{ loadedHomeDetail.item_name }}
+      </ion-row>
+      <ion-row class="textTimeStamp">
+        <span>
+          <ion-icon
+            name="hourglass"
+            slot="icon-only"
+            class="iconHourglass"
+          ></ion-icon>
+          {{ loadedHomeDetail.timestamp }}
+        </span>
+      </ion-row>
+      <ion-row class="userContainer">
+        <div class="avatarContainer">
+          <img
+            src="{{ loadedHomeDetail.avatar }}"
+            class="imageAvatar"
+            *ngIf="loadedHomeDetail.avatar != null"
+          />
+          <img
+            src="assets/images/avatarDefault.png"
+            class="imageAvatar"
+            *ngIf="loadedHomeDetail.avatar == null"
+          />
+        </div>
+        <ion-col>
+          <ion-row class="textFullName">
+            {{ loadedHomeDetail.full_name }}
+          </ion-row>
+          <ion-row class="textUserLocation">
+            {{ loadedHomeDetail.location }}
+          </ion-row>
+        </ion-col>
+      </ion-row>
+      <ion-row class="textCategory">
+        Category : {{ loadedHomeDetail.category }}
+      </ion-row>
+      <ion-row class="textDescription">
+        {{ loadedHomeDetail.description }}
+      </ion-row>
+      <ion-row class="buyDateContainer">
+        <ion-col no-padding text-left>
+          Buy Date :
+        </ion-col>
+        <ion-col no-padding text-right>
+          {{ textBuyDate }}
+        </ion-col>
+      </ion-row>
+      <ion-row class="expDateContainer">
+        <ion-col no-padding text-left>
+          Exp Date :
+        </ion-col>
+        <ion-col no-padding text-right>
+          {{ textExpDate }}
+        </ion-col>
+      </ion-row>
+      <ion-button
+        expand="block"
+        shape="round"
+        class="btnRequest"
+        *ngIf="!isFeedOwnedByMe"
+        (click)="onClickRequest(loadedHomeDetail.id)"
+        >REQUEST</ion-button
+      >
+      <ion-row class="btnOwnerContainer" *ngIf="isFeedOwnedByMe">
+        <ion-col no-padding text-left size="5">
+          <ion-button
+            expand="block"
+            shape="round"
+            class="btnEdit"
+            [routerLink]="['/', 'feeds-edit-post']"
+            >EDIT</ion-button
+          >
+        </ion-col>
+        <ion-col size="2"></ion-col>
+        <ion-col no-padding text-right size="5">
+          <ion-button
+            expand="block"
+            shape="round"
+            class="btnDelete"
+            (click)="onClickDelete()"
+            >DELETE</ion-button
+          >
+        </ion-col>
+      </ion-row>
+    </div>
+  </div>
+</ion-content>
+
+<div class="spin" *ngIf="isLoading">
+  <ion-spinner name="crescent"></ion-spinner>
+</div>
