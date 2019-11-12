@@ -67,7 +67,6 @@ export class FeedsPage implements OnInit {
     if (post.success === true) {
       self.feedsService.addFeeds(post.data);
       self.loadedFeeds = self.feedsService.getFeeds();
-      console.log(self.loadedFeeds);
       if (self.loadedFeeds.length === 0) {
         self.isEmpty = true;
       } else {

@@ -121,7 +121,10 @@
                   </ion-row>
                 </div>
                 <div *ngIf="request.status.toLowerCase() === 'approved'">
-                  <ion-row class="noMargin">
+                  <ion-row
+                    class="noMargin"
+                    (click)="chatNow(request.user_data.id)"
+                  >
                     <ion-col
                       class="noPadding ion-text-center"
                       *ngIf="request.status.toLowerCase() === 'approved'"
@@ -191,6 +194,7 @@
                 <ion-col
                   class="noPadding ion-text-center"
                   *ngIf="request.status.toLowerCase() === 'approved'"
+                  (click)="chatNow(request.user_data.id)"
                 >
                   <p class="approved noMargin">
                     <b>

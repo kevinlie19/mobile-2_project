@@ -5,6 +5,7 @@ export type myRequests = {
 };
 
 export type userData = {
+  id: number;
   avatar: string;
   full_name: string;
   location: string;

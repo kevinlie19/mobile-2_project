@@ -7,7 +7,6 @@ import {Storage} from '@ionic/storage';
 
 import {APISetting} from '../constant/API';
 import {AlertController, ToastController} from '@ionic/angular';
-import {DH_NOT_SUITABLE_GENERATOR} from 'constants';
 
 @Component({
   selector: 'app-request',
@@ -49,7 +48,6 @@ export class RequestPage implements OnInit {
 
     if (request.success === true) {
       this.loadedRequests = request.data;
-      console.log(this.loadedRequests);
       if (this.loadedRequests.length === 0) {
         this.isRequestEmpty = true;
       } else {
@@ -140,7 +138,6 @@ export class RequestPage implements OnInit {
 
     if (request.success === true) {
       this.loadedRequests = request.data;
-      console.log('loadedRequest', this.loadedRequests);
       if (this.loadedRequests.length === 0) {
         this.isRequestEmpty = true;
       } else {
@@ -175,7 +172,6 @@ export class RequestPage implements OnInit {
 
     if (myRequest.success === true) {
       this.loadedMyRequests = myRequest.data;
-      console.log('loadedMyRequest', this.loadedMyRequests);
       if (this.loadedMyRequests.length === 0) {
         this.isMyRequestEmpty = true;
       } else {
@@ -269,35 +265,13 @@ export class RequestPage implements OnInit {
         duration: 2000,
       });
       toast.present();
-      let userToken = await this.storage.get('userToken');
 
-      let response = await fetch(
-        APISetting.API_ENDPOINT + 'page/user-request',
-        {
-          method: 'GET',
-          headers: {
-            authorization: userToken,
-          },
-        },
-      );
-      let request;
-      if (response.status === 200) {
-        request = await response.json();
-      } else {
-        console.log(response);
-      }
-
-      if (request.success === true) {
-        this.loadedRequests = request.data;
-        if (this.loadedRequests.length === 0) {
-          this.isRequestEmpty = true;
-        } else {
-          this.isRequestEmpty = false;
-        }
-      } else {
-        return;
-      }
+      this.doRefresh(event);
     } else {
     }
+  }
+
+  chatNow(id: number) {
+    this.router.navigateByUrl('/chat/:id');
   }
 }

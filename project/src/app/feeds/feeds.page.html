@@ -48,13 +48,10 @@
       >
         <div class="imageContainer">
           <img
-            *ngIf="item.tag.toLowerCase() == 'available' ||
-            item.tag.toLowerCase() == 'expired'"
-            src="{{ item.image }}"
-            class="imageAvailable"
-          />
-          <img
-            *ngIf="item.tag.toLowerCase() == 'expired'"
+            *ngIf="
+              item.tag.toLowerCase() == 'available' ||
+              item.tag.toLowerCase() == 'expired'
+            "
             src="{{ item.image }}"
             class="imageAvailable"
           />
@@ -64,8 +61,10 @@
             class="imageUnavailable"
           />
           <div
-            *ngIf="item.tag.toLowerCase() == 'available' ||
-            item.tag.toLowerCase() == 'expired'"
+            *ngIf="
+              item.tag.toLowerCase() == 'available' ||
+              item.tag.toLowerCase() == 'expired'
+            "
             class="tagPosition statusAvailable"
           >
             Available
@@ -88,8 +87,8 @@
             {{ item.item_name }}
           </p>
           <p class="textTimeStamp">
-            <ion-icon name="hourglass" slot="icon-only"></ion-icon>{{
-            item.timestamp }}
+            <ion-icon name="hourglass" slot="icon-only"></ion-icon
+            >{{ item.timestamp }}
           </p>
           <p>
             <ion-row class="userInfoContainer">
