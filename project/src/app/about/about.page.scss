@@ -1,0 +1,73 @@
+.toolbarContainer {
+  --background: #3c4cac;
+}
+
+.headerTitle {
+  font-family: neusa-next-std, sans-serif;
+  font-size: 18px;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+.backIcon {
+  width: 30px;
+  height: 30px;
+  color: #ffffff;
+}
+
+.pageContainer {
+  margin-left: 50px;
+  margin-right: 50px;
+}
+
+.textAboutTitle {
+  padding-top: 30px;
+  font-family: neusa-next-std, sans-serif;
+  font-size: 24px;
+  font-weight: bold;
+  color: #3c4cac;
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+
+.textAboutContent {
+  font-family: neusa-next-std, sans-serif;
+  font-size: 18px;
+  color: #5d5d5d;
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+  text-align: justify;
+  line-height: 1.5;
+}
+
+.textTeamTitle {
+  padding-top: 5px;
+  font-family: neusa-next-std, sans-serif;
+  font-size: 24px;
+  font-weight: bold;
+  color: #3c4cac;
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+
+.textTeamContent {
+  font-family: neusa-next-std, sans-serif;
+  font-size: 18px;
+  color: #5d5d5d;
+  margin-bottom: 0px;
+  padding-bottom: 40px;
+  text-align: justify;
+  line-height: 1.5;
+}
+
+hr {
+  height: 1px;
+  border: 0;
+  border-top: 1px solid #3c4cac;
+  margin-top: 0px;
+  padding-top: 0px;
+}
+
+ul {
+  list-style-type: none;
+}

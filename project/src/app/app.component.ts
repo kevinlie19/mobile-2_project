@@ -35,6 +35,10 @@ export class AppComponent {
     this.router.navigateByUrl('/profile-edit');
   }
 
+  onClickAbout() {
+    this.router.navigateByUrl('/about');
+  }
+
   onClickLogout() {
     this.storage.remove('userToken');
     this.authService.logout();
