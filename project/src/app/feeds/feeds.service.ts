@@ -19,7 +19,7 @@ export class FeedsService {
     return this._feeds;
   }
 
-  getFeedById(id: string) {
+  getFeedById(id: number) {
     return {...this._feeds.find((feed) => feed.id === id)};
   }
 

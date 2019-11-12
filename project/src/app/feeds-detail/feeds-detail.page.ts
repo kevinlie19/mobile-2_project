@@ -1,24 +1,24 @@
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import { Component, OnInit } from "@angular/core";
+import { ActivatedRoute } from "@angular/router";
 
 import {
   NavController,
   AlertController,
-  LoadingController,
-} from '@ionic/angular';
-import {Storage} from '@ionic/storage';
+  LoadingController
+} from "@ionic/angular";
+import { Storage } from "@ionic/storage";
 
-import {FeedsService} from '../feeds/feeds.service';
-import {FeedDetails, HomeDetails} from './feeds-detail.model';
-import {ProfileService} from '../profile/profile.service';
-import {FeedsDetailService} from './feeds-detail.service';
-import {APISetting} from '../constant/API';
-import {ProfileUserService} from '../profile-user/profile-user.service';
+import { FeedsService } from "../feeds/feeds.service";
+import { FeedDetails, HomeDetails, PostObject } from "./feeds-detail.model";
+import { ProfileService } from "../profile/profile.service";
+import { FeedsDetailService } from "./feeds-detail.service";
+import { APISetting } from "../constant/API";
+import { ProfileUserService } from "../profile-user/profile-user.service";
 
 @Component({
-  selector: 'app-feeds-detail',
-  templateUrl: './feeds-detail.page.html',
-  styleUrls: ['./feeds-detail.page.scss'],
+  selector: "app-feeds-detail",
+  templateUrl: "./feeds-detail.page.html",
+  styleUrls: ["./feeds-detail.page.scss"]
 })
 export class FeedsDetailPage implements OnInit {
   loadedFeedDetail: FeedDetails;
@@ -27,6 +27,8 @@ export class FeedsDetailPage implements OnInit {
   textBuyDate: string;
   textExpDate: string;
   feedId: number;
+  isLoading: boolean;
+  isFromHomePage: boolean;
 
   constructor(
     private feedsService: FeedsService,
@@ -37,89 +39,94 @@ export class FeedsDetailPage implements OnInit {
     private navCtrl: NavController,
     private alertCtrl: AlertController,
     private storage: Storage,
-    private loadingCtrl: LoadingController,
+    private loadingCtrl: LoadingController
   ) {}
 
   ngOnInit() {
-    this.route.paramMap.subscribe((paramMap) => {
-      if (!paramMap.has('fromPage') && !paramMap.has('feedsId')) {
+    this.isLoading = true;
+    this.isFromHomePage = false;
+    this.route.paramMap.subscribe(paramMap => {
+      if (!paramMap.has("fromPage") && !paramMap.has("feedsId")) {
         this.navCtrl.back();
         return;
       }
 
-      this.feedId = Number(paramMap.get('feedsId'));
+      this.feedId = Number(paramMap.get("feedsId"));
 
-      if (paramMap.get('fromPage') === 'profile') {
+      if (paramMap.get("fromPage") === "profile") {
         this.isFeedOwnedByMe = true;
         this.loadedFeedDetail = this.myProfileService.getProfile();
-        this.loadedFeedDetail.post = this.loadedFeedDetail.post.filter(
-          (post) => {
-            return post.id === this.feedId;
-          },
-        );
+        this.loadedFeedDetail.post = this.loadedFeedDetail.post.filter(post => {
+          return post.id === this.feedId;
+        });
         this.feedDetailService.addFeed(this.loadedFeedDetail);
-      } else if (paramMap.get('fromPage') === 'profile-user') {
+      } else if (paramMap.get("fromPage") === "profile-user") {
         this.isFeedOwnedByMe = false;
         this.loadedFeedDetail = this.userProfileService.getUserProfile();
-        this.loadedFeedDetail.post = this.loadedFeedDetail.post.filter(
-          (post) => {
-            return post.id === this.feedId;
-          },
-        );
-        this.feedDetailService.addFeed(this.loadedFeedDetail);
-      } else if (paramMap.get('fromPage') === 'feeds') {
+        this.loadedFeedDetail.post = this.loadedFeedDetail.post.filter(post => {
+          return post.id === this.feedId;
+        });
+      } else if (paramMap.get("fromPage") === "feeds") {
+        this.isFromHomePage = true;
         this.isFeedOwnedByMe = false;
-        // akan di-uncomment setelah page feeds selesai di-connect
-        // ini akan gw lakuin di PR berikutnya setelah lu approve PR skrg dan merge feeds punya fian
-        // (codingan di bawah ini takutnya ada perubahan lg, menunggu hasil fian)
-        // this.loadedHomeDetail = this.feedsService.getFeeds();
-        // this.loadedFeedDetail.user[0].id = this.loadedHomeDetail.user_id;
-        // this.loadedFeedDetail.user[0].username = this.loadedHomeDetail.username;
-        // this.loadedFeedDetail.user[0].full_name = this.loadedHomeDetail.full_name;
-        // this.loadedFeedDetail.user[0].location = this.loadedHomeDetail.location;
-        // this.loadedFeedDetail.user[0].avatar = this.loadedHomeDetail.avatar;
-        // this.loadedFeedDetail.post[0].id = this.loadedHomeDetail.id;
-        // this.loadedFeedDetail.post[0].user_id = this.loadedHomeDetail.user_id;
-        // this.loadedFeedDetail.post[0].item_name = this.loadedHomeDetail.item_name;
-        // this.loadedFeedDetail.post[0].image = this.loadedHomeDetail.image;
-        // this.loadedFeedDetail.post[0].buy_date = this.loadedHomeDetail.buy_date;
-        // this.loadedFeedDetail.post[0].exp_date = this.loadedHomeDetail.exp_date;
-        // this.loadedFeedDetail.post[0].category = this.loadedHomeDetail.category;
-        // this.loadedFeedDetail.post[0].description = this.loadedHomeDetail.description;
-        // this.loadedFeedDetail.post[0].tag = this.loadedHomeDetail.tag;
-        // this.loadedFeedDetail.post[0].timestamp = this.loadedHomeDetail.timestamp;
+        this.loadedHomeDetail = this.feedsService.getFeedById(
+          Number(paramMap.get("feedsId"))
+        );
       }
 
+      this.isLoading = false;
+
       let months = [
-        'January',
-        'February',
-        'March',
-        'April',
-        'May',
-        'June',
-        'July',
-        'August',
-        'September',
-        'October',
-        'November',
-        'December',
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December"
       ];
 
-      let buyDate = new Date(this.loadedFeedDetail.post[0].buy_date);
-      this.textBuyDate =
-        buyDate.getDate() +
-        ' ' +
-        months[buyDate.getMonth()] +
-        ' ' +
-        buyDate.getFullYear();
+      if (
+        paramMap.get("fromPage") === "profile" ||
+        paramMap.get("fromPage") === "profile-user"
+      ) {
+        let buyDate = new Date(this.loadedFeedDetail.post[0].buy_date);
+        this.textBuyDate =
+          buyDate.getDate() +
+          " " +
+          months[buyDate.getMonth()] +
+          " " +
+          buyDate.getFullYear();
 
-      let expDate = new Date(this.loadedFeedDetail.post[0].exp_date);
-      this.textExpDate =
-        expDate.getDate() +
-        ' ' +
-        months[expDate.getMonth()] +
-        ' ' +
-        expDate.getFullYear();
+        let expDate = new Date(this.loadedFeedDetail.post[0].exp_date);
+        this.textExpDate =
+          expDate.getDate() +
+          " " +
+          months[expDate.getMonth()] +
+          " " +
+          expDate.getFullYear();
+      } else if (paramMap.get("fromPage") === "feeds") {
+        let buyDate = new Date(this.loadedHomeDetail.buy_date);
+        this.textBuyDate =
+          buyDate.getDate() +
+          " " +
+          months[buyDate.getMonth()] +
+          " " +
+          buyDate.getFullYear();
+
+        let expDate = new Date(this.loadedHomeDetail.exp_date);
+        this.textExpDate =
+          expDate.getDate() +
+          " " +
+          months[expDate.getMonth()] +
+          " " +
+          expDate.getFullYear();
+      }
     });
   }
 
@@ -127,27 +134,24 @@ export class FeedsDetailPage implements OnInit {
     this.navCtrl.back();
   }
 
-  async onClickRequest() {
+  async onClickRequest(id: number) {
     let self = this;
     self.loadingCtrl
-      .create({keyboardClose: true, message: 'Requesting...'})
-      .then((loadingEl) => {
+      .create({ keyboardClose: true, message: "Requesting..." })
+      .then(loadingEl => {
         loadingEl.present();
 
         async function requestFeed() {
-          const userToken = await self.storage.get('userToken');
-          const apiUrl =
-            APISetting.API_ENDPOINT +
-            'feature/request/' +
-            self.loadedFeedDetail.post[0].id;
+          const userToken = await self.storage.get("userToken");
+          const apiUrl = APISetting.API_ENDPOINT + "feature/request/" + id;
           const response = await fetch(apiUrl, {
-            mode: 'cors',
-            method: 'GET',
+            mode: "cors",
+            method: "GET",
             headers: {
-              'Content-Type': 'application/json',
-              'Access-Control-Allow-Origin': '*',
-              Authorization: userToken,
-            },
+              "Content-Type": "application/json",
+              "Access-Control-Allow-Origin": "*",
+              Authorization: userToken
+            }
           });
 
           const requestPostStatus = await response.json();
@@ -155,28 +159,28 @@ export class FeedsDetailPage implements OnInit {
           if (requestPostStatus.success === true) {
             loadingEl.dismiss();
             const alert = await self.alertCtrl.create({
-              message: 'Successfully Requested!',
+              message: "Successfully Requested!",
               buttons: [
                 {
-                  text: 'OK',
+                  text: "OK",
                   handler: () => {
                     self.navCtrl.back();
-                  },
-                },
-              ],
+                  }
+                }
+              ]
             });
             await alert.present();
           } else {
             loadingEl.dismiss();
             const alert = await self.alertCtrl.create({
-              header: 'Alert',
+              header: "Alert",
               message: requestPostStatus.message,
               buttons: [
                 {
-                  text: 'OK',
-                  handler: () => {},
-                },
-              ],
+                  text: "OK",
+                  handler: () => {}
+                }
+              ]
             });
             await alert.present();
             return;
@@ -190,34 +194,34 @@ export class FeedsDetailPage implements OnInit {
     const self = this;
 
     const alert = await self.alertCtrl.create({
-      header: 'Delete Item?',
+      header: "Delete Item?",
       buttons: [
         {
-          text: 'CANCEL',
-          role: 'cancel',
+          text: "CANCEL",
+          role: "cancel"
         },
         {
-          text: 'DELETE',
+          text: "DELETE",
           handler: async () => {
             self.loadingCtrl
-              .create({keyboardClose: true, message: 'Deleting Post...'})
-              .then((loadingEl) => {
+              .create({ keyboardClose: true, message: "Deleting Post..." })
+              .then(loadingEl => {
                 loadingEl.present();
 
                 async function deleteFeed() {
-                  const userToken = await self.storage.get('userToken');
+                  const userToken = await self.storage.get("userToken");
                   const apiUrl =
                     APISetting.API_ENDPOINT +
-                    'feature/delete-post/' +
+                    "feature/delete-post/" +
                     self.feedId;
                   const response = await fetch(apiUrl, {
-                    mode: 'cors',
-                    method: 'GET',
+                    mode: "cors",
+                    method: "GET",
                     headers: {
-                      'Content-Type': 'application/json',
-                      'Access-Control-Allow-Origin': '*',
-                      Authorization: userToken,
-                    },
+                      "Content-Type": "application/json",
+                      "Access-Control-Allow-Origin": "*",
+                      Authorization: userToken
+                    }
                   });
 
                   const deletePostStatus = await response.json();
@@ -225,28 +229,28 @@ export class FeedsDetailPage implements OnInit {
                   if (deletePostStatus.success === true) {
                     loadingEl.dismiss();
                     const alert = await self.alertCtrl.create({
-                      message: 'Post Successfully Deleted!',
+                      message: "Post Successfully Deleted!",
                       buttons: [
                         {
-                          text: 'OK',
+                          text: "OK",
                           handler: () => {
                             self.navCtrl.back();
-                          },
-                        },
-                      ],
+                          }
+                        }
+                      ]
                     });
                     await alert.present();
                   } else {
                     loadingEl.dismiss();
                     const alert = await self.alertCtrl.create({
-                      header: 'Alert',
+                      header: "Alert",
                       message: deletePostStatus.message,
                       buttons: [
                         {
-                          text: 'OK',
-                          handler: () => {},
-                        },
-                      ],
+                          text: "OK",
+                          handler: () => {}
+                        }
+                      ]
                     });
                     await alert.present();
                     return;
@@ -254,9 +258,9 @@ export class FeedsDetailPage implements OnInit {
                 }
                 deleteFeed();
               });
-          },
-        },
-      ],
+          }
+        }
+      ]
     });
     await alert.present();
   }

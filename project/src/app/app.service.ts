@@ -6,15 +6,17 @@ import {Injectable} from '@angular/core';
 })
 export class AppService {
   private _scanBarcodeFeeds: Feeds = {
-    id: '',
+    id: 0,
+    user_id: 0,
     item_name: '',
-    tag: '',
+    tag: 'Available',
     category: '',
     description: '',
-    buyDate: '',
-    expDate: '',
+    buy_date: '',
+    exp_date: '',
     timestamp: '',
     image: '',
+    full_name: '',
     username: '',
     location: '',
     avatar: '',
@@ -30,15 +32,17 @@ export class AppService {
 
   resetScanBarcodeFeeds() {
     this._scanBarcodeFeeds = {
-      id: '',
+      id: 0,
+      user_id: 0,
       item_name: '',
-      tag: '',
+      tag: 'Available',
       category: '',
       description: '',
-      buyDate: '',
-      expDate: '',
+      buy_date: '',
+      exp_date: '',
       timestamp: '',
       image: '',
+      full_name: '',
       username: '',
       location: '',
       avatar: '',

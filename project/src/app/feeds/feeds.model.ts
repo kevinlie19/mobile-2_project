@@ -1,14 +1,16 @@
 export type Feeds = {
-  id: string;
+  id: number;
+  user_id: number;
   item_name: string;
-  tag: string;
+  image: string;
+  buy_date: string;
+  exp_date: string;
   category: string;
   description: string;
-  buyDate: string;
-  expDate: string;
+  tag: 'Available' | 'Unavailable' | 'Expired';
   timestamp: string;
-  image: string;
   username: string;
+  full_name: string;
   location: string;
   avatar: string;
 };
