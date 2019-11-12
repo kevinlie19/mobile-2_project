@@ -1,23 +1,23 @@
-import { Component, OnInit } from "@angular/core";
-import { Router } from "@angular/router";
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
 
 import {
   BarcodeScannerOptions,
-  BarcodeScanner
-} from "@ionic-native/barcode-scanner/ngx";
+  BarcodeScanner,
+} from '@ionic-native/barcode-scanner/ngx';
 
-import { Feeds } from "./feeds.model";
-import { FeedsService } from "./feeds.service";
-import { AppService } from "../app.service";
-import { Storage } from "@ionic/storage";
-import { LoadingController } from "@ionic/angular";
+import {Feeds} from './feeds.model';
+import {FeedsService} from './feeds.service';
+import {AppService} from '../app.service';
+import {Storage} from '@ionic/storage';
+import {LoadingController, AlertController} from '@ionic/angular';
 
-import { APISetting } from "../constant/API";
+import {APISetting} from '../constant/API';
 
 @Component({
-  selector: "app-feeds",
-  templateUrl: "./feeds.page.html",
-  styleUrls: ["./feeds.page.scss"]
+  selector: 'app-feeds',
+  templateUrl: './feeds.page.html',
+  styleUrls: ['./feeds.page.scss'],
 })
 export class FeedsPage implements OnInit {
   isLoading: boolean;
@@ -27,7 +27,6 @@ export class FeedsPage implements OnInit {
   scannedData: {};
   barcodeScannerOptions: BarcodeScannerOptions;
   loginStatus: boolean = false;
-  alertCtrl: any;
 
   constructor(
     private feedsService: FeedsService,
@@ -35,11 +34,12 @@ export class FeedsPage implements OnInit {
     private barcodeScanner: BarcodeScanner,
     private appService: AppService,
     private storage: Storage,
-    private loadingCtrl: LoadingController
+    private loadingCtrl: LoadingController,
+    private alertCtrl: AlertController,
   ) {
     this.barcodeScannerOptions = {
       showTorchButton: true,
-      showFlipCameraButton: true
+      showFlipCameraButton: true,
     };
   }
 
@@ -47,13 +47,13 @@ export class FeedsPage implements OnInit {
     this.isLoading = true;
     this.isEmpty = false;
     const self = this;
-    let userToken = await this.storage.get("userToken");
+    let userToken = await this.storage.get('userToken');
 
-    let response = await fetch(APISetting.API_ENDPOINT + "page/home", {
-      method: "GET",
+    let response = await fetch(APISetting.API_ENDPOINT + 'page/home', {
+      method: 'GET',
       headers: {
-        authorization: userToken
-      }
+        authorization: userToken,
+      },
     });
 
     let post;
@@ -74,14 +74,13 @@ export class FeedsPage implements OnInit {
       }
     } else {
       let alert = await this.alertCtrl.create({
-        title: "Alert",
         message: post.message,
         buttons: [
           {
-            text: "OK",
-            handler: () => {}
-          }
-        ]
+            text: 'OK',
+            handler: () => {},
+          },
+        ],
       });
       await alert.present();
       return;
@@ -90,99 +89,99 @@ export class FeedsPage implements OnInit {
   }
 
   onClickAdd() {
-    this.router.navigateByUrl("/add-item");
+    this.router.navigateByUrl('/add-item');
   }
 
   onClickRequest() {
-    this.router.navigateByUrl("/request");
+    this.router.navigateByUrl('/request');
   }
 
   onClickSearch() {
-    this.router.navigateByUrl("/search");
+    this.router.navigateByUrl('/search');
   }
 
   onClickProfile() {
-    this.router.navigateByUrl("/profile");
+    this.router.navigateByUrl('/profile');
   }
 
   onClickHome() {
-    this.router.navigateByUrl("/feeds");
+    this.router.navigateByUrl('/feeds');
   }
 
   scanBarcode() {
     this.barcodeScanner
       .scan()
-      .then(barcodeData => {
+      .then((barcodeData) => {
         this.scannedData = barcodeData;
 
-        if (barcodeData.text === "8996001600269") {
+        if (barcodeData.text === '8996001600269') {
           alert(
-            "Barcode number " +
+            'Barcode number ' +
               JSON.stringify(barcodeData.text) +
-              "\nYou scanned a Sari Roti!"
+              '\nYou scanned a Sari Roti!',
           );
           this.appService.setScanBarcodeFeeds({
             id: 50,
             user_id: 50,
-            item_name: "Sari Roti",
-            tag: "Available",
-            category: "Bread",
+            item_name: 'Sari Roti',
+            tag: 'Available',
+            category: 'Bread',
             description:
-              "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-            buy_date: "11/17/2019",
-            exp_date: "11/31/2019",
-            timestamp: "1",
+              'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+            buy_date: '11/17/2019',
+            exp_date: '11/31/2019',
+            timestamp: '1',
             // tslint:disable-next-line: max-line-length
             image:
-              "https://www.rotinyaindonesia.com/contents/sari-roti-p40cyI20181009132656.png",
-            username: "ceciliak",
-            full_name: "Cecilia K.",
-            location: "Jakarta Selatan",
-            avatar: "https://www.venmond.com/demo/vendroid/img/avatar/big.jpg"
+              'https://www.rotinyaindonesia.com/contents/sari-roti-p40cyI20181009132656.png',
+            username: 'ceciliak',
+            full_name: 'Cecilia K.',
+            location: 'Jakarta Selatan',
+            avatar: 'https://www.venmond.com/demo/vendroid/img/avatar/big.jpg',
           });
         } else {
           alert(
-            "Barcode number " +
+            'Barcode number ' +
               JSON.stringify(barcodeData.text) +
-              "\nYou scanned a Bear Brand!"
+              '\nYou scanned a Bear Brand!',
           );
           this.appService.setScanBarcodeFeeds({
             id: 51,
             user_id: 50,
-            item_name: "Susu Bear Brand",
-            tag: "Available",
-            category: "Milk",
+            item_name: 'Susu Bear Brand',
+            tag: 'Available',
+            category: 'Milk',
             description:
-              "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-            buy_date: "11/17/2019",
-            exp_date: "11/31/2019",
-            timestamp: "1",
+              'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+            buy_date: '11/17/2019',
+            exp_date: '11/31/2019',
+            timestamp: '1',
             // tslint:disable-next-line: max-line-length
             image:
               // tslint:disable-next-line: max-line-length
-              "https://ecs7.tokopedia.net/img/cache/700/product-1/2017/10/24/803115/803115_1bff2b5d-59af-4506-bcba-f027e09275cc_1250_1664.jpg",
-            username: "ceciliak",
-            full_name: "Cecilia K.",
-            location: "Jakarta Selatan",
-            avatar: "https://www.venmond.com/demo/vendroid/img/avatar/big.jpg"
+              'https://ecs7.tokopedia.net/img/cache/700/product-1/2017/10/24/803115/803115_1bff2b5d-59af-4506-bcba-f027e09275cc_1250_1664.jpg',
+            username: 'ceciliak',
+            full_name: 'Cecilia K.',
+            location: 'Jakarta Selatan',
+            avatar: 'https://www.venmond.com/demo/vendroid/img/avatar/big.jpg',
           });
         }
 
-        this.router.navigateByUrl("/feeds-add-post");
+        this.router.navigateByUrl('/feeds-add-post');
       })
-      .catch(err => {
-        console.log("Error", err);
+      .catch((err) => {
+        console.log('Error', err);
       });
   }
 
   async doRefresh(event) {
-    let userToken = await this.storage.get("userToken");
+    let userToken = await this.storage.get('userToken');
 
-    let response = await fetch(APISetting.API_ENDPOINT + "page/home", {
-      method: "GET",
+    let response = await fetch(APISetting.API_ENDPOINT + 'page/home', {
+      method: 'GET',
       headers: {
-        authorization: userToken
-      }
+        authorization: userToken,
+      },
     });
 
     let post;
@@ -203,14 +202,13 @@ export class FeedsPage implements OnInit {
       event.target.complete();
     } else {
       let alert = await this.alertCtrl.create({
-        title: "Alert",
         message: post.message,
         buttons: [
           {
-            text: "OK",
-            handler: () => {}
-          }
-        ]
+            text: 'OK',
+            handler: () => {},
+          },
+        ],
       });
       await alert.present();
       event.target.complete();

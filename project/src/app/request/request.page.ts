@@ -1,7 +1,12 @@
 import {Component, OnInit} from '@angular/core';
-import {Requests} from './request.model';
+import {Request, myRequests} from './request.model';
 import {RequestService} from './request.service';
 import {Router} from '@angular/router';
+
+import {Storage} from '@ionic/storage';
+
+import {APISetting} from '../constant/API';
+import {AlertController, ToastController} from '@ionic/angular';
 
 @Component({
   selector: 'app-request',
@@ -9,15 +14,92 @@ import {Router} from '@angular/router';
   styleUrls: ['./request.page.scss'],
 })
 export class RequestPage implements OnInit {
-  loadedRequests: Requests[];
-  loadedMyRequests: Requests[];
+  loadedRequests: Request[];
+  loadedMyRequests: myRequests[];
+  isRequestEmpty: boolean;
+  isMyRequestEmpty: boolean;
   segment: string = 'requests';
 
-  constructor(private requestService: RequestService, private router: Router) {}
+  constructor(
+    private router: Router,
+    private storage: Storage,
+    private alertCtrl: AlertController,
+    private toastController: ToastController,
+  ) {}
 
-  ngOnInit() {
-    this.loadedRequests = this.requestService.allRequest;
-    this.loadedMyRequests = this.requestService.allMyRequest;
+  async ngOnInit() {
+    this.segment = 'requests';
+    this.isRequestEmpty = false;
+    this.isMyRequestEmpty = false;
+    let userToken = await this.storage.get('userToken');
+
+    let response = await fetch(APISetting.API_ENDPOINT + 'page/user-request', {
+      method: 'GET',
+      headers: {
+        authorization: userToken,
+      },
+    });
+    let request;
+    if (response.status === 200) {
+      request = await response.json();
+    } else {
+      console.log(response);
+    }
+
+    if (request.success === true) {
+      this.loadedRequests = request.data;
+      if (this.loadedRequests.length === 0) {
+        this.isRequestEmpty = true;
+      } else {
+        this.isRequestEmpty = false;
+      }
+    } else {
+      let alert = await this.alertCtrl.create({
+        message: request.message,
+        buttons: [
+          {
+            text: 'OK',
+            handler: () => {},
+          },
+        ],
+      });
+      await alert.present();
+      return;
+    }
+
+    response = await fetch(APISetting.API_ENDPOINT + 'page/my-request', {
+      method: 'GET',
+      headers: {
+        authorization: userToken,
+      },
+    });
+    let myRequest;
+    if (response.status === 200) {
+      myRequest = await response.json();
+    } else {
+      console.log(response);
+    }
+
+    if (myRequest.success === true) {
+      this.loadedMyRequests = myRequest.data;
+      if (this.loadedMyRequests.length === 0) {
+        this.isMyRequestEmpty = true;
+      } else {
+        this.isMyRequestEmpty = false;
+      }
+    } else {
+      let alert = await this.alertCtrl.create({
+        message: myRequest.message,
+        buttons: [
+          {
+            text: 'OK',
+            handler: () => {},
+          },
+        ],
+      });
+      await alert.present();
+      return;
+    }
   }
 
   onClickHome() {
@@ -34,5 +116,162 @@ export class RequestPage implements OnInit {
 
   onClickRequest() {
     this.router.navigateByUrl('/request');
+  }
+
+  async doRefresh(event) {
+    this.isRequestEmpty = false;
+    this.isMyRequestEmpty = false;
+    let userToken = await this.storage.get('userToken');
+
+    let response = await fetch(APISetting.API_ENDPOINT + 'page/user-request', {
+      method: 'GET',
+      headers: {
+        authorization: userToken,
+      },
+    });
+    let request;
+    if (response.status === 200) {
+      request = await response.json();
+    } else {
+      console.log(response);
+    }
+
+    if (request.success === true) {
+      this.loadedRequests = request.data;
+      if (this.loadedRequests.length === 0) {
+        this.isRequestEmpty = true;
+      } else {
+        this.isRequestEmpty = false;
+      }
+    } else {
+      let alert = await this.alertCtrl.create({
+        message: request.message,
+        buttons: [
+          {
+            text: 'OK',
+            handler: () => {},
+          },
+        ],
+      });
+      await alert.present();
+      return;
+    }
+
+    response = await fetch(APISetting.API_ENDPOINT + 'page/my-request', {
+      method: 'GET',
+      headers: {
+        authorization: userToken,
+      },
+    });
+    let myRequest;
+    if (response.status === 200) {
+      myRequest = await response.json();
+    } else {
+      console.log(response);
+    }
+
+    if (myRequest.success === true) {
+      this.loadedMyRequests = myRequest.data;
+      if (this.loadedMyRequests.length === 0) {
+        this.isMyRequestEmpty = true;
+      } else {
+        this.isMyRequestEmpty = false;
+      }
+      event.target.complete();
+    } else {
+      event.target.complete();
+      let alert = await this.alertCtrl.create({
+        message: myRequest.message,
+        buttons: [
+          {
+            text: 'OK',
+            handler: () => {},
+          },
+        ],
+      });
+      await alert.present();
+      return;
+    }
+  }
+
+  async accept(data) {
+    let userToken = await this.storage.get('userToken');
+
+    const body = {
+      status: 'Approved',
+      post_id: data.post_data.id,
+      requester_id: data.user_data.id,
+    };
+
+    const response = await fetch(
+      APISetting.API_ENDPOINT + 'feature/answer-request',
+      {
+        mode: 'cors',
+        method: 'POST',
+        body: JSON.stringify(body),
+        headers: {'Content-Type': 'application/json', authorization: userToken},
+      },
+    );
+
+    let request;
+    if (response.status === 200) {
+      request = await response.json();
+    } else {
+      console.log(response);
+    }
+
+    if (request.success === true) {
+      const toast = await this.toastController.create({
+        message: 'Your have been approved the request!',
+        duration: 2000,
+      });
+      toast.present();
+
+      this.doRefresh(event);
+    } else {
+      return;
+    }
+  }
+
+  async decline(data) {
+    let userToken = await this.storage.get('userToken');
+
+    const body = {
+      status: 'Declined',
+      post_id: data.post_data.id,
+      requester_id: data.user_data.id,
+    };
+
+    const response = await fetch(
+      APISetting.API_ENDPOINT + 'feature/answer-request',
+      {
+        mode: 'cors',
+        method: 'POST',
+        body: JSON.stringify(body),
+        headers: {'Content-Type': 'application/json', authorization: userToken},
+      },
+    );
+
+    let request;
+    if (response.status === 200) {
+      request = await response.json();
+    } else {
+      console.log(response);
+    }
+
+    if (request.success === true) {
+      const toast = await this.toastController.create({
+        message: 'Your have been declined the request!',
+        duration: 2000,
+      });
+      toast.present();
+
+      this.doRefresh(event);
+    } else {
+    }
+  }
+
+  chatNow(id: number) {
+    this.router.navigateByUrl('/chat/:id');
   }
 }

@@ -1,15 +1,23 @@
-export type Requests = {
-  id: string;
-  item_name: string;
+export type myRequests = {
+  user_data: userData;
+  post_data: postData;
   status: string;
-  category: string;
-  description: string;
-  buyDate: string;
-  expDate: string;
-  timestamps: string;
-  itemImageUrl: string;
-  username: string;
-  location: string;
+};
+
+export type userData = {
+  id: number;
   avatar: string;
-  isApprove: boolean;
+  full_name: string;
+  location: string;
+};
+
+export type postData = {
+  item_name: string;
+  image: string;
+};
+
+export type Request = {
+  user_data: userData;
+  post_data: postData;
+  status: string;
 };

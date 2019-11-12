@@ -5,6 +5,9 @@
 </ion-header>
 
 <ion-content class="ion-padding">
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <div class="content">
     <div class="card">
       <ion-segment [(ngModel)]="segment" color="tertiary">
@@ -21,174 +24,248 @@
       </ion-segment>
       <div [ngSwitch]="segment" class="segment">
         <div *ngSwitchCase="'requests'">
-          <ion-card *ngFor="let request of loadedRequests">
-            <ion-row class="noMargin noPadding">
-              <ion-col size="5" class="noMargin noPadding">
-                <ion-thumbnail class="itemImage noMargin noPadding">
-                  <img src="{{ request.itemImageUrl }}" />
-                </ion-thumbnail>
-              </ion-col>
-              <ion-col>
-                <ion-row>
-                  <p class="itemName">
-                    <b>
-                      {{ request.item_name }}
-                    </b>
-                  </p>
-                </ion-row>
-                <ion-row>
-                  <p class="requestBy">
-                    Requested By
-                  </p>
-                </ion-row>
-                <ion-row>
-                  <ion-col size="3">
-                    <ion-thumbnail class="itemAvatar noMargin noPadding">
-                      <img class="imageAvatar" src="{{ request.avatar }}" />
+          <div *ngIf="isRequestEmpty" class="bodyContainerNoRequest">
+            <b class="textEmpty">
+              Your request is empty!
+            </b>
+          </div>
+          <div *ngIf="!isRequestEmpty">
+            <div>
+              <ion-card
+                *ngFor="let request of loadedRequests"
+                class="cardRequest"
+              >
+                <ion-row class="noMargin noPadding">
+                  <ion-col size="5" class="noMargin noPadding">
+                    <ion-thumbnail class="itemImage noMargin noPadding">
+                      <img src="{{ request.post_data.image }}" />
                     </ion-thumbnail>
                   </ion-col>
                   <ion-col>
-                    <ion-row class="requestUsername">
-                      <b>
-                        {{ request.username }}
-                      </b>
+                    <ion-row>
+                      <p class="itemName">
+                        <b>
+                          {{ request.post_data.item_name }}
+                        </b>
+                      </p>
                     </ion-row>
-                    <ion-row class="requestLocation">
-                      {{ request.location }}
+                    <ion-row>
+                      <p class="requestBy">
+                        Requested By
+                      </p>
+                    </ion-row>
+                    <ion-row>
+                      <ion-col size="3">
+                        <ion-thumbnail class="itemAvatar noMargin noPadding">
+                          <img
+                            class="imageAvatar"
+                            src="{{ request.user_data.avatar }}"
+                          />
+                        </ion-thumbnail>
+                      </ion-col>
+                      <ion-col>
+                        <ion-row class="requestUsername">
+                          <b>
+                            {{ request.user_data.full_name }}
+                          </b>
+                        </ion-row>
+                        <ion-row class="requestLocation">
+                          {{ request.user_data.location }}
+                        </ion-row>
+                      </ion-col>
                     </ion-row>
                   </ion-col>
                 </ion-row>
-              </ion-col>
-            </ion-row>
-            <ion-row class="noPadding noMargin">
-              <ion-col class="noPadding noMargin">
-                <ion-button
-                  class="noPadding noMargin declineButton"
-                  expand="full"
-                >
-                  <b>
-                    Decline
-                  </b>
-                </ion-button>
-              </ion-col>
-              <ion-col class="noPadding noMargin">
-                <ion-button
-                  class="noPadding noMargin acceptButton"
-                  expand="full"
-                >
-                  <b>
-                    Accept
-                  </b>
-                </ion-button>
-              </ion-col>
-            </ion-row>
-          </ion-card>
+                <div *ngIf="request.status.toLowerCase() === 'waiting'">
+                  <ion-row class="noPadding noMargin">
+                    <ion-col
+                      class="noPadding noMargin"
+                      (click)="decline(request)"
+                    >
+                      <ion-button
+                        class="noPadding noMargin declineButton"
+                        expand="full"
+                      >
+                        <b>
+                          Decline
+                        </b>
+                      </ion-button>
+                    </ion-col>
+                    <ion-col
+                      class="noPadding noMargin"
+                      (click)="accept(request)"
+                    >
+                      <ion-button
+                        class="noPadding noMargin acceptButton"
+                        expand="full"
+                      >
+                        <b>
+                          Accept
+                        </b>
+                      </ion-button>
+                    </ion-col>
+                  </ion-row>
+                </div>
+                <div *ngIf="request.status.toLowerCase() === 'declined'">
+                  <ion-row class="noMargin">
+                    <ion-col
+                      class="noPadding noMargin ion-text-center"
+                      *ngIf="request.status.toLowerCase() === 'declined'"
+                    >
+                      <p class="declined noPadding noMargin">
+                        <b>
+                          Declined
+                        </b>
+                      </p>
+                    </ion-col>
+                  </ion-row>
+                </div>
+                <div *ngIf="request.status.toLowerCase() === 'approved'">
+                  <ion-row
+                    class="noMargin"
+                    (click)="chatNow(request.user_data.id)"
+                  >
+                    <ion-col
+                      class="noPadding ion-text-center"
+                      *ngIf="request.status.toLowerCase() === 'approved'"
+                    >
+                      <p class="approved noMargin">
+                        <b>
+                          Approved! Chat Now!
+                        </b>
+                      </p>
+                    </ion-col>
+                  </ion-row>
+                </div>
+              </ion-card>
+            </div>
+          </div>
         </div>
         <div *ngSwitchCase="'myRequests'">
-          <ion-card *ngFor="let request of loadedMyRequests">
-            <ion-row class="noMargin noPadding">
-              <ion-col size="5" class="noMargin noPadding">
-                <ion-thumbnail class="itemImage noMargin noPadding">
-                  <img src="{{ request.itemImageUrl }}" />
-                </ion-thumbnail>
-              </ion-col>
-              <ion-col>
-                <ion-row>
-                  <p class="itemName">
+          <div *ngIf="isMyRequestEmpty" class="bodyContainerNoRequest">
+            <b class="textEmpty">
+              Your my request is empty!
+            </b>
+          </div>
+          <div *ngIf="!isMyRequestEmpty">
+            <ion-card *ngFor="let request of loadedMyRequests">
+              <ion-row class="noMargin noPadding">
+                <ion-col size="5" class="noMargin noPadding">
+                  <ion-thumbnail class="itemImage noMargin noPadding">
+                    <img src="{{ request.post_data.image }}" />
+                  </ion-thumbnail>
+                </ion-col>
+                <ion-col>
+                  <ion-row>
+                    <p class="itemName">
+                      <b>
+                        {{ request.post_data.item_name }}
+                      </b>
+                    </p>
+                  </ion-row>
+                  <ion-row>
+                    <p class="requestBy">
+                      Requested To
+                    </p>
+                  </ion-row>
+                  <ion-row>
+                    <ion-col size="3">
+                      <ion-thumbnail class="itemAvatar noMargin noPadding">
+                        <img
+                          class="imageAvatar"
+                          src="{{ request.user_data.avatar }}"
+                        />
+                      </ion-thumbnail>
+                    </ion-col>
+                    <ion-col>
+                      <ion-row class="requestUsername">
+                        <b>
+                          {{ request.user_data.full_name }}
+                        </b>
+                      </ion-row>
+                      <ion-row class="requestLocation">
+                        {{ request.user_data.location }}
+                      </ion-row>
+                    </ion-col>
+                  </ion-row>
+                </ion-col>
+              </ion-row>
+              <ion-row class="noMargin">
+                <ion-col
+                  class="noPadding ion-text-center"
+                  *ngIf="request.status.toLowerCase() === 'approved'"
+                  (click)="chatNow(request.user_data.id)"
+                >
+                  <p class="approved noMargin">
                     <b>
-                      {{ request.item_name }}
+                      Approved! Chat Now!
                     </b>
                   </p>
-                </ion-row>
-                <ion-row>
-                  <p class="requestBy">
-                    Requested To
+                </ion-col>
+                <ion-col
+                  class="noPadding noMargin ion-text-center"
+                  *ngIf="request.status.toLowerCase() === 'waiting'"
+                >
+                  <p class="notApproved noPadding noMargin">
+                    <b>
+                      Waiting for Approval
+                    </b>
                   </p>
-                </ion-row>
-                <ion-row>
-                  <ion-col size="3">
-                    <ion-thumbnail class="itemAvatar noMargin noPadding">
-                      <img class="imageAvatar" src="{{ request.avatar }}" />
-                    </ion-thumbnail>
-                  </ion-col>
-                  <ion-col>
-                    <ion-row class="requestUsername">
-                      <b>
-                        {{ request.username }}
-                      </b>
-                    </ion-row>
-                    <ion-row class="requestLocation">
-                      {{ request.location }}
-                    </ion-row>
-                  </ion-col>
-                </ion-row>
-              </ion-col>
-            </ion-row>
-            <ion-row class="noMargin">
-              <ion-col
-                class="noPadding ion-text-center"
-                *ngIf="request.isApprove === true"
-              >
-                <p class="approved noMargin">
-                  <b>
-                    Approved! Chat Now!
-                  </b>
-                </p>
-              </ion-col>
-              <ion-col
-                class="noPadding noMargin ion-text-center"
-                *ngIf="request.isApprove === false"
-              >
-                <p class="notApproved noPadding noMargin">
-                  <b>
-                    Waiting for Approval
-                  </b>
-                </p>
-              </ion-col>
-            </ion-row>
-          </ion-card>
+                </ion-col>
+                <ion-col
+                  class="noPadding noMargin ion-text-center"
+                  *ngIf="request.status.toLowerCase() === 'declined'"
+                >
+                  <p class="declined noPadding noMargin">
+                    <b>
+                      Sorry, your request was declined!
+                    </b>
+                  </p>
+                </ion-col>
+              </ion-row>
+            </ion-card>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </ion-content>
 <ion-footer>
-    <ion-row class="footerContainer">
-      <div>
-        <ion-buttons>
-          <ion-button (click)="onClickHome()">
-            <ion-icon slot="icon-only" name="home"></ion-icon>
-          </ion-button>
-        </ion-buttons>
-      </div>
-      <div>
-        <ion-buttons>
-          <ion-button>
-            <ion-icon slot="icon-only" name="search"></ion-icon>
-          </ion-button>
-        </ion-buttons>
-      </div>
-      <div>
-        <ion-buttons>
-          <ion-button class="iconAddContainer" (click)="onClickAdd()">
-            <ion-icon class="iconAdd" slot="icon-only" name="add"></ion-icon>
-          </ion-button>
-        </ion-buttons>
-      </div>
-      <div>
-        <ion-buttons>
-          <ion-button class="iconSelectedContainer" (click)="onClickRequest()">
-            <ion-icon slot="icon-only" name="notifications"></ion-icon>
-          </ion-button>
-        </ion-buttons>
-      </div>
-      <div>
-        <ion-buttons>
-          <ion-button (click)="onClickProfile()">
-            <ion-icon slot="icon-only" name="person"></ion-icon>
-          </ion-button>
-        </ion-buttons>
-      </div>
-    </ion-row>
-  </ion-footer>
-  
+  <ion-row class="footerContainer">
+    <div>
+      <ion-buttons>
+        <ion-button (click)="onClickHome()">
+          <ion-icon slot="icon-only" name="home"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </div>
+    <div>
+      <ion-buttons>
+        <ion-button>
+          <ion-icon slot="icon-only" name="search"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </div>
+    <div>
+      <ion-buttons>
+        <ion-button class="iconAddContainer" (click)="onClickAdd()">
+          <ion-icon class="iconAdd" slot="icon-only" name="add"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </div>
+    <div>
+      <ion-buttons>
+        <ion-button class="iconSelectedContainer" (click)="onClickRequest()">
+          <ion-icon slot="icon-only" name="notifications"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </div>
+    <div>
+      <ion-buttons>
+        <ion-button (click)="onClickProfile()">
+          <ion-icon slot="icon-only" name="person"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </div>
+  </ion-row>
+</ion-footer>

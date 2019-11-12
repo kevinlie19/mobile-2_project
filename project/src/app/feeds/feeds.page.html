@@ -23,16 +23,16 @@
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
   <div class="bodyContainerNoPost">
-    <b
-      ><p class="textAvailableEmpty">Welcome to CIBO</p>
+    <b>
+      <p class="textAvailableEmpty">Welcome to CIBO</p>
       <p class="textAvailableEmpty">
         Follow people to start seeing the post they shared
       </p>
       <p class="textAvailableEmpty">or upload post of your own</p>
       <p class="textAvailableEmpty">
         Lets start share your food and reduce food waste
-      </p></b
-    >
+      </p>
+    </b>
   </div>
 </ion-content>
 
@@ -48,8 +48,10 @@
       >
         <div class="imageContainer">
           <img
-            *ngIf="item.tag.toLowerCase() == 'available' ||
-            item.tag.toLowerCase() == 'expired'"
+            *ngIf="
+              item.tag.toLowerCase() == 'available' ||
+              item.tag.toLowerCase() == 'expired'
+            "
             src="{{ item.image }}"
             class="imageAvailable"
           />
@@ -59,8 +61,10 @@
             class="imageUnavailable"
           />
           <div
-            *ngIf="item.tag.toLowerCase() == 'available' ||
-            item.tag.toLowerCase() == 'expired'"
+            *ngIf="
+              item.tag.toLowerCase() == 'available' ||
+              item.tag.toLowerCase() == 'expired'
+            "
             class="tagPosition statusAvailable"
           >
             Available
@@ -83,8 +87,8 @@
             {{ item.item_name }}
           </p>
           <p class="textTimeStamp">
-            <ion-icon name="hourglass" slot="icon-only"></ion-icon>{{
-            item.timestamp }}
+            <ion-icon name="hourglass" slot="icon-only"></ion-icon
+            >{{ item.timestamp }}
           </p>
           <p>
             <ion-row class="userInfoContainer">
