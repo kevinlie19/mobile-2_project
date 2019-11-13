@@ -24,12 +24,12 @@
       </ion-segment>
       <div [ngSwitch]="segment" class="segment">
         <div *ngSwitchCase="'requests'">
-          <div *ngIf="isRequestEmpty" class="bodyContainerNoRequest">
+          <div *ngIf="isRequestEmpty && !isLoading" class="bodyContainerNoRequest">
             <b class="textEmpty">
               Your request is empty!
             </b>
           </div>
-          <div *ngIf="!isRequestEmpty">
+          <div *ngIf="!isRequestEmpty && !isLoading">
             <div>
               <ion-card
                 *ngFor="let request of loadedRequests"
@@ -38,14 +38,14 @@
                 <ion-row class="noMargin noPadding">
                   <ion-col size="5" class="noMargin noPadding">
                     <ion-thumbnail class="itemImage noMargin noPadding">
-                      <img src="{{ request.post_data.image }}" />
+                      <img src="{{ request.image }}" />
                     </ion-thumbnail>
                   </ion-col>
                   <ion-col>
                     <ion-row>
                       <p class="itemName">
                         <b>
-                          {{ request.post_data.item_name }}
+                          {{ request.item_name }}
                         </b>
                       </p>
                     </ion-row>
@@ -59,18 +59,18 @@
                         <ion-thumbnail class="itemAvatar noMargin noPadding">
                           <img
                             class="imageAvatar"
-                            src="{{ request.user_data.avatar }}"
+                            src="{{ request.avatar }}"
                           />
                         </ion-thumbnail>
                       </ion-col>
                       <ion-col>
                         <ion-row class="requestUsername">
                           <b>
-                            {{ request.user_data.full_name }}
+                            {{ request.full_name }}
                           </b>
                         </ion-row>
                         <ion-row class="requestLocation">
-                          {{ request.user_data.location }}
+                          {{ request.location }}
                         </ion-row>
                       </ion-col>
                     </ion-row>
@@ -123,7 +123,7 @@
                 <div *ngIf="request.status.toLowerCase() === 'approved'">
                   <ion-row
                     class="noMargin"
-                    (click)="chatNow(request.user_data.id)"
+                    (click)="chatNow(request.user_id)"
                   >
                     <ion-col
                       class="noPadding ion-text-center"
@@ -142,24 +142,24 @@
           </div>
         </div>
         <div *ngSwitchCase="'myRequests'">
-          <div *ngIf="isMyRequestEmpty" class="bodyContainerNoRequest">
+          <div *ngIf="isMyRequestEmpty && !isLoading" class="bodyContainerNoRequest">
             <b class="textEmpty">
               Your my request is empty!
             </b>
           </div>
-          <div *ngIf="!isMyRequestEmpty">
+          <div *ngIf="!isMyRequestEmpty && !isLoading">
             <ion-card *ngFor="let request of loadedMyRequests">
               <ion-row class="noMargin noPadding">
                 <ion-col size="5" class="noMargin noPadding">
                   <ion-thumbnail class="itemImage noMargin noPadding">
-                    <img src="{{ request.post_data.image }}" />
+                    <img src="{{ request.image }}" />
                   </ion-thumbnail>
                 </ion-col>
                 <ion-col>
                   <ion-row>
                     <p class="itemName">
                       <b>
-                        {{ request.post_data.item_name }}
+                        {{ request.item_name }}
                       </b>
                     </p>
                   </ion-row>
@@ -173,18 +173,18 @@
                       <ion-thumbnail class="itemAvatar noMargin noPadding">
                         <img
                           class="imageAvatar"
-                          src="{{ request.user_data.avatar }}"
+                          src="{{ request.avatar }}"
                         />
                       </ion-thumbnail>
                     </ion-col>
                     <ion-col>
                       <ion-row class="requestUsername">
                         <b>
-                          {{ request.user_data.full_name }}
+                          {{ request.full_name }}
                         </b>
                       </ion-row>
                       <ion-row class="requestLocation">
-                        {{ request.user_data.location }}
+                        {{ request.location }}
                       </ion-row>
                     </ion-col>
                   </ion-row>
@@ -194,7 +194,7 @@
                 <ion-col
                   class="noPadding ion-text-center"
                   *ngIf="request.status.toLowerCase() === 'approved'"
-                  (click)="chatNow(request.user_data.id)"
+                  (click)="chatNow(request.user_id)"
                 >
                   <p class="approved noMargin">
                     <b>
@@ -231,41 +231,47 @@
   </div>
 </ion-content>
 <ion-footer>
-  <ion-row class="footerContainer">
-    <div>
-      <ion-buttons>
-        <ion-button (click)="onClickHome()">
-          <ion-icon slot="icon-only" name="home"></ion-icon>
-        </ion-button>
-      </ion-buttons>
-    </div>
-    <div>
-      <ion-buttons>
-        <ion-button>
-          <ion-icon slot="icon-only" name="search"></ion-icon>
-        </ion-button>
-      </ion-buttons>
-    </div>
-    <div>
-      <ion-buttons>
-        <ion-button class="iconAddContainer" (click)="onClickAdd()">
-          <ion-icon class="iconAdd" slot="icon-only" name="add"></ion-icon>
-        </ion-button>
-      </ion-buttons>
-    </div>
-    <div>
-      <ion-buttons>
-        <ion-button class="iconSelectedContainer" (click)="onClickRequest()">
-          <ion-icon slot="icon-only" name="notifications"></ion-icon>
-        </ion-button>
-      </ion-buttons>
-    </div>
-    <div>
-      <ion-buttons>
-        <ion-button (click)="onClickProfile()">
-          <ion-icon slot="icon-only" name="person"></ion-icon>
-        </ion-button>
-      </ion-buttons>
-    </div>
-  </ion-row>
+  <ion-toolbar>
+    <ion-row class="footerContainer">
+      <div>
+        <ion-buttons>
+          <ion-button (click)="onClickHome()">
+            <ion-icon slot="icon-only" name="home"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </div>
+      <div>
+        <ion-buttons>
+          <ion-button (click)="onClickSearch()">
+            <ion-icon slot="icon-only" name="search"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </div>
+      <div>
+        <ion-buttons>
+          <ion-button class="iconAddContainer" (click)="onClickAdd()">
+            <ion-icon class="iconAdd" slot="icon-only" name="add"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </div>
+      <div>
+        <ion-buttons>
+          <ion-button class="iconSelectedContainer" (click)="onClickRequest()">
+            <ion-icon slot="icon-only" name="notifications"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </div>
+      <div>
+        <ion-buttons>
+          <ion-button (click)="onClickProfile()">
+            <ion-icon slot="icon-only" name="person"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </div>
+    </ion-row>
+  </ion-toolbar>
 </ion-footer>
+
+<div class="spin" *ngIf="isLoading">
+  <ion-spinner name="crescent"></ion-spinner>
+</div>

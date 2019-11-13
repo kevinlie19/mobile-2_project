@@ -22,6 +22,8 @@ export class ProfileUserPage implements OnInit {
   isFollowed: boolean;
   userToken: string;
   userId: number;
+  postAvailable: any;
+  postUnavailable: any;
 
   constructor(
     private userProfileService: ProfileUserService,
@@ -76,6 +78,13 @@ export class ProfileUserPage implements OnInit {
 
       this.userProfileService.addUserProfile(resultOtherUser.data[0]);
       this.loadedUserProfile = this.userProfileService.getUserProfile();
+
+      this.postAvailable = this.loadedUserProfile.post.filter((item) => {
+        return item.tag.toLowerCase() !== 'unavailable';
+      });
+      this.postUnavailable = this.loadedUserProfile.post.filter((item) => {
+        return item.tag.toLowerCase() === 'unavailable';
+      });
 
       for (let key of resultMyUser.data[0].user[0].following) {
         let obj = JSON.parse(key);

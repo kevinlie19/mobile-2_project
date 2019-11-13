@@ -14,6 +14,7 @@ import {AlertController, ToastController} from '@ionic/angular';
   styleUrls: ['./request.page.scss'],
 })
 export class RequestPage implements OnInit {
+  isLoading: boolean;
   loadedRequests: Request[];
   loadedMyRequests: myRequests[];
   isRequestEmpty: boolean;
@@ -27,7 +28,12 @@ export class RequestPage implements OnInit {
     private toastController: ToastController,
   ) {}
 
+  ionViewWillEnter() {
+    this.ngOnInit();
+  }
+
   async ngOnInit() {
+    this.isLoading = true;
     this.segment = 'requests';
     this.isRequestEmpty = false;
     this.isMyRequestEmpty = false;
@@ -47,6 +53,7 @@ export class RequestPage implements OnInit {
     }
 
     if (request.success === true) {
+      console.log(this.loadedRequests);
       this.loadedRequests = request.data;
       if (this.loadedRequests.length === 0) {
         this.isRequestEmpty = true;
@@ -81,6 +88,7 @@ export class RequestPage implements OnInit {
     }
 
     if (myRequest.success === true) {
+      console.log(this.loadedMyRequests);
       this.loadedMyRequests = myRequest.data;
       if (this.loadedMyRequests.length === 0) {
         this.isMyRequestEmpty = true;
@@ -100,10 +108,15 @@ export class RequestPage implements OnInit {
       await alert.present();
       return;
     }
+    this.isLoading = false;
   }
 
   onClickHome() {
     this.router.navigateByUrl('/feeds');
+  }
+
+  onClickSearch() {
+    this.router.navigateByUrl('/search');
   }
 
   onClickAdd() {
@@ -137,6 +150,7 @@ export class RequestPage implements OnInit {
     }
 
     if (request.success === true) {
+      console.log(this.loadedRequests);
       this.loadedRequests = request.data;
       if (this.loadedRequests.length === 0) {
         this.isRequestEmpty = true;
@@ -171,6 +185,7 @@ export class RequestPage implements OnInit {
     }
 
     if (myRequest.success === true) {
+      console.log(this.loadedMyRequests);
       this.loadedMyRequests = myRequest.data;
       if (this.loadedMyRequests.length === 0) {
         this.isMyRequestEmpty = true;
@@ -199,8 +214,8 @@ export class RequestPage implements OnInit {
 
     const body = {
       status: 'Approved',
-      post_id: data.post_data.id,
-      requester_id: data.user_data.id,
+      post_id: data.post_id,
+      requester_id: data.user_id,
     };
 
     const response = await fetch(
@@ -238,8 +253,8 @@ export class RequestPage implements OnInit {
 
     const body = {
       status: 'Declined',
-      post_id: data.post_data.id,
-      requester_id: data.user_data.id,
+      post_id: data.post_id,
+      requester_id: data.user_id,
     };
 
     const response = await fetch(
@@ -272,6 +287,6 @@ export class RequestPage implements OnInit {
   }
 
   chatNow(id: number) {
-    this.router.navigateByUrl('/chat/:id');
+    this.router.navigateByUrl('/chat/' + id);
   }
 }
