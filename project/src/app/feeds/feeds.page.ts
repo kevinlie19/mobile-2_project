@@ -10,7 +10,11 @@ import {Feeds} from './feeds.model';
 import {FeedsService} from './feeds.service';
 import {AppService} from '../app.service';
 import {Storage} from '@ionic/storage';
-import {LoadingController, AlertController} from '@ionic/angular';
+import {
+  LoadingController,
+  AlertController,
+  NavController,
+} from '@ionic/angular';
 
 import {APISetting} from '../constant/API';
 
@@ -36,11 +40,16 @@ export class FeedsPage implements OnInit {
     private storage: Storage,
     private loadingCtrl: LoadingController,
     private alertCtrl: AlertController,
+    private navCtrl: NavController,
   ) {
     this.barcodeScannerOptions = {
       showTorchButton: true,
       showFlipCameraButton: true,
     };
+  }
+
+  ionViewWillEnter() {
+    this.ngOnInit();
   }
 
   async ngOnInit() {
@@ -89,7 +98,7 @@ export class FeedsPage implements OnInit {
   }
 
   onClickChat() {
-    this.router.navigateByUrl("/chat-list");
+    this.router.navigateByUrl('/chat-list');
   }
 
   onClickAdd() {
@@ -143,7 +152,8 @@ export class FeedsPage implements OnInit {
             location: 'Jakarta Selatan',
             avatar: 'https://www.venmond.com/demo/vendroid/img/avatar/big.jpg',
           });
-        } else {
+          this.router.navigateByUrl('/feeds-add-post');
+        } else if (barcodeData.text === '8996001600268') {
           alert(
             'Barcode number ' +
               JSON.stringify(barcodeData.text) +
@@ -169,9 +179,8 @@ export class FeedsPage implements OnInit {
             location: 'Jakarta Selatan',
             avatar: 'https://www.venmond.com/demo/vendroid/img/avatar/big.jpg',
           });
+          this.router.navigateByUrl('/feeds-add-post');
         }
-
-        this.router.navigateByUrl('/feeds-add-post');
       })
       .catch((err) => {
         console.log('Error', err);

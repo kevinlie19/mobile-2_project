@@ -18,6 +18,8 @@ export class ProfilePage implements OnInit {
   isAvailable: boolean;
   isUnavailable: boolean;
   loadedProfile: Profile;
+  postAvailable: any;
+  postUnavailable: any;
 
   constructor(
     private profileService: ProfileService,
@@ -44,6 +46,12 @@ export class ProfilePage implements OnInit {
 
     this.profileService.addProfile(result.data[0]);
     this.loadedProfile = this.profileService.getProfile();
+    this.postAvailable = this.loadedProfile.post.filter((item) => {
+      return item.tag.toLowerCase() !== 'unavailable';
+    });
+    this.postUnavailable = this.loadedProfile.post.filter((item) => {
+      return item.tag.toLowerCase() === 'unavailable';
+    });
 
     for (let key of this.loadedProfile.post) {
       if (
@@ -51,7 +59,7 @@ export class ProfilePage implements OnInit {
         key.tag.toLowerCase() === 'expired'
       ) {
         this.isAvailable = true;
-      } else if (key.tag === 'Unavailable') {
+      } else if (key.tag.toLowerCase() === 'unavailable') {
         this.isUnavailable = true;
       }
     }

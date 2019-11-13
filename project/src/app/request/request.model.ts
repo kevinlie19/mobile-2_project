@@ -1,23 +1,23 @@
 export type myRequests = {
-  user_data: userData;
-  post_data: postData;
-  status: string;
-};
-
-export type userData = {
-  id: number;
   avatar: string;
+  created_at: Date;
   full_name: string;
-  location: string;
-};
-
-export type postData = {
-  item_name: string;
   image: string;
+  item_name: string;
+  location: string;
+  post_id: string;
+  status: string;
+  user_id: number;
 };
 
 export type Request = {
-  user_data: userData;
-  post_data: postData;
+  avatar: string;
+  created_at: Date;
+  full_name: string;
+  image: string;
+  item_name: string;
+  location: string;
+  post_id: string;
   status: string;
+  user_id: number;
 };

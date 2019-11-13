@@ -24,15 +24,18 @@
   </ion-refresher>
   <div class="bodyContainerNoPost">
     <b>
-      <p class="textAvailableEmpty">Welcome to CIBO</p>
-      <p class="textAvailableEmpty">
-        Follow people to start seeing the post they shared
-      </p>
-      <p class="textAvailableEmpty">or upload post of your own</p>
-      <p class="textAvailableEmpty">
-        Lets start share your food and reduce food waste
-      </p>
+      <p class="textAvailableEmptyTitle">Welcome to CIBO</p>
     </b>
+    <p>&nbsp;</p>
+    <p class="textAvailableEmpty">
+      Start follow people to seeing the post they shared or upload post of your
+      own
+    </p>
+    <p class="textAvailableEmpty"></p>
+    <p>&nbsp;</p>
+    <p class="textAvailableEmpty">
+      Lets start share your food and reduce food waste
+    </p>
   </div>
 </ion-content>
 
@@ -113,43 +116,45 @@
 </ion-content>
 
 <ion-footer>
-  <ion-row class="footerContainer">
-    <div>
-      <ion-buttons>
-        <ion-button class="iconSelectedContainer" (click)="onClickHome()">
-          <ion-icon slot="icon-only" name="home"></ion-icon>
-        </ion-button>
-      </ion-buttons>
-    </div>
-    <div>
-      <ion-buttons>
-        <ion-button (click)="onClickSearch()">
-          <ion-icon slot="icon-only" name="search"></ion-icon>
-        </ion-button>
-      </ion-buttons>
-    </div>
-    <div>
-      <ion-buttons>
-        <ion-button class="iconAddContainer" (click)="onClickAdd()">
-          <ion-icon class="iconAdd" slot="icon-only" name="add"></ion-icon>
-        </ion-button>
-      </ion-buttons>
-    </div>
-    <div>
-      <ion-buttons>
-        <ion-button (click)="onClickRequest()">
-          <ion-icon slot="icon-only" name="notifications"></ion-icon>
-        </ion-button>
-      </ion-buttons>
-    </div>
-    <div>
-      <ion-buttons>
-        <ion-button (click)="onClickProfile()">
-          <ion-icon slot="icon-only" name="person"></ion-icon>
-        </ion-button>
-      </ion-buttons>
-    </div>
-  </ion-row>
+  <ion-toolbar>
+    <ion-row class="footerContainer">
+      <div>
+        <ion-buttons>
+          <ion-button class="iconSelectedContainer" (click)="onClickHome()">
+            <ion-icon slot="icon-only" name="home"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </div>
+      <div>
+        <ion-buttons>
+          <ion-button (click)="onClickSearch()">
+            <ion-icon slot="icon-only" name="search"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </div>
+      <div>
+        <ion-buttons>
+          <ion-button class="iconAddContainer" (click)="onClickAdd()">
+            <ion-icon class="iconAdd" slot="icon-only" name="add"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </div>
+      <div>
+        <ion-buttons>
+          <ion-button (click)="onClickRequest()">
+            <ion-icon slot="icon-only" name="notifications"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </div>
+      <div>
+        <ion-buttons>
+          <ion-button (click)="onClickProfile()">
+            <ion-icon slot="icon-only" name="person"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </div>
+    </ion-row>
+  </ion-toolbar>
 </ion-footer>
 
 <div class="spin" *ngIf="isLoading">

@@ -117,10 +117,7 @@
           <p class="textAvailableEmpty">There are no available posts!</p>
         </div>
         <ion-row class="rowFeedsContainer" *ngIf="isAvailable">
-          <ion-col
-            class="colFeedsContainer"
-            *ngFor="let item of loadedUserProfile.post"
-          >
+          <ion-col class="colFeedsContainer" *ngFor="let item of postAvailable">
             <ion-card
               class="cardContainer"
               [routerLink]="['/', 'profile-user', 'feeds-detail', item.id]"
@@ -202,7 +199,7 @@
         <ion-row class="rowFeedsContainer" *ngIf="isUnavailable">
           <ion-col
             class="colFeedsContainer"
-            *ngFor="let item of loadedUserProfile.post"
+            *ngFor="let item of postUnavailable"
           >
             <ion-card
               class="cardContainer"
@@ -222,12 +219,16 @@
                   {{ item.tag }}
                 </div>
               </div>
-              <ion-card-content>
+              <ion-card-content style="vertical-align: middle;">
                 <p class="textItemName">
                   {{ item.item_name }}
                 </p>
-                <p class="textTimeStamp">
-                  <ion-icon name="hourglass" slot="icon-only"></ion-icon>
+                <p class="textTimeStamp" style="vertical-align: middle;">
+                  <ion-icon
+                    style="vertical-align: middle;"
+                    name="hourglass"
+                    slot="icon-only"
+                  ></ion-icon>
                   {{ item.timestamp }}
                 </p>
                 <p>

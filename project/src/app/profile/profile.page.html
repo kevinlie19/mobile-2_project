@@ -88,10 +88,7 @@
           <p class="textAvailableEmpty">There are no available posts!</p>
         </div>
         <ion-row class="rowFeedsContainer" *ngIf="isAvailable">
-          <ion-col
-            class="colFeedsContainer"
-            *ngFor="let item of loadedProfile.post"
-          >
+          <ion-col class="colFeedsContainer" *ngFor="let item of postAvailable">
             <ion-card
               class="cardContainer"
               [routerLink]="['/', 'profile', 'feeds-detail', item.id]"
@@ -173,7 +170,7 @@
         <ion-row class="rowFeedsContainer" *ngIf="isUnavailable">
           <ion-col
             class="colFeedsContainer"
-            *ngFor="let item of loadedProfile.post"
+            *ngFor="let item of postUnavailable"
           >
             <ion-card
               class="cardContainer"
