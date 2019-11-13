@@ -124,6 +124,10 @@
             <ion-card
               class="cardContainer"
               [routerLink]="['/', 'profile-user', 'feeds-detail', item.id]"
+              *ngIf="
+                item.tag.toLowerCase() == 'available' ||
+                item.tag.toLowerCase() == 'expired'
+              "
             >
               <div class="imageContainer">
                 <img
@@ -203,6 +207,7 @@
             <ion-card
               class="cardContainer"
               [routerLink]="['/', 'profile-user', 'feeds-detail', item.id]"
+              *ngIf="item.tag.toLowerCase() == 'unavailable'"
             >
               <div class="imageContainer">
                 <img
@@ -223,13 +228,13 @@
                 </p>
                 <p class="textTimeStamp">
                   <ion-icon name="hourglass" slot="icon-only"></ion-icon>
-                  {{ item.timestamps }}
+                  {{ item.timestamp }}
                 </p>
                 <p>
                   <ion-row class="userInfoContainer">
                     <ion-col size="4" class="avatarContainer">
                       <img
-                        src="{{ loadedProfile.user[0].avatar }}"
+                        src="{{ loadedUserProfile.user[0].avatar }}"
                         class="imageAvatar"
                         *ngIf="loadedUserProfile.user[0].avatar != null"
                       />
@@ -276,7 +281,7 @@
     </div>
     <div>
       <ion-buttons>
-        <ion-button (click)="onClickSearch()">
+        <ion-button class="iconSelectedContainer" (click)="onClickSearch()">
           <ion-icon slot="icon-only" name="search"></ion-icon>
         </ion-button>
       </ion-buttons>
