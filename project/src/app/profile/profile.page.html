@@ -178,6 +178,7 @@
             <ion-card
               class="cardContainer"
               [routerLink]="['/', 'profile', 'feeds-detail', item.id]"
+              *ngIf="item.tag.toLowerCase() == 'unavailable'"
             >
               <div class="imageContainer">
                 <img
