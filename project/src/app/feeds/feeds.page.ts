@@ -89,6 +89,10 @@ export class FeedsPage implements OnInit {
     this.isLoading = false;
   }
 
+  onClickChat() {
+    this.router.navigateByUrl("/chat-list");
+  }
+
   onClickAdd() {
     this.router.navigateByUrl("/add-item");
   }

@@ -194,7 +194,7 @@ export class FeedsDetailPage implements OnInit {
     const self = this;
 
     const alert = await self.alertCtrl.create({
-      header: "Delete Item?",
+      header: "Delete Item along with it's request?",
       buttons: [
         {
           text: "CANCEL",

@@ -44,13 +44,13 @@ ion-toolbar {
   justify-content: space-between;
 }
 
-.chatReceiver {
+.chatLeft {
   float: left;
   margin-left: 20px;
   padding-bottom: 20px;
 }
 
-.chatSender {
+.chatRight {
   float: right;
   margin-right: 20px;
   padding-bottom: 20px;
@@ -84,7 +84,7 @@ ion-toolbar {
   background: transparent;
 }
 
-.textTimeReceiver {
+.textTimeLeft {
   padding-top: 5px;
   font-family: qanelas;
   font-weight: lighter;
@@ -93,7 +93,7 @@ ion-toolbar {
   float: left;
 }
 
-.textTimeSender {
+.textTimeRight {
   padding-top: 5px;
   font-family: qanelas;
   font-weight: lighter;
@@ -134,4 +134,21 @@ ion-toolbar {
 .footerContainer {
   --background: transparent;
   text-align: center;
+}
+
+.spin {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+ion-spinner {
+  width: 100px;
+  height: 100px;
+  --color: #3c4cac;
+}
+
+.backgroundLoading {
+  --background: linear-gradient(155deg, #fbc34a, #f05d87);
 }

@@ -1,34 +1,51 @@
 <ion-header>
-  <ion-toolbar class="toolbarContainer">
-    <div class="headerTitle">Messages</div>
-    <ion-buttons slot="start" (click)="onClickBack()">
-      <ion-button>
-        <ion-icon name="arrow-back" class="backIcon"></ion-icon>
-      </ion-button>
+  <ion-toolbar class="toolbarContainer" mode="ios">
+    <ion-buttons slot="start">
+      <ion-button (click)="onClickBack()"
+        ><ion-icon
+          slot="icon-only"
+          name="arrow-back"
+          class="backIcon"
+        ></ion-icon
+      ></ion-button>
     </ion-buttons>
+    <ion-title class="headerTitle">Messages</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content *ngIf="isLoading" class="backgroundLoading"></ion-content>
+
+<ion-content *ngIf="!isLoading">
   <br />
-  <ion-list class="listChatContainer" *ngFor="let item of loadedChatList">
+  <ion-list
+    class="listChatContainer"
+    *ngFor="let item of loadedChatList.chat_list"
+  >
     <ion-item
       class="itemContainer"
       [routerLink]="['/', 'chat', item.id]"
       lines="none"
     >
-      <div>
-        <img src="{{ item.avatar }}" class="imgAvatar" />
-      </div>
+      <img src="{{ item.avatar }}" class="imgAvatar" />
+      <img
+        src="assets/images/avatarDefault.png"
+        *ngIf="item.avatar === null"
+        class="imgAvatar"
+      />
+      <div class="spacingContainer">---</div>
       <div class="chatDetailContainer">
         <div class="textName">{{ item.full_name }}</div>
         <div class="textLastChat">
-          {{ item.last_chat }}
+          {{ item.messages[item.messages.length-1].message }}
         </div>
       </div>
       <div class="textTime">
-        {{ item.time }}
+        {{ item.messages[item.messages.length-1].timestamp }}
       </div>
     </ion-item>
   </ion-list>
 </ion-content>
+
+<div class="spin" *ngIf="isLoading">
+  <ion-spinner name="crescent"></ion-spinner>
+</div>

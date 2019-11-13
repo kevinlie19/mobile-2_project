@@ -1,12 +1,37 @@
-import {ChatMessage} from './chat/chat.model';
-
 export type Chat = {
+  my_data: userDetail;
+  chat_list: Array<ChatList>;
+};
+
+export type userDetail = {
   id: number;
-  user_id: number;
+  email: string;
   username: string;
   full_name: string;
+  phone_number: string;
+  location: string;
   avatar: string;
-  time: string;
-  last_chat: string;
-  messages: Array<ChatMessage>;
+  gender: string;
+  following: [];
+  follower: [];
+};
+
+export type ChatList = {
+  id: number;
+  email: string;
+  username: string;
+  full_name: string;
+  phone_number: string;
+  location: string;
+  avatar: string;
+  gender: string;
+  following: [];
+  follower: [];
+  messages: Array<Messages>;
+};
+
+export type Messages = {
+  sender_id: number;
+  timestamp: string;
+  message: string;
 };

@@ -1,9 +1,4 @@
 .toolbarContainer {
-  height: 86px;
-  text-align: center;
-}
-
-ion-toolbar {
   --background: #3c4cac;
 }
 
@@ -12,16 +7,12 @@ ion-toolbar {
   font-size: 18px;
   font-weight: bold;
   color: #ffffff;
-  margin-top: 29px;
-  margin-bottom: 19px;
-  margin-right: 30px;
 }
 
 .backIcon {
-  width: 25px;
-  height: 25px;
+  width: 30px;
+  height: 30px;
   color: #ffffff;
-  padding-top: 10px;
 }
 
 .listChatContainer {
@@ -40,9 +31,8 @@ ion-toolbar {
 .textTime {
   font-family: qanelas;
   font-size: 12px;
-  color: #5d5d5d;
-  padding-left: 40px;
-  float: right;
+  color: gray;
+  text-align: right;
 }
 
 .textName {
@@ -52,13 +42,23 @@ ion-toolbar {
   vertical-align: middle;
 }
 
-ion-avatar {
-  margin-top: 0px;
-}
-
 .chatDetailContainer {
   padding-top: 0px;
-  padding-left: 10px;
+  margin-right: -10px;
+}
+
+.spacingContainer {
+  visibility: hidden;
+}
+
+ion-item {
+  justify-content: space-between;
+}
+
+.imgAvatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
 }
 
 .textLastChat {
@@ -67,11 +67,22 @@ ion-avatar {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+  color: darkgray;
 }
 
-.imgAvatar {
-  width: 45px;
-  height: 45px;
-  object-fit: cover;
-  border-radius: 50%;
+.spin {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+ion-spinner {
+  width: 100px;
+  height: 100px;
+  --color: #3c4cac;
+}
+
+.backgroundLoading {
+  --background: linear-gradient(155deg, #fbc34a, #f05d87);
 }
