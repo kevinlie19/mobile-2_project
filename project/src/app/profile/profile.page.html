@@ -23,7 +23,7 @@
             src="{{ loadedProfile.user[0].avatar }}"
             *ngIf="loadedProfile.user[0].avatar != null"
           />
-          <ion-col class="textHeaderContainer" no-padding>
+          <ion-col class="textHeaderContainer" ion-no-padding>
             <ion-row class="textUserFullNameHeader">
               {{ loadedProfile.user[0].full_name }}
             </ion-row>
@@ -34,36 +34,38 @@
               {{ loadedProfile.user[0].location }}
             </ion-row>
             <ion-row class="userStatusContainer">
-              <ion-col col-2 no-padding class="userPostContainer">
+              <ion-col col-2 ion-no-padding class="userPostContainer">
                 <ion-row class="textAmount">
-                  <ion-col col-12 no-padding text-center>{{
-                    loadedProfile.post.length
-                  }}</ion-col></ion-row
+                  <ion-col col-12 no-padding text-center
+                    >{{ loadedProfile.post.length }}</ion-col
+                  ></ion-row
                 >
                 <ion-row class="textUserStatus">
-                  <ion-col col-12 no-padding text-center>Post</ion-col></ion-row
+                  <ion-col col-12 ion-no-padding text-center
+                    >Post</ion-col
+                  ></ion-row
                 >
               </ion-col>
-              <ion-col col-2 no-padding class="userFollowerContainer">
+              <ion-col col-2 ion-no-padding class="userFollowerContainer">
                 <ion-row class="textAmount">
-                  <ion-col col-12 no-padding text-center>{{
-                    loadedProfile.user[0].follower.length
-                  }}</ion-col></ion-row
+                  <ion-col col-12 no-padding text-center
+                    >{{ loadedProfile.user[0].follower.length }}</ion-col
+                  ></ion-row
                 >
                 <ion-row class="textUserStatus">
-                  <ion-col col-12 no-padding text-center
+                  <ion-col col-12 ion-no-padding text-center
                     >Follower</ion-col
                   ></ion-row
                 >
               </ion-col>
-              <ion-col col-2 no-padding class="userFollowingContainer">
+              <ion-col col-2 ion-no-padding class="userFollowingContainer">
                 <ion-row class="textAmount">
-                  <ion-col col-12 no-padding text-center>{{
-                    loadedProfile.user[0].following.length
-                  }}</ion-col></ion-row
+                  <ion-col col-12 ion-no-padding text-center
+                    >{{ loadedProfile.user[0].following.length }}</ion-col
+                  ></ion-row
                 >
                 <ion-row class="textUserStatus">
-                  <ion-col col-12 no-padding text-center
+                  <ion-col col-12 ion-no-padding text-center
                     >Following</ion-col
                   ></ion-row
                 >
@@ -123,14 +125,25 @@
                 </div>
               </div>
               <ion-card-content>
-                <p class="textItemName">
+                <div class="textItemName">
                   {{ item.item_name }}
-                </p>
-                <p class="textTimeStamp">
-                  <ion-icon name="hourglass" slot="icon-only"></ion-icon>
-                  {{ item.timestamp }}
-                </p>
-                <p>
+                </div>
+                <div class="textTimeStamp">
+                  <ion-row>
+                    <ion-col class="ion-no-padding">
+                      <div class="timestampContainer">
+                        <img
+                          src="../assets/images/hourglass.png"
+                          class="imgTimestamp"
+                        />
+                        <ion-label>
+                          {{ item.timestamp }}
+                        </ion-label>
+                      </div>
+                    </ion-col>
+                  </ion-row>
+                </div>
+                <div>
                   <ion-row class="userInfoContainer">
                     <ion-col size="4" class="avatarContainer">
                       <img
@@ -153,7 +166,7 @@
                       </ion-row>
                     </ion-col>
                   </ion-row>
-                </p>
+                </div>
               </ion-card-content>
             </ion-card>
           </ion-col>
@@ -195,8 +208,19 @@
                   {{ item.item_name }}
                 </p>
                 <p class="textTimeStamp">
-                  <ion-icon name="hourglass" slot="icon-only"></ion-icon
-                  >{{ item.timestamp }}
+                  <ion-row>
+                    <ion-col class="ion-no-padding">
+                      <div class="timestampContainer">
+                        <img
+                          src="../assets/images/hourglass.png"
+                          class="imgTimestamp"
+                        />
+                        <ion-label>
+                          {{ item.timestamp }}
+                        </ion-label>
+                      </div>
+                    </ion-col>
+                  </ion-row>
                 </p>
                 <p>
                   <ion-row class="userInfoContainer">

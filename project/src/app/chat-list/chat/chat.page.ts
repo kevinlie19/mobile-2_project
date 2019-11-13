@@ -92,7 +92,7 @@ export class ChatPage implements OnInit {
       }
     });
     const result = await response.json();
-    console.log("result", result);
+    //console.log("result", result);
 
     self.loadedMessages = result.data[0];
     self.loadedMessages.chat_list = self.loadedMessages.chat_list.filter(

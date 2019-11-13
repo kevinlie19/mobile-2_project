@@ -23,10 +23,22 @@ ion-spinner {
   --color: #3c4cac;
 }
 
+.backIconContainer {
+  padding-left: 10px;
+  padding-top: 10px;
+}
+
+.backIconButton {
+  --background: #3c4cac;
+  --border-radius: 50%;
+  width: 50px;
+  height: 50px;
+}
+
 .backIcon {
   width: 30px;
   height: 30px;
-  color: #3c4cac;
+  color: white;
 }
 
 ion-content {

@@ -46,6 +46,29 @@ export class ChatListPage implements OnInit {
     }
   }
 
+  async doRefresh(event) {
+    let userToken = await this.storage.get("userToken");
+    let response = await fetch(APISetting.API_ENDPOINT + "page/chat/", {
+      mode: "cors",
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        Authorization: userToken
+      }
+    });
+
+    const result = await response.json();
+    this.loadedChatList = result.data[0];
+    this.isLoading = false;
+    for (let keyList of this.loadedChatList.chat_list) {
+      for (let keyMessage of keyList.messages) {
+        keyMessage.timestamp = timestampFormat(keyMessage.timestamp);
+      }
+    }
+    event.target.complete();
+  }
+
   onClickChatList() {
     this.router.navigateByUrl("/chat-list/chat");
   }

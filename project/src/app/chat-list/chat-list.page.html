@@ -16,6 +16,9 @@
 <ion-content *ngIf="isLoading" class="backgroundLoading"></ion-content>
 
 <ion-content *ngIf="!isLoading">
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <br />
   <ion-list
     class="listChatContainer"

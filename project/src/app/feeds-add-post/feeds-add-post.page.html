@@ -21,6 +21,7 @@
         <ion-img
           *ngIf="scanBarcodeFeeds.image !== ''"
           [src]="scanBarcodeFeeds.image"
+          class="photo"
         ></ion-img>
       </div>
       <div
@@ -32,6 +33,7 @@
     </ion-row>
   </ion-row>
   <br />
+  <ion-row class="labelItemName">Item Name</ion-row>
   <ion-row class="boxItemName">
     <ion-input
       placeholder="Item Name"
@@ -44,30 +46,46 @@
   </ion-row>
   <br />
   <ion-row class="containerDate">
-    <ion-col class="boxBuyDate">
-      <ion-datetime
-        displayFormat="MM/DD/YYYY"
-        placeholder="Buy Date"
-        class="textBuyDate"
-        ngModel
-        name="dateBuy"
-        required
-        [(ngModel)]="scanBarcodeFeeds.buy_date"
-      ></ion-datetime>
+    <ion-col>
+      <ion-row class="labelBuyDate">Buy Date</ion-row>
+      <ion-row class="boxBuyDate">
+        <ion-datetime
+          displayFormat="MM/DD/YYYY"
+          placeholder="Buy Date"
+          class="textBuyDate"
+          ngModel
+          name="dateBuy"
+          [(ngModel)]="scanBarcodeFeeds.buyDate"
+        ></ion-datetime>
+      </ion-row>
     </ion-col>
-    <ion-col class="boxExpDate">
-      <ion-datetime
-        displayFormat="MM/DD/YYYY"
-        placeholder="Exp Date"
-        class="textExpDate"
-        ngModel
-        name="dateExp"
-        required
-        [(ngModel)]="scanBarcodeFeeds.exp_date"
-      ></ion-datetime>
+    <ion-col>
+      <ion-row class="labelExpDate">Exp Date</ion-row>
+      <ion-row class="boxExpDate">
+        <ion-datetime
+          displayFormat="MM/DD/YYYY"
+          placeholder="Exp Date"
+          class="ion-text-center textExpDate"
+          [(ngModel)]="scanBarcodeFeeds.expDate"
+          name="dateExp"
+          min="{{ scanBarcodeFeeds.buyDate }}"
+          max="2050"
+          *ngIf="scanBarcodeFeeds.buyDate"
+        ></ion-datetime>
+        <ion-datetime
+          displayFormat="MM/DD/YYYY"
+          placeholder="Exp Date"
+          class="ion-text-center textExpDate"
+          [(ngModel)]="scanBarcodeFeeds.expDate"
+          name="dateExp"
+          max="2050"
+          *ngIf="!scanBarcodeFeeds.buyDate"
+        ></ion-datetime>
+      </ion-row>
     </ion-col>
   </ion-row>
   <br />
+  <ion-row class="labelCategory">Category</ion-row>
   <ion-row class="boxCategory">
     <ion-select
       placeholder="Category"
@@ -91,6 +109,7 @@
     </ion-select>
   </ion-row>
   <br />
+  <ion-row class="labelDescription">Description</ion-row>
   <ion-row class="boxDescription">
     <ion-textarea
       rows="6"
@@ -102,6 +121,25 @@
       required
       [(ngModel)]="scanBarcodeFeeds.description"
     ></ion-textarea>
+  </ion-row>
+  <br />
+  <ion-row class="labelTag">Tag</ion-row>
+  <ion-row class="boxTag">
+    <ion-select
+      placeholder="Available"
+      class="textTag"
+      [(ngModel)]="tag"
+      name="tag"
+      interface="popover"
+      required
+    >
+      <ion-select-option value="Available">Available</ion-select-option>
+      <ion-select-option
+        *ngIf="scanBarcodeFeeds.expDate < currentDate"
+        value="Expired"
+        >Expired</ion-select-option
+      >
+    </ion-select>
   </ion-row>
   <br />
   <ion-button
