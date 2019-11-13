@@ -1,4 +1,4 @@
-<ion-header>
+<ion-header *ngIf="!isLoading">
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-button (click)="onClickBack()">
@@ -8,24 +8,51 @@
     <ion-row class="headerDetailContainer">
       <ion-col no-padding>
         <img
-          src="http://swipemarket.com/wp-content/uploads/2014/06/Untitled-6.jpg"
+          src="{{ loadedMessages.chat_list[0].avatar }}"
+          *ngIf="loadedMessages.chat_list[0].avatar !== null"
+          class="imgAvatarHeader"
+        />
+        <img
+          src="assets/images/avatarDefault.png"
+          *ngIf="loadedMessages.chat_list[0].avatar === null"
           class="imgAvatarHeader"
         />
       </ion-col>
       <ion-col size="8" no-padding>
         <div class="textNameHeader">
-          {{ loadedMessage.full_name }}
+          {{ loadedMessages.chat_list[0].full_name }}
         </div>
       </ion-col>
     </ion-row>
   </ion-toolbar>
 </ion-header>
 
-<ion-content #scrollElement>
-  <ion-list class="chatContainer" *ngFor="let msg of loadedMessage.messages">
-    <ion-row class="chatReceiver" *ngIf="msg.userId === otherUser">
+<ion-content #scrollElement *ngIf="isLoading" class="backgroundLoading">
+  <div class="spin" *ngIf="isLoading">
+    <ion-spinner name="crescent"></ion-spinner>
+  </div>
+</ion-content>
+
+<ion-content #scrollElement *ngIf="!isLoading">
+  <ion-list
+    class="chatContainer"
+    *ngFor="let msg of loadedMessages.chat_list[0].messages"
+  >
+    <ion-row
+      class="chatLeft"
+      *ngIf="msg.sender_id === loadedMessages.chat_list[0].id"
+    >
       <ion-col>
-        <img class="imgAvatar" [src]="msg.userAvatar" />
+        <img
+          class="imgAvatar"
+          *ngIf="loadedMessages.chat_list[0].avatar !== null"
+          src="{{ loadedMessages.chat_list[0].avatar }}"
+        />
+        <img
+          src="assets/images/avatarDefault.png"
+          *ngIf="loadedMessages.chat_list[0].avatar === null"
+          class="imgAvatar"
+        />
       </ion-col>
       <ion-col size="chatDetailContainer">
         <ion-row class="messageContainer">
@@ -39,28 +66,48 @@
           {{ msg.message }}
           <br />
         </ion-row>
-        <ion-row class="textTimeReceiver">
-          {{ msg.time }}
+        <ion-row class="textTimeLeft">
+          {{ msg.timestamp }}
         </ion-row>
       </ion-col>
     </ion-row>
-    <ion-row class="chatSender" *ngIf="msg.userId === myUser">
+    <ion-row
+      class="chatRight"
+      *ngIf="msg.sender_id === loadedMessages.my_data[0].id"
+    >
       <ion-col width-50 size="chatDetailContainer">
         <ion-row class="messageContainer">
           {{ msg.message }}
         </ion-row>
-        <ion-row class="textTimeSender">
-          {{ msg.time }}
+        <ion-row
+          class="messageContainer"
+          style=" word-wrap: break-word;"
+          *ngIf="isRowFull"
+        >
+          {{ msg.message }}
+          <br />
+        </ion-row>
+        <ion-row class="textTimeRight">
+          {{ msg.timestamp }}
         </ion-row>
       </ion-col>
       <ion-col width-50>
-        <img class="imgAvatar" [src]="msg.userAvatar" />
+        <img
+          class="imgAvatar"
+          *ngIf="loadedMessages.my_data[0].avatar !== null"
+          src="{{ loadedMessages.my_data[0].avatar }}"
+        />
+        <img
+          src="assets/images/avatarDefault.png"
+          *ngIf="loadedMessages.my_data[0].avatar === null"
+          class="imgAvatar"
+        />
       </ion-col>
     </ion-row>
   </ion-list>
 </ion-content>
 
-<ion-footer>
+<ion-footer *ngIf="!isLoading">
   <ion-toolbar class="footerContainer">
     <form #f="ngForm">
       <div class="inputMsgContainer">
