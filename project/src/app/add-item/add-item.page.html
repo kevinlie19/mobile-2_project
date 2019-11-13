@@ -33,12 +33,9 @@
         </div>
       </ion-row>
     </ion-row>
-    <img
-      *ngIf="image !== ''"
-      [src]="image"
-      class="photo"
-      (click)="changeImage()"
-    />
+    <ion-row class="boxImage" *ngIf="image !== ''">
+      <img class="photo" [src]="image" (click)="changeImage()" />
+    </ion-row>
     <br />
     <ion-row class="labelItemName">Item Name</ion-row>
     <ion-row class="boxItemName">
@@ -58,7 +55,7 @@
           <ion-datetime
             displayFormat="MM/DD/YYYY"
             placeholder="Buy Date"
-            class="textBuyDate"
+            class="ion-text-center textBuyDate"
             [(ngModel)]="buy_date"
             name="dateBuy"
           ></ion-datetime>
@@ -70,18 +67,20 @@
           <ion-datetime
             displayFormat="MM/DD/YYYY"
             placeholder="Exp Date"
-            class="textExpDate"
+            class="ion-text-center textExpDate"
             [(ngModel)]="exp_date"
             name="dateExp"
             min="{{ buy_date }}"
+            max="2050"
             *ngIf="buy_date"
           ></ion-datetime>
           <ion-datetime
             displayFormat="MM/DD/YYYY"
             placeholder="Exp Date"
-            class="textExpDate"
+            class="ion-text-center textExpDate"
             [(ngModel)]="exp_date"
             name="dateExp"
+            max="2050"
             *ngIf="!buy_date"
           ></ion-datetime>
         </ion-row>

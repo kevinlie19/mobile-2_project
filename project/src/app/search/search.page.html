@@ -7,10 +7,10 @@
 <ion-content>
   <br />
   <ion-toolbar>
-    <div style="border-radius: 200px;">
+    <div class="searchBarContainer">
       <ion-searchbar
-        class="searchBarContainer"
         placeholder="Search for friends"
+        [(ngModel)]="searchKeyword"
         (ionInput)="onInputSearch($event.target.value)"
         (ionClear)="onInputSearch($event.target.value)"
       ></ion-searchbar>
@@ -20,26 +20,31 @@
     class="notFoundContainer ion-text-center"
     *ngIf="(!loadedSearch || loadedSearch.length === 0) && isInputEntered"
   >
-    <p class="textNotFound"></p>
+    <p class="textNotFound">
+      There are no users found!
+    </p>
   </div>
-  <ion-list
-    class="listSearchContainer"
-    *ngFor="let search of loadedSearch"
-    [routerLink]="['/', 'profile-user', search.id]"
-  >
-    <ion-item lines="none">
-      <ion-avatar item-left>
-        <img src="{{ search.avatar }}" *ngIf="search.avatar !== null" />
-        <img
-          src="assets/images/avatarDefault.png"
-          *ngIf="search.avatar === null"
-        />
-      </ion-avatar>
-      <p class="textContainer">
-        {{ search.full_name }} <br />{{ search.username }}
-      </p>
-    </ion-item>
-  </ion-list>
+
+  <div *ngIf="!isLoading">
+    <ion-list
+      class="listSearchContainer"
+      *ngFor="let search of loadedSearch"
+      [routerLink]="['/', 'profile-user', search.id]"
+    >
+      <ion-item lines="none">
+        <ion-avatar item-left>
+          <img src="{{ search.avatar }}" *ngIf="search.avatar !== null" />
+          <img
+            src="assets/images/avatarDefault.png"
+            *ngIf="search.avatar === null"
+          />
+        </ion-avatar>
+        <p class="textContainer">
+          {{ search.full_name }} <br />{{ search.username }}
+        </p>
+      </ion-item>
+    </ion-list>
+  </div>
 </ion-content>
 
 <ion-footer>
@@ -81,3 +86,7 @@
     </div>
   </ion-row>
 </ion-footer>
+
+<div class="spin" *ngIf="isLoading">
+  <ion-spinner name="crescent"></ion-spinner>
+</div>

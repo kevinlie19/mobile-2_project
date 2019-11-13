@@ -1,31 +1,32 @@
-import {Feeds} from './../feeds/feeds.model';
-import {Router} from '@angular/router';
-import {Component, OnInit} from '@angular/core';
-import {NavController, Platform} from '@ionic/angular';
-import {LocalNotifications} from '@ionic-native/local-notifications/ngx';
-import {AppService} from '../app.service';
+import { Feeds } from "./../feeds/feeds.model";
+import { Router } from "@angular/router";
+import { Component, OnInit } from "@angular/core";
+import { NavController, Platform } from "@ionic/angular";
+import { LocalNotifications } from "@ionic-native/local-notifications/ngx";
+import { AppService } from "../app.service";
 
 @Component({
-  selector: 'app-feeds-add-post',
-  templateUrl: './feeds-add-post.page.html',
-  styleUrls: ['./feeds-add-post.page.scss'],
+  selector: "app-feeds-add-post",
+  templateUrl: "./feeds-add-post.page.html",
+  styleUrls: ["./feeds-add-post.page.scss"]
 })
 export class FeedsAddPostPage implements OnInit {
+  currentDate: string;
   scanBarcodeFeeds: Feeds = {
     id: 0,
     user_id: 0,
-    item_name: '',
-    tag: 'Available',
-    category: '',
-    description: '',
-    buy_date: '',
-    exp_date: '',
-    timestamp: '',
-    image: '',
-    full_name: '',
-    username: '',
-    location: '',
-    avatar: '',
+    item_name: "",
+    tag: "Available",
+    category: "",
+    description: "",
+    buy_date: "",
+    exp_date: "",
+    timestamp: "",
+    image: "",
+    full_name: "",
+    username: "",
+    location: "",
+    avatar: ""
   };
 
   constructor(
@@ -33,15 +34,16 @@ export class FeedsAddPostPage implements OnInit {
     private navCtrl: NavController,
     private localNotifications: LocalNotifications,
     private router: Router,
-    private appService: AppService,
+    private appService: AppService
   ) {
-    this.localNotifications.on('click').subscribe((notification) => {
-      this.router.navigateByUrl('/request');
+    this.localNotifications.on("click").subscribe(notification => {
+      this.router.navigateByUrl("/request");
     });
   }
 
   ngOnInit() {
     this.scanBarcodeFeeds = this.appService.getAllScanBarcodeFeeds();
+    this.currentDate = new Date().toISOString();
   }
 
   onClickClose() {
@@ -50,15 +52,15 @@ export class FeedsAddPostPage implements OnInit {
 
   addPost() {
     this.localNotifications.schedule({
-      text: 'Hi! You you have a new request!',
-      trigger: {at: new Date(new Date().getTime() + 5000)},
-      led: 'FF0000',
-      sound: 'file://sound.mp3',
-      smallIcon: '../../assets/images/LogoCibo.png',
-      icon: '../../assets/images/LogoCibo.png',
-      vibrate: true,
+      text: "Hi! You you have a new request!",
+      trigger: { at: new Date(new Date().getTime() + 5000) },
+      led: "FF0000",
+      sound: "file://sound.mp3",
+      smallIcon: "../../assets/images/LogoCibo.png",
+      icon: "../../assets/images/LogoCibo.png",
+      vibrate: true
     });
     this.appService.resetScanBarcodeFeeds();
-    this.router.navigateByUrl('/feeds');
+    this.router.navigateByUrl("/feeds");
   }
 }

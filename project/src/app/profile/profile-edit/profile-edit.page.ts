@@ -1,54 +1,54 @@
-import {Component, OnInit} from '@angular/core';
-import {NgForm} from '@angular/forms';
+import { Component, OnInit } from "@angular/core";
+import { NgForm } from "@angular/forms";
 
 import {
   ActionSheetController,
   LoadingController,
   AlertController,
-  NavController,
-} from '@ionic/angular';
-import {CameraOptions, Camera} from '@ionic-native/camera/ngx';
-import {ImagePicker} from '@ionic-native/image-picker/ngx';
-import {Storage} from '@ionic/storage';
+  NavController
+} from "@ionic/angular";
+import { CameraOptions, Camera } from "@ionic-native/camera/ngx";
+import { ImagePicker } from "@ionic-native/image-picker/ngx";
+import { Storage } from "@ionic/storage";
 
-import {Profile} from '../profile.model';
-import {ProfileService} from '../profile.service';
-import {APISetting} from '../../constant/API';
-import {provinceFormat} from 'src/app/helpers/provinceFormat';
+import { Profile } from "../profile.model";
+import { ProfileService } from "../profile.service";
+import { APISetting } from "../../constant/API";
+import { provinceFormat } from "src/app/helpers/provinceFormat";
 
 @Component({
-  selector: 'app-profile-edit',
-  templateUrl: './profile-edit.page.html',
-  styleUrls: ['./profile-edit.page.scss'],
+  selector: "app-profile-edit",
+  templateUrl: "./profile-edit.page.html",
+  styleUrls: ["./profile-edit.page.scss"]
 })
 export class ProfileEditPage implements OnInit {
   loadedProfile: Profile = {
     user: {
       id: 0,
-      email: '',
-      username: '',
-      full_name: '',
-      password: '',
-      phone_number: '',
-      location: '',
-      avatar: '',
-      gender: '',
+      email: "",
+      username: "",
+      full_name: "",
+      password: "",
+      phone_number: "",
+      location: "",
+      avatar: "",
+      gender: "",
       following: [],
-      follower: [],
+      follower: []
     },
-    post: [],
+    post: []
   };
 
   cityData = [
     {
-      id: '',
-      name: '',
-    },
+      id: "",
+      name: ""
+    }
   ];
 
-  capturedSnapURL: string = '';
-  selectedLocation = '';
-  selectedGender = '';
+  capturedSnapURL: string = "";
+  selectedLocation = "";
+  selectedGender = "";
 
   cameraOptions: CameraOptions = {
     quality: 100,
@@ -58,7 +58,7 @@ export class ProfileEditPage implements OnInit {
     targetWidth: 130,
     targetHeight: 130,
     encodingType: this.camera.EncodingType.JPEG,
-    mediaType: this.camera.MediaType.PICTURE,
+    mediaType: this.camera.MediaType.PICTURE
   };
 
   constructor(
@@ -69,35 +69,35 @@ export class ProfileEditPage implements OnInit {
     private loadingCtrl: LoadingController,
     private storage: Storage,
     private alertCtrl: AlertController,
-    private navCtrl: NavController,
+    private navCtrl: NavController
   ) {}
 
   async ngOnInit() {
     this.loadedProfile = this.profileService.getProfile();
     this.capturedSnapURL = this.loadedProfile.user[0].avatar;
 
-    let getProvinceToken = await fetch('https://x.rajaapi.com/poe', {
-      mode: 'cors',
-      method: 'GET',
+    let getProvinceToken = await fetch("https://x.rajaapi.com/poe", {
+      mode: "cors",
+      method: "GET",
       headers: {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*',
-      },
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*"
+      }
     });
     let provinceToken = await getProvinceToken.json();
 
     let getProvinceList = await fetch(
-      'https://x.rajaapi.com/MeP7c5ne' +
+      "https://x.rajaapi.com/MeP7c5ne" +
         provinceToken.token +
-        '/m/wilayah/provinsi',
+        "/m/wilayah/provinsi",
       {
-        mode: 'cors',
-        method: 'GET',
+        mode: "cors",
+        method: "GET",
         headers: {
-          'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': '*',
-        },
-      },
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*"
+        }
+      }
     );
     let province = await getProvinceList.json();
 
@@ -106,10 +106,12 @@ export class ProfileEditPage implements OnInit {
     for (let item of this.cityData) {
       item.name = provinceFormat(item.name);
     }
+
+    this.cityData.sort((a, b) => a.name.localeCompare(b.name));
   }
 
   onClickClose() {
-    this.navCtrl.navigateBack('/profile');
+    this.navCtrl.navigateBack("/profile");
   }
 
   changeProfilePicture() {
@@ -118,42 +120,42 @@ export class ProfileEditPage implements OnInit {
 
   async presentActionSheet() {
     const actionSheet = await this.actionSheetController.create({
-      header: 'Select Image Source!',
+      header: "Select Image Source!",
       buttons: [
         {
-          text: 'Load from Gallery',
+          text: "Load from Gallery",
           handler: () => {
             this.selectGalery();
-          },
+          }
         },
         {
-          text: 'Use Camera',
+          text: "Use Camera",
           handler: () => {
             this.takePicture();
-          },
+          }
         },
         {
-          text: 'Cancel',
-          role: 'cancel',
-        },
-      ],
+          text: "Cancel",
+          role: "cancel"
+        }
+      ]
     });
     await actionSheet.present();
   }
 
   takePicture() {
     this.camera.getPicture(this.cameraOptions).then(
-      (imageData) => {
+      imageData => {
         if (imageData.length === 0) {
           this.capturedSnapURL = this.capturedSnapURL;
         } else {
-          const base64Image = 'data:image/jpeg;base64,' + imageData;
+          const base64Image = "data:image/jpeg;base64," + imageData;
           this.capturedSnapURL = base64Image;
         }
       },
-      (err) => {
+      err => {
         console.error(err);
-      },
+      }
     );
   }
 
@@ -161,20 +163,20 @@ export class ProfileEditPage implements OnInit {
     const options = {
       maximumImagesCount: 1,
       quality: 100,
-      outputType: 1,
+      outputType: 1
     };
     this.imagePicker.getPictures(options).then(
-      (imageData) => {
+      imageData => {
         if (imageData.length === 0) {
           this.capturedSnapURL = this.capturedSnapURL;
         } else {
-          const base64Image = 'data:image/jpeg;base64,' + imageData;
+          const base64Image = "data:image/jpeg;base64," + imageData;
           this.capturedSnapURL = base64Image;
         }
       },
-      (err) => {
+      err => {
         alert(err);
-      },
+      }
     );
   }
 
@@ -193,12 +195,12 @@ export class ProfileEditPage implements OnInit {
     let image = this.capturedSnapURL;
     let location = this.selectedLocation;
     let gender = this.selectedGender;
-    let userToken = await this.storage.get('userToken');
+    let userToken = await this.storage.get("userToken");
     let body = {};
 
     this.loadingCtrl
-      .create({keyboardClose: true, message: 'Applying Changes...'})
-      .then((loadingEl) => {
+      .create({ keyboardClose: true, message: "Applying Changes..." })
+      .then(loadingEl => {
         loadingEl.present();
 
         async function getDataFromAPI() {
@@ -207,7 +209,7 @@ export class ProfileEditPage implements OnInit {
               full_name,
               phone_number,
               location,
-              gender,
+              gender
             };
           } else if (image !== self.loadedProfile.user[0].avatar) {
             body = {
@@ -215,20 +217,20 @@ export class ProfileEditPage implements OnInit {
               full_name,
               phone_number,
               location,
-              gender,
+              gender
             };
           }
 
           let response = await fetch(
-            APISetting.API_ENDPOINT + 'feature/edit-profile',
+            APISetting.API_ENDPOINT + "feature/edit-profile",
             {
-              method: 'POST',
+              method: "POST",
               headers: {
-                'Content-Type': 'application/json',
-                authorization: userToken,
+                "Content-Type": "application/json",
+                authorization: userToken
               },
-              body: JSON.stringify(body),
-            },
+              body: JSON.stringify(body)
+            }
           );
 
           let editProfileStatus;
@@ -242,28 +244,28 @@ export class ProfileEditPage implements OnInit {
           if (editProfileStatus.success === true) {
             loadingEl.dismiss();
             let alert = await self.alertCtrl.create({
-              message: 'Account Successfully Updated!',
+              message: "Account Successfully Updated!",
               buttons: [
                 {
-                  text: 'OK',
+                  text: "OK",
                   handler: () => {
-                    self.navCtrl.navigateBack('/profile');
-                  },
-                },
-              ],
+                    self.navCtrl.navigateBack("/profile");
+                  }
+                }
+              ]
             });
             await alert.present();
           } else {
             loadingEl.dismiss();
             let alert = await this.alertCtrl.create({
-              title: 'Alert',
+              title: "Alert",
               message: editProfileStatus.message,
               buttons: [
                 {
-                  text: 'OK',
-                  handler: () => {},
-                },
-              ],
+                  text: "OK",
+                  handler: () => {}
+                }
+              ]
             });
             await alert.present();
             return;

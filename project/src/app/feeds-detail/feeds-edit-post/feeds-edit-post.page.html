@@ -42,7 +42,7 @@
             displayFormat="DD/MM/YYYY"
             placeholder="Buy Date"
             ngModel="{{ loadedFeed.post[0].buy_date }}"
-            class="textBuyDate"
+            class="ion-text-center textBuyDate"
             name="buyDate"
           ></ion-datetime>
         </ion-row>
@@ -54,17 +54,19 @@
             displayFormat="DD/MM/YYYY"
             placeholder="Exp Date"
             ngModel="{{ loadedFeed.post[0].exp_date }}"
-            class="textExpDate"
+            class="ion-text-center textExpDate"
             name="expDate"
             min="{{ loadedFeed.post[0].buy_date }}"
+            max="2050"
             *ngIf="loadedFeed.post[0].buy_date"
           ></ion-datetime>
           <ion-datetime
             displayFormat="DD/MM/YYYY"
             placeholder="Exp Date"
             ngModel="{{ loadedFeed.post[0].exp_date }}"
-            class="textExpDate"
+            class="ion-text-center textExpDate"
             name="expDate"
+            max="2050"
             *ngIf="!loadedFeed.post[0].buy_date"
           ></ion-datetime>
         </ion-row>

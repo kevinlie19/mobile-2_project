@@ -83,6 +83,8 @@ ion-select {
   box-shadow: #00000029 0px 3px 6px;
   width: 100%;
   background-color: #ffffff;
+  line-height: 30px;
+  vertical-align: middle;
 }
 
 .containerDate {
@@ -117,13 +119,9 @@ ion-select {
 
 .textBuyDate,
 .textExpDate {
-  margin-left: 0px;
-  margin-top: 6px;
-  margin-bottom: 5px;
   font-family: qanelas;
   font-size: 12;
   color: #6b6b6b;
-  text-align: center;
 }
 
 .textCategory,

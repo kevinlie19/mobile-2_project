@@ -13,6 +13,7 @@
 .searchBarContainer {
   display: block;
   margin: 0 auto;
+  border-radius: 200px;
 }
 
 .notFoundContainer {
@@ -24,6 +25,19 @@
   font-family: qanelas;
   font-size: 16;
   color: #5d5d5d;
+}
+
+.spin {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+ion-spinner {
+  width: 80px;
+  height: 80px;
+  --color: #3c4cac;
 }
 
 .listSearchContainer {

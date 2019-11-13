@@ -64,9 +64,9 @@
             <ion-row class="userStatusContainer">
               <ion-col col-2 no-padding class="userPostContainer">
                 <ion-row class="textAmount">
-                  <ion-col col-12 no-padding text-center>{{
-                    loadedUserProfile.post.length
-                  }}</ion-col></ion-row
+                  <ion-col col-12 no-padding text-center
+                    >{{ loadedUserProfile.post.length }}</ion-col
+                  ></ion-row
                 >
                 <ion-row class="textUserStatus">
                   <ion-col col-12 no-padding text-center>Post</ion-col></ion-row
@@ -74,9 +74,9 @@
               </ion-col>
               <ion-col col-2 no-padding class="userFollowerContainer">
                 <ion-row class="textAmount">
-                  <ion-col col-12 no-padding text-center>{{
-                    loadedUserProfile.user[0].follower.length
-                  }}</ion-col></ion-row
+                  <ion-col col-12 no-padding text-center
+                    >{{ loadedUserProfile.user[0].follower.length }}</ion-col
+                  ></ion-row
                 >
                 <ion-row class="textUserStatus">
                   <ion-col col-12 no-padding text-center
@@ -86,9 +86,9 @@
               </ion-col>
               <ion-col col-2 no-padding class="userFollowingContainer">
                 <ion-row class="textAmount">
-                  <ion-col col-12 no-padding text-center>{{
-                    loadedUserProfile.user[0].following.length
-                  }}</ion-col>
+                  <ion-col col-12 no-padding text-center
+                    >{{ loadedUserProfile.user[0].following.length }}</ion-col
+                  >
                 </ion-row>
                 <ion-row class="textUserStatus">
                   <ion-col col-12 no-padding text-center
@@ -156,8 +156,19 @@
                   {{ item.item_name }}
                 </p>
                 <p class="textTimeStamp">
-                  <ion-icon name="hourglass" slot="icon-only"></ion-icon>
-                  {{ item.timestamp }}
+                  <ion-row>
+                    <ion-col class="ion-no-padding">
+                      <div class="timestampContainer">
+                        <img
+                          src="../assets/images/hourglass.png"
+                          class="imgTimestamp"
+                        />
+                        <ion-label>
+                          {{ item.timestamp }}
+                        </ion-label>
+                      </div>
+                    </ion-col>
+                  </ion-row>
                 </p>
                 <p>
                   <ion-row class="userInfoContainer">
@@ -223,13 +234,20 @@
                 <p class="textItemName">
                   {{ item.item_name }}
                 </p>
-                <p class="textTimeStamp" style="vertical-align: middle;">
-                  <ion-icon
-                    style="vertical-align: middle;"
-                    name="hourglass"
-                    slot="icon-only"
-                  ></ion-icon>
-                  {{ item.timestamp }}
+                <p class="textTimeStamp">
+                  <ion-row>
+                    <ion-col class="ion-no-padding">
+                      <div class="timestampContainer">
+                        <img
+                          src="../assets/images/hourglass.png"
+                          class="imgTimestamp"
+                        />
+                        <ion-label>
+                          {{ item.timestamp }}
+                        </ion-label>
+                      </div>
+                    </ion-col>
+                  </ion-row>
                 </p>
                 <p>
                   <ion-row class="userInfoContainer">
