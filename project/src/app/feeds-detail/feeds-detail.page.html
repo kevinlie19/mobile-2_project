@@ -89,6 +89,15 @@
             expand="block"
             shape="round"
             class="btnEdit"
+            (click)="onClickEditUnavailable()"
+            *ngIf="loadedFeedDetail.post[0].tag.toLowerCase() === 'unavailable'"
+            >EDIT</ion-button
+          >
+          <ion-button
+            expand="block"
+            shape="round"
+            class="btnEdit"
+            *ngIf="loadedFeedDetail.post[0].tag.toLowerCase() === 'available' || loadedFeedDetail.post[0].tag.toLowerCase() === 'expired'"
             [routerLink]="['/', 'feeds-edit-post']"
             >EDIT</ion-button
           >

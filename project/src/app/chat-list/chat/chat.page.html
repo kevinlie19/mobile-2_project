@@ -18,7 +18,7 @@
           class="imgAvatarHeader"
         />
       </ion-col>
-      <ion-col size="8" no-padding>
+      <ion-col no-padding>
         <div class="textNameHeader">
           {{ loadedMessages.chat_list[0].full_name }}
         </div>
@@ -27,13 +27,13 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content #scrollElement *ngIf="isLoading" class="backgroundLoading">
+<ion-content #content *ngIf="isLoading" class="backgroundLoading">
   <div class="spin" *ngIf="isLoading">
     <ion-spinner name="crescent"></ion-spinner>
   </div>
 </ion-content>
 
-<ion-content #scrollElement *ngIf="!isLoading">
+<ion-content #content *ngIf="!isLoading">
   <ion-list
     class="chatContainer"
     *ngFor="let msg of loadedMessages.chat_list[0].messages"

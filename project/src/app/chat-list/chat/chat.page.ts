@@ -1,20 +1,20 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
 
-import { NavController, IonContent, Platform } from "@ionic/angular";
-import { Storage } from "@ionic/storage";
+import {NavController, IonContent, Platform} from '@ionic/angular';
+import {Storage} from '@ionic/storage';
 
-import { Chat } from "../chat-list.model";
-import { APISetting } from "src/app/constant/API";
-import { timestampFormat } from "src/app/helpers/timestampFormat";
+import {Chat} from '../chat-list.model';
+import {APISetting} from 'src/app/constant/API';
+import {timestampFormat} from 'src/app/helpers/timestampFormat';
 
 @Component({
-  selector: "app-chat",
-  templateUrl: "./chat.page.html",
-  styleUrls: ["./chat.page.scss"]
+  selector: 'app-chat',
+  templateUrl: './chat.page.html',
+  styleUrls: ['./chat.page.scss'],
 })
 export class ChatPage implements OnInit {
-  @ViewChild("scrollElement", { static: false }) private content: any;
+  @ViewChild('content', {static: false}) private content: IonContent;
   loadedMessages: Chat;
   myUser: number;
   otherUser: number;
@@ -30,35 +30,35 @@ export class ChatPage implements OnInit {
     private navCtrl: NavController,
     private route: ActivatedRoute,
     private platform: Platform,
-    private storage: Storage
+    private storage: Storage,
   ) {}
 
   ngOnInit() {
     this.isLoading = true;
-    this.route.paramMap.subscribe(async paramMap => {
-      if (!paramMap.has("chatId")) {
-        this.navCtrl.navigateBack("/chat-list");
+    this.route.paramMap.subscribe(async (paramMap) => {
+      if (!paramMap.has('chatId')) {
+        this.navCtrl.navigateBack('/chat-list');
         return;
       }
-      this.paramId = Number(paramMap.get("chatId"));
+      this.paramId = Number(paramMap.get('chatId'));
 
-      this.userToken = await this.storage.get("userToken");
-      let response = await fetch(APISetting.API_ENDPOINT + "page/chat/", {
-        mode: "cors",
-        method: "GET",
+      this.userToken = await this.storage.get('userToken');
+      let response = await fetch(APISetting.API_ENDPOINT + 'page/chat/', {
+        mode: 'cors',
+        method: 'GET',
         headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-          Authorization: this.userToken
-        }
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+          Authorization: this.userToken,
+        },
       });
 
       const result = await response.json();
       this.loadedMessages = result.data[0];
       this.loadedMessages.chat_list = this.loadedMessages.chat_list.filter(
-        message => {
-          return message.id === Number(paramMap.get("chatId"));
-        }
+        (message) => {
+          return message.id === Number(paramMap.get('chatId'));
+        },
       );
 
       for (let keyList of this.loadedMessages.chat_list) {
@@ -67,14 +67,15 @@ export class ChatPage implements OnInit {
         }
       }
       this.isLoading = false;
+      this.content.scrollToBottom(300);
       await setTimeout(() => {
         this.refreshMessages();
       }, 5000);
     });
     this.maxLineLength = 30;
-    if (this.platform.is("ios")) {
+    if (this.platform.is('ios')) {
       this.isIos = true;
-    } else if (this.platform.is("android")) {
+    } else if (this.platform.is('android')) {
       this.isIos = false;
     }
   }
@@ -82,23 +83,22 @@ export class ChatPage implements OnInit {
   async refreshMessages() {
     let self = this;
 
-    let response = await fetch(APISetting.API_ENDPOINT + "page/chat/", {
-      mode: "cors",
-      method: "GET",
+    let response = await fetch(APISetting.API_ENDPOINT + 'page/chat/', {
+      mode: 'cors',
+      method: 'GET',
       headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-        Authorization: self.userToken
-      }
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+        Authorization: self.userToken,
+      },
     });
     const result = await response.json();
-    //console.log("result", result);
-
+    console.log(result);
     self.loadedMessages = result.data[0];
     self.loadedMessages.chat_list = self.loadedMessages.chat_list.filter(
-      message => {
+      (message) => {
         return message.id === self.paramId;
-      }
+      },
     );
 
     for (let keyList of self.loadedMessages.chat_list) {
@@ -107,12 +107,11 @@ export class ChatPage implements OnInit {
       }
     }
 
-    //this.content.scrollToBottom(300);
     this.refreshMessages();
   }
 
-  ionViewDidEnter() {
-    //this.content.scrollToBottom(300);
+  ionViewWillEnter() {
+    this.content.scrollToBottom(300);
   }
 
   ionViewOnChange() {
@@ -120,25 +119,25 @@ export class ChatPage implements OnInit {
   }
 
   onClickBack() {
-    this.navCtrl.navigateBack("/chat-list");
+    this.navCtrl.navigateBack('/chat-list');
   }
 
   async sendMsg() {
     let body = {
-      message: this.msgToSend
+      message: this.msgToSend,
     };
     let response = await fetch(
       APISetting.API_ENDPOINT +
-        "feature/chat/" +
+        'feature/chat/' +
         this.loadedMessages.chat_list[0].id,
       {
-        method: "POST",
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
-          authorization: this.userToken
+          'Content-Type': 'application/json',
+          authorization: this.userToken,
         },
-        body: JSON.stringify(body)
-      }
+        body: JSON.stringify(body),
+      },
     );
 
     let sendMessageStatus;
@@ -149,13 +148,12 @@ export class ChatPage implements OnInit {
     }
 
     if (sendMessageStatus.success === true) {
-      console.log("BERHASIL CUY MANTAB!");
+      console.log('BERHASIL CUY MANTAB!');
+      this.msgToSend = '';
     } else {
       console.log(sendMessageStatus.message);
       return;
     }
-
-    this.msgToSend = "";
   }
 
   onKeyAction() {
@@ -163,11 +161,11 @@ export class ChatPage implements OnInit {
       let lines = this.msgToSend.split(/(\r\n|\n|\r)/gm);
       for (let i = 0; i < lines.length; i++) {
         if (lines[i].length > this.maxLineLength) {
-          lines[i].concat("\n");
+          lines[i].concat('\n');
           this.isRowFull = true;
         }
       }
-      this.msgToSend = lines.join("");
+      this.msgToSend = lines.join('');
     }
   }
 }

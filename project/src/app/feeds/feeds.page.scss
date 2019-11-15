@@ -162,6 +162,16 @@
   margin-left: -5px;
 }
 
+.imgTimestamp {
+  width: 12px;
+  height: 14px;
+}
+
+.timestampContainer {
+  display: flex;
+  flex-direction: row;
+}
+
 .iconAddContainer {
   --background: #3c4cac;
   border-radius: 50%;
