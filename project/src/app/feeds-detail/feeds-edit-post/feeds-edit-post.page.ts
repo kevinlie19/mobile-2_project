@@ -14,6 +14,7 @@ import {Storage} from '@ionic/storage';
 import {FeedsDetailService} from '../feeds-detail.service';
 import {FeedDetails} from '../feeds-detail.model';
 import {APISetting} from 'src/app/constant/API';
+import {provinceFormat} from 'src/app/helpers/provinceFormat';
 
 @Component({
   selector: 'app-feeds-edit-post',
@@ -51,6 +52,7 @@ export class FeedsEditPostPage implements OnInit {
   ngOnInit() {
     this.loadedFeed = this.feedsFetailService.getFeed();
     this.capturedSnapURL = this.loadedFeed.post[0].image;
+    console.log(this.loadedFeed);
   }
 
   onClickClose() {
@@ -121,6 +123,10 @@ export class FeedsEditPostPage implements OnInit {
         alert(err);
       },
     );
+  }
+
+  itemNameFormat(itemName: string) {
+    return provinceFormat(itemName);
   }
 
   async onSubmit(form: NgForm) {

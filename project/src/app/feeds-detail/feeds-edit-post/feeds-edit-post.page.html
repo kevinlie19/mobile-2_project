@@ -29,6 +29,7 @@
         ngModel="{{ loadedFeed.post[0].item_name }}"
         class="textItemName"
         type="text"
+        (ionChange)="$event.target.value = itemNameFormat($event.target.value)"
         name="itemName"
         required
       ></ion-input>

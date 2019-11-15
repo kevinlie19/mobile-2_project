@@ -12,6 +12,7 @@ import {Camera, CameraOptions} from '@ionic-native/camera/ngx';
 import {ImagePicker} from '@ionic-native/image-picker/ngx';
 import {Storage} from '@ionic/storage';
 import {APISetting} from '../constant/API';
+import {provinceFormat} from '../helpers/provinceFormat';
 
 @Component({
   selector: 'app-add-item',
@@ -159,6 +160,10 @@ export class AddItemPage implements OnInit {
 
   onClickClose() {
     this.navCtrl.back();
+  }
+
+  itemNameFormat(itemName: string) {
+    return provinceFormat(itemName);
   }
 
   async presentActionSheet() {
