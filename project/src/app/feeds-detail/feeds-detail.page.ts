@@ -155,6 +155,22 @@ export class FeedsDetailPage implements OnInit {
     return;
   }
 
+  async onClickRequestUnavailable() {
+    let self = this;
+    const alert = await self.alertCtrl.create({
+      header: 'Alert!',
+      message: "You can't request an unavailable post!",
+      buttons: [
+        {
+          text: 'OK',
+          handler: () => {},
+        },
+      ],
+    });
+    await alert.present();
+    return;
+  }
+
   async onClickRequest(id: number) {
     let self = this;
     self.loadingCtrl

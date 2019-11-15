@@ -79,8 +79,16 @@
         expand="block"
         shape="round"
         class="btnRequest"
-        *ngIf="!isFeedOwnedByMe"
+        *ngIf="(!isFeedOwnedByMe) && (loadedFeedDetail.post[0].tag.toLowerCase() === 'available' || loadedFeedDetail.post[0].tag.toLowerCase() === 'expired')"
         (click)="onClickRequest(loadedFeedDetail.post[0].id)"
+        >REQUEST</ion-button
+      >
+      <ion-button
+        expand="block"
+        shape="round"
+        class="btnRequest"
+        *ngIf="!isFeedOwnedByMe && loadedFeedDetail.post[0].tag.toLowerCase() === 'unavailable'"
+        (click)="onClickRequestUnavailable()"
         >REQUEST</ion-button
       >
       <ion-row class="btnOwnerContainer" *ngIf="isFeedOwnedByMe">
@@ -182,8 +190,16 @@
         expand="block"
         shape="round"
         class="btnRequest"
-        *ngIf="!isFeedOwnedByMe"
+        *ngIf="!isFeedOwnedByMe && (loadedHomeDetail.tag.toLowerCase() === 'available' || loadedHomeDetail.tag.toLowerCase() === 'expired')"
         (click)="onClickRequest(loadedHomeDetail.id)"
+        >REQUEST</ion-button
+      >
+      <ion-button
+        expand="block"
+        shape="round"
+        class="btnRequest"
+        *ngIf="!isFeedOwnedByMe && loadedHomeDetail.tag.toLowerCase() === 'unavailable'"
+        (click)="onClickRequestUnavailable()"
         >REQUEST</ion-button
       >
       <ion-row class="btnOwnerContainer" *ngIf="isFeedOwnedByMe">
