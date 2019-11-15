@@ -1,8 +1,10 @@
 ion-content {
   --background: none;
-  background-image: linear-gradient(117deg,
-      rgba(251, 195, 74, 1),
-      rgba(241, 102, 129, 1)) !important;
+  background-image: linear-gradient(
+    117deg,
+    rgba(251, 195, 74, 1),
+    rgba(241, 102, 129, 1)
+  ) !important;
   background-position: center top;
   background-size: 100% 220px;
   background-repeat: no-repeat;
@@ -133,7 +135,7 @@ ion-card-content {
 
 .statusExpired {
   border-radius: 3px;
-  background: #ffdf00;
+  background: #5a5a5a;
   padding: 3px;
   font-size: 11px;
   width: 60px;

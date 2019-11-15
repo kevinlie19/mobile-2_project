@@ -27,6 +27,17 @@
   color: #5d5d5d;
 }
 
+.spacingContainer {
+  visibility: hidden;
+}
+
+.imgAvatar {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
 .spin {
   position: absolute;
   top: 50%;
@@ -67,7 +78,6 @@ ion-spinner {
 }
 
 .textContainer {
-  margin-left: 15px;
   vertical-align: middle;
   font-family: neusa-next-std, sans-serif;
   font-size: 16px;

@@ -32,16 +32,20 @@
       [routerLink]="['/', 'profile-user', search.id]"
     >
       <ion-item lines="none">
-        <ion-avatar item-left>
-          <img src="{{ search.avatar }}" *ngIf="search.avatar !== null" />
-          <img
-            src="assets/images/avatarDefault.png"
-            *ngIf="search.avatar === null"
-          />
-        </ion-avatar>
-        <p class="textContainer">
+        <img
+          src="{{ search.avatar }}"
+          *ngIf="search.avatar !== null"
+          class="imgAvatar"
+        />
+        <img
+          src="assets/images/avatarDefault.png"
+          *ngIf="search.avatar === null"
+          class="imgAvatar"
+        />
+        <div class="spacingContainer">---</div>
+        <div class="textContainer">
           {{ search.full_name }} <br />{{ search.username }}
-        </p>
+        </div>
       </ion-item>
     </ion-list>
   </div>

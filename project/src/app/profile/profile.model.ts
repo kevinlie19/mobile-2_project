@@ -1,6 +1,6 @@
 export type Profile = {
   user: userDetail;
-  post?: Array<PostObject>;
+  post: Array<PostObject>;
 };
 
 export type userDetail = {

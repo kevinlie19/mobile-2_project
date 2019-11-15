@@ -29,7 +29,11 @@
       [routerLink]="['/', 'chat', item.id]"
       lines="none"
     >
-      <img src="{{ item.avatar }}" class="imgAvatar" />
+      <img
+        src="{{ item.avatar }}"
+        *ngIf="item.avatar !== null"
+        class="imgAvatar"
+      />
       <img
         src="assets/images/avatarDefault.png"
         *ngIf="item.avatar === null"

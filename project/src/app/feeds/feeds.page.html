@@ -45,11 +45,11 @@
   </ion-refresher>
   <ion-row class="rowFeedsContainer">
     <ion-col class="colFeedsContainer" *ngFor="let item of loadedFeeds">
-      <ion-card
-        class="cardContainer"
-        [routerLink]="['/', 'feeds', 'feeds-detail', item.id]"
-      >
-        <div class="imageContainer">
+      <ion-card class="cardContainer">
+        <div
+          class="imageContainer"
+          [routerLink]="['/', 'feeds', 'feeds-detail', item.id]"
+        >
           <img
             *ngIf="
               item.tag.toLowerCase() == 'available' ||
@@ -90,13 +90,35 @@
             {{ item.item_name }}
           </p>
           <p class="textTimeStamp">
-            <ion-icon name="hourglass" slot="icon-only"></ion-icon
-            >{{ item.timestamp }}
+            <ion-row>
+              <ion-col class="ion-no-padding">
+                <div class="timestampContainer">
+                  <img
+                    src="../assets/images/hourglass.png"
+                    class="imgTimestamp"
+                  />
+                  <ion-label>
+                    {{ item.timestamp }}
+                  </ion-label>
+                </div>
+              </ion-col>
+            </ion-row>
           </p>
           <p>
             <ion-row class="userInfoContainer">
               <ion-col size="4" class="avatarContainer">
-                <img src="{{ item.avatar }}" class="imageAvatar" />
+                <img
+                  src="{{ item.avatar }}"
+                  class="imageAvatar"
+                  *ngIf="item.avatar != null"
+                  [routerLink]="['/', 'profile-user', item.user_id]"
+                />
+                <img
+                  src="assets/images/avatarDefault.png"
+                  class="imageAvatar"
+                  *ngIf="item.avatar == null"
+                  [routerLink]="['/', 'profile-user', item.user_id]"
+                />
               </ion-col>
               <ion-col size="8" class="userContainer">
                 <ion-row class="textUserName">

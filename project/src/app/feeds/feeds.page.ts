@@ -68,7 +68,6 @@ export class FeedsPage implements OnInit {
     let post;
     if (response.status === 200) {
       post = await response.json();
-      console.log(post);
     } else {
       console.log(response);
     }
