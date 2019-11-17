@@ -1,9 +1,7 @@
 .pageBackground {
-  --background: linear-gradient(
-    155deg,
-    rgba(251, 195, 74, 1),
-    rgba(240, 93, 135, 1)
-  );
+  --background: linear-gradient(155deg,
+      rgba(251, 195, 74, 1),
+      rgba(240, 93, 135, 1));
 }
 
 .iconClose {
@@ -66,7 +64,8 @@
 }
 
 .boxItemName,
-.boxCategory {
+.boxCategory,
+.boxTag {
   box-shadow: #00000029 0px 3px 6px;
   height: 53px;
   margin-left: 68px;
@@ -80,6 +79,7 @@
   min-width: 48px;
   background-color: #ffffff;
 }
+
 .boxExpDate {
   box-shadow: #00000029 0px 3px 6px;
   margin-left: 6px;
@@ -119,8 +119,8 @@
   color: #6b6b6b;
 }
 
-.textCategory {
-  margin-left: 15px;
+.textCategory,
+.textTag {
   margin-top: 10px;
   font-family: qanelas;
   font-size: 12;
