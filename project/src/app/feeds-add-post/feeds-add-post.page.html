@@ -55,7 +55,7 @@
           class="textBuyDate"
           ngModel
           name="dateBuy"
-          [(ngModel)]="scanBarcodeFeeds.buyDate"
+          [(ngModel)]="scanBarcodeFeeds.buy_date"
         ></ion-datetime>
       </ion-row>
     </ion-col>
@@ -66,20 +66,20 @@
           displayFormat="MM/DD/YYYY"
           placeholder="Exp Date"
           class="ion-text-center textExpDate"
-          [(ngModel)]="scanBarcodeFeeds.expDate"
+          [(ngModel)]="scanBarcodeFeeds.exp_date"
           name="dateExp"
-          min="{{ scanBarcodeFeeds.buyDate }}"
+          min="{{ scanBarcodeFeeds.buy_date }}"
           max="2050"
-          *ngIf="scanBarcodeFeeds.buyDate"
+          *ngIf="scanBarcodeFeeds.buy_date"
         ></ion-datetime>
         <ion-datetime
           displayFormat="MM/DD/YYYY"
           placeholder="Exp Date"
           class="ion-text-center textExpDate"
-          [(ngModel)]="scanBarcodeFeeds.expDate"
+          [(ngModel)]="scanBarcodeFeeds.exp_date"
           name="dateExp"
           max="2050"
-          *ngIf="!scanBarcodeFeeds.buyDate"
+          *ngIf="!scanBarcodeFeeds.buy_date"
         ></ion-datetime>
       </ion-row>
     </ion-col>
@@ -135,7 +135,7 @@
     >
       <ion-select-option value="Available">Available</ion-select-option>
       <ion-select-option
-        *ngIf="scanBarcodeFeeds.expDate < currentDate"
+        *ngIf="scanBarcodeFeeds.exp_date < currentDate"
         value="Expired"
         >Expired</ion-select-option
       >
