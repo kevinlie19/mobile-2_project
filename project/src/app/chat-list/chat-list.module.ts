@@ -1,17 +1,18 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { Routes, RouterModule } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {FormsModule} from '@angular/forms';
+import {Routes, RouterModule} from '@angular/router';
 
-import { IonicModule } from '@ionic/angular';
+import {IonicModule} from '@ionic/angular';
 
-import { ChatListPage } from './chat-list.page';
+import {ChatListPage} from './chat-list.page';
+import {ChooseFriendComponent} from './choose-friend/choose-friend.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: ChatListPage
-  }
+    component: ChatListPage,
+  },
 ];
 
 @NgModule({
@@ -19,8 +20,9 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
   ],
-  declarations: [ChatListPage]
+  declarations: [ChatListPage, ChooseFriendComponent],
+  entryComponents: [ChooseFriendComponent],
 })
 export class ChatListPageModule {}

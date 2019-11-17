@@ -7,6 +7,7 @@ import {Storage} from '@ionic/storage';
 
 import {APISetting} from '../constant/API';
 import {AlertController, ToastController} from '@ionic/angular';
+import {ChatService} from '../chat-list/chat/chat.service';
 
 @Component({
   selector: 'app-request',
@@ -26,6 +27,7 @@ export class RequestPage implements OnInit {
     private storage: Storage,
     private alertCtrl: AlertController,
     private toastController: ToastController,
+    private chatService: ChatService,
   ) {}
 
   ionViewWillEnter() {
@@ -286,7 +288,12 @@ export class RequestPage implements OnInit {
     }
   }
 
-  chatNow(id: number) {
-    this.router.navigateByUrl('/chat/' + id);
+  chatNow(request: Request) {
+    this.chatService.addEmptyChat(
+      request.user_id,
+      request.full_name,
+      request.avatar,
+    );
+    this.router.navigateByUrl('/chat/' + request.user_id);
   }
 }
