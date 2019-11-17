@@ -24,7 +24,10 @@
       </ion-segment>
       <div [ngSwitch]="segment" class="segment">
         <div *ngSwitchCase="'requests'">
-          <div *ngIf="isRequestEmpty && !isLoading" class="bodyContainerNoRequest">
+          <div
+            *ngIf="isRequestEmpty && !isLoading"
+            class="bodyContainerNoRequest"
+          >
             <b class="textEmpty">
               Your request is empty!
             </b>
@@ -57,10 +60,7 @@
                     <ion-row>
                       <ion-col size="3">
                         <ion-thumbnail class="itemAvatar noMargin noPadding">
-                          <img
-                            class="imageAvatar"
-                            src="{{ request.avatar }}"
-                          />
+                          <img class="imageAvatar" src="{{ request.avatar }}" />
                         </ion-thumbnail>
                       </ion-col>
                       <ion-col>
@@ -121,10 +121,7 @@
                   </ion-row>
                 </div>
                 <div *ngIf="request.status.toLowerCase() === 'approved'">
-                  <ion-row
-                    class="noMargin"
-                    (click)="chatNow(request.user_id)"
-                  >
+                  <ion-row class="noMargin" (click)="chatNow(request)">
                     <ion-col
                       class="noPadding ion-text-center"
                       *ngIf="request.status.toLowerCase() === 'approved'"
@@ -142,7 +139,10 @@
           </div>
         </div>
         <div *ngSwitchCase="'myRequests'">
-          <div *ngIf="isMyRequestEmpty && !isLoading" class="bodyContainerNoRequest">
+          <div
+            *ngIf="isMyRequestEmpty && !isLoading"
+            class="bodyContainerNoRequest"
+          >
             <b class="textEmpty">
               Your my request is empty!
             </b>
@@ -171,10 +171,7 @@
                   <ion-row>
                     <ion-col size="3">
                       <ion-thumbnail class="itemAvatar noMargin noPadding">
-                        <img
-                          class="imageAvatar"
-                          src="{{ request.avatar }}"
-                        />
+                        <img class="imageAvatar" src="{{ request.avatar }}" />
                       </ion-thumbnail>
                     </ion-col>
                     <ion-col>
@@ -194,7 +191,7 @@
                 <ion-col
                   class="noPadding ion-text-center"
                   *ngIf="request.status.toLowerCase() === 'approved'"
-                  (click)="chatNow(request.user_id)"
+                  (click)="chatNow(request)"
                 >
                   <p class="approved noMargin">
                     <b>

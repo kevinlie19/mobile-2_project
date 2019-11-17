@@ -3,6 +3,12 @@ export type Chat = {
   chat_list: Array<ChatList>;
 };
 
+export type EmptyChat = {
+  id: number;
+  full_name: string;
+  avatar: string;
+};
+
 export type userDetail = {
   id: number;
   email: string;

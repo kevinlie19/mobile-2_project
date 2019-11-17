@@ -53,6 +53,14 @@
   </ion-list>
 </ion-content>
 
+<ion-footer *ngIf="!isLoading">
+  <ion-fab horizontal="end" vertical="bottom" slot="fixed">
+    <ion-fab-button color="tertiary" (click)="chooseFriend()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-footer>
+
 <div class="spin" *ngIf="isLoading">
   <ion-spinner name="crescent"></ion-spinner>
 </div>
