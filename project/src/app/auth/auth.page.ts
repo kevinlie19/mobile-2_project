@@ -37,7 +37,7 @@ export class AuthPage implements OnInit {
     const self = this;
     this.isLoading = true;
 
-    const email = form.value.name;
+    const email = form.value.name.trim();
     const password = form.value.password;
 
     this.loadingCtrl
@@ -96,8 +96,8 @@ export class AuthPage implements OnInit {
 
     let match = true;
 
-    const email = form.value.email;
-    const username = form.value.username;
+    const email = form.value.email.trim();
+    const username = form.value.username.trim();
     const password = form.value.password;
     const confirmPassword = form.value.confirmPassword;
 
