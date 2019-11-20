@@ -41,6 +41,7 @@
             class="editFullName"
             name="fullName"
             type="text"
+            (ionChange)="$event.target.value = fullNameFormat($event.target.value)"
             required
           ></ion-input
         ></ion-row>

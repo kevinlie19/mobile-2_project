@@ -107,6 +107,10 @@ export class ProfileUserPage implements OnInit {
     });
   }
 
+  ionViewWillEnter() {
+    this.ngOnInit();
+  }
+
   onClickBack() {
     this.navCtrl.back();
   }
@@ -157,6 +161,7 @@ export class ProfileUserPage implements OnInit {
     if (followAPIStatus.success === true) {
       this.isLoading = false;
     }
+    this.ionViewWillEnter();
   }
 
   async onClickUnfollow() {
@@ -185,5 +190,6 @@ export class ProfileUserPage implements OnInit {
     if (unfollowAPIStatus.success === true) {
       self.isLoading = false;
     }
+    this.ionViewWillEnter();
   }
 }
