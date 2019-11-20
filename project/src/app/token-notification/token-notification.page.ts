@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {AppService} from './../app.service';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-token-notification',
@@ -6,10 +7,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./token-notification.page.scss'],
 })
 export class TokenNotificationPage implements OnInit {
-
-  constructor() { }
+  constructor(private appService: AppService) {}
 
   ngOnInit() {
+    const token = this.appService.getTokenNotif();
+    alert('tokennya : ' + token);
   }
-
 }

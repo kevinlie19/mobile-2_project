@@ -1,3 +1,4 @@
+import {AppService} from './app.service';
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 
@@ -29,6 +30,7 @@ export class AppComponent implements OnInit {
     private router: Router,
     private storage: Storage,
     private authService: AuthService,
+    private appService: AppService,
   ) {
     this.initializeApp();
   }
@@ -55,6 +57,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
+    const self = this;
     console.log('Initializing HomePage');
 
     // Register with Apple / Google to receive push via APNS/FCM
@@ -65,6 +68,7 @@ export class AppComponent implements OnInit {
       'registration',
       (token: PushNotificationToken) => {
         // alert('Push registration success, token: ' + token.value);
+        this.appService.setTokenNotif(token.value);
         console.log('Push registration success, token: ' + token.value);
       },
     );
@@ -72,6 +76,7 @@ export class AppComponent implements OnInit {
     // Some issue with our setup and push will not work
     PushNotifications.addListener('registrationError', (error: any) => {
       alert('Error on registration: ' + JSON.stringify(error));
+      self.router.navigateByUrl('/request');
     });
 
     // Show us the notification payload if the app is open on our device
@@ -79,6 +84,7 @@ export class AppComponent implements OnInit {
       'pushNotificationReceived',
       (notification: PushNotification) => {
         var audio1 = new Audio('assets/audio.mp3');
+        console.log('Audio');
         audio1.play();
         // alert('Push received: ' + JSON.stringify(notification));
         console.log('Push received: ', notification);
@@ -87,7 +93,6 @@ export class AppComponent implements OnInit {
           title: notification.title,
           message: notification.body,
         });
-        this.router.navigateByUrl('request');
       },
     );
 
@@ -95,7 +100,9 @@ export class AppComponent implements OnInit {
     PushNotifications.addListener(
       'pushNotificationActionPerformed',
       (notification: PushNotificationActionPerformed) => {
-        this.router.navigateByUrl('request');
+        // alert('Push action performed: ' + JSON.stringify(notification));
+        // console.log('Push action performed: ' + notification);
+        self.router.navigateByUrl('/request');
       },
     );
   }
