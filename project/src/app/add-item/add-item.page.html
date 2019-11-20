@@ -14,27 +14,29 @@
   </ion-row>
   <br />
   <form #f="ngForm" (ngSubmit)="onSubmit(f)">
-    <ion-row class="boxImage" *ngIf="image === ''">
+    <ion-row class="boxImage">
       <ion-row class="boxImageContent" (click)="changeImage()">
-        <div class="iconBoxImage">
+        <div class="iconBoxImage" *ngIf="image === ''">
           <img
-            *ngIf="image === ''"
             src="../../assets/add-item/icons8-add_camera.png"
             class="ion-text-center"
             (click)="changeImage()"
           />
         </div>
         <div
-          *ngIf="image === ''"
           class="ion-text-center textPhoto"
           (click)="changeImage()"
+          *ngIf="image === ''"
         >
           Take a photo of your food
         </div>
       </ion-row>
-    </ion-row>
-    <ion-row class="boxImage" *ngIf="image !== ''">
-      <img class="photo" [src]="image" (click)="changeImage()" />
+      <img
+        class="photo"
+        [src]="image"
+        *ngIf="image !== ''"
+        (click)="changeImage()"
+      />
     </ion-row>
     <br />
     <ion-row class="labelItemName">Item Name</ion-row>
@@ -150,7 +152,7 @@
       shape="round"
       color="tertiary"
       class="btnPost"
-      [disabled]="!f.valid && (!buy_date || !exp_date)"
+      [disabled]="!f.valid && (!buy_date || !exp_date) && image === ''"
       (click)="addPost()"
       >POST</ion-button
     >

@@ -1,4 +1,4 @@
-<ion-header>
+<ion-header *ngIf="!isLoading">
   <ion-toolbar class="toolbarContainer" mode="ios">
     <ion-buttons slot="start">
       <ion-button (click)="onClickBack()"
