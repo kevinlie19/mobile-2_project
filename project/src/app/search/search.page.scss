@@ -16,15 +16,24 @@
   border-radius: 200px;
 }
 
-.notFoundContainer {
+.notFoundContainer,
+.recommendationContainer {
   display: block;
   background-color: #ffffff;
+  margin-left: 20px;
 }
 
 .textNotFound {
   font-family: qanelas;
   font-size: 16;
   color: #5d5d5d;
+}
+
+.textRecommendation {
+  font-family: qanelas;
+  font-size: 20px;
+  color: black;
+  font-weight: bold;
 }
 
 .spacingContainer {

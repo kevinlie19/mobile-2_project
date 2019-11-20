@@ -18,10 +18,19 @@
   </ion-toolbar>
   <div
     class="notFoundContainer ion-text-center"
-    *ngIf="(!loadedSearch || loadedSearch.length === 0) && isInputEntered"
+    *ngIf="(!loadedSearch || loadedSearch.length === 0) && isInputEntered && !isLoading"
   >
     <p class="textNotFound">
-      There are no users found!
+      User not found!
+    </p>
+  </div>
+
+  <div class="recommendationContainer" *ngIf="!isInputEntered && !isLoading">
+    <p
+      class="textRecommendation"
+      *ngIf="loadedSearch && loadedSearch.length > 0"
+    >
+      Suggested
     </p>
   </div>
 
