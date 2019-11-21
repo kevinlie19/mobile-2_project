@@ -76,7 +76,6 @@ export class AppComponent implements OnInit {
     // Some issue with our setup and push will not work
     PushNotifications.addListener('registrationError', (error: any) => {
       alert('Error on registration: ' + JSON.stringify(error));
-      self.router.navigateByUrl('/request');
     });
 
     // Show us the notification payload if the app is open on our device
@@ -92,6 +91,9 @@ export class AppComponent implements OnInit {
         let alertRet = Modals.alert({
           title: notification.title,
           message: notification.body,
+        });
+        alertRet.then(() => {
+          self.router.navigateByUrl('/request');
         });
       },
     );
