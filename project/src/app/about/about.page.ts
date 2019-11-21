@@ -1,4 +1,5 @@
-import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {Component} from '@angular/core';
 
 import {NavController} from '@ionic/angular';
 
@@ -7,12 +8,19 @@ import {NavController} from '@ionic/angular';
   templateUrl: './about.page.html',
   styleUrls: ['./about.page.scss'],
 })
-export class AboutPage implements OnInit {
-  constructor(private navCtrl: NavController) {}
+export class AboutPage {
+  constructor(private navCtrl: NavController, private route: Router) {}
 
-  ngOnInit() {}
+  count = 0;
 
   onClickBack() {
     this.navCtrl.navigateBack('/profile');
+  }
+
+  goToTokenNotification() {
+    this.count += 1;
+    if (this.count === 4) {
+      this.route.navigateByUrl('token-notification');
+    }
   }
 }

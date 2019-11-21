@@ -5,6 +5,7 @@ import {Injectable} from '@angular/core';
   providedIn: 'root',
 })
 export class AppService {
+  private _tokenNotif: string;
   private _scanBarcodeFeeds: Feeds = {
     id: 0,
     user_id: 0,
@@ -49,5 +50,12 @@ export class AppService {
     };
   }
 
+  getTokenNotif() {
+    return this._tokenNotif;
+  }
+
+  setTokenNotif(tokenNotif) {
+    this._tokenNotif = tokenNotif;
+  }
   constructor() {}
 }

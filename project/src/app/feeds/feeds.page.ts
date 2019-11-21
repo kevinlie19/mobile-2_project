@@ -127,7 +127,7 @@ export class FeedsPage implements OnInit {
       .then((barcodeData) => {
         this.scannedData = barcodeData;
 
-        if (barcodeData.text === '8991389232033') {
+        if (barcodeData.text === '8992907710019') {
           alert(
             'Barcode number ' +
               JSON.stringify(barcodeData.text) +
@@ -139,21 +139,19 @@ export class FeedsPage implements OnInit {
             item_name: 'Sari Roti',
             tag: 'Available',
             category: 'Dairy Foods"',
-            description:
-              'Describe your item here',
+            description: 'Describe your item here',
             buy_date: '11/17/2019',
             exp_date: '11/30/2019',
             timestamp: '1',
             // tslint:disable-next-line: max-line-length
-            image:
-              'https://www.rotinyaindonesia.com/contents/sari-roti-p40cyI20181009132656.png',
+            image: 'https://cs1.alfacart.com/product/1/_a_1_a10480000015_0.jpg',
             username: 'ceciliak',
             full_name: 'Cecilia K.',
             location: 'Jakarta Selatan',
             avatar: 'https://www.venmond.com/demo/vendroid/img/avatar/big.jpg',
           });
           self.router.navigateByUrl('/feeds-add-post');
-        } else if (barcodeData.text === '8996001600268') {
+        } else if (barcodeData.text === '8992696404441') {
           alert(
             'Barcode number ' +
               JSON.stringify(barcodeData.text) +
@@ -165,8 +163,7 @@ export class FeedsPage implements OnInit {
             item_name: 'Susu Bear Brand',
             tag: 'Available',
             category: 'Milk',
-            description:
-              'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+            description: '',
             buy_date: '11/17/2019',
             exp_date: '11/31/2019',
             timestamp: '1',
