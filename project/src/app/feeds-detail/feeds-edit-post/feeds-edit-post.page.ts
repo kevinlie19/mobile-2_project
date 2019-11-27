@@ -26,6 +26,7 @@ export class FeedsEditPostPage implements OnInit {
   capturedSnapURL: string = '';
   selectedCategory: string = '';
   selectedTag: string = '';
+  currentDate: string;
 
   cameraOptions: CameraOptions = {
     quality: 100,
@@ -53,6 +54,7 @@ export class FeedsEditPostPage implements OnInit {
     this.loadedFeed = this.feedsFetailService.getFeed();
     this.capturedSnapURL = this.loadedFeed.post[0].image;
     console.log(this.loadedFeed);
+    this.currentDate = new Date().toISOString();
   }
 
   onClickClose() {

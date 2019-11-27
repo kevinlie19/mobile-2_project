@@ -1,6 +1,6 @@
-import { OnInit, Component } from "@angular/core";
-import { Router } from "@angular/router";
-import { NgForm } from "@angular/forms";
+import {OnInit, Component} from '@angular/core';
+import {Router} from '@angular/router';
+import {NgForm} from '@angular/forms';
 
 import {
   LoadingController,
@@ -8,20 +8,20 @@ import {
   ActionSheetController,
   ToastController,
   Platform,
-  AlertController
-} from "@ionic/angular";
-import { Camera, CameraOptions } from "@ionic-native/camera/ngx";
-import { ImagePicker } from "@ionic-native/image-picker/ngx";
+  AlertController,
+} from '@ionic/angular';
+import {Camera, CameraOptions} from '@ionic-native/camera/ngx';
+import {ImagePicker} from '@ionic-native/image-picker/ngx';
 
-import { AuthService } from "../auth/auth.service";
-import { Storage } from "@ionic/storage";
-import { APISetting } from "../constant/API";
-import { provinceFormat } from "../helpers/provinceFormat";
+import {AuthService} from '../auth/auth.service';
+import {Storage} from '@ionic/storage';
+import {APISetting} from '../constant/API';
+import {provinceFormat} from '../helpers/provinceFormat';
 
 @Component({
-  selector: "app-set-up-profile",
-  templateUrl: "./set-up-profile.page.html",
-  styleUrls: ["./set-up-profile.page.scss"]
+  selector: 'app-set-up-profile',
+  templateUrl: './set-up-profile.page.html',
+  styleUrls: ['./set-up-profile.page.scss'],
 })
 export class SetUpProfilePage implements OnInit {
   isLoading = false;
@@ -30,13 +30,13 @@ export class SetUpProfilePage implements OnInit {
 
   cityData = [
     {
-      id: "",
-      name: ""
-    }
+      id: '',
+      name: '',
+    },
   ];
 
-  capturedSnapURL = "";
-  profilePicture = "";
+  capturedSnapURL = '';
+  profilePicture = '';
 
   cameraOptions: CameraOptions = {
     quality: 100,
@@ -46,7 +46,7 @@ export class SetUpProfilePage implements OnInit {
     targetWidth: 130,
     targetHeight: 130,
     encodingType: this.camera.EncodingType.JPEG,
-    mediaType: this.camera.MediaType.PICTURE
+    mediaType: this.camera.MediaType.PICTURE,
   };
 
   constructor(
@@ -60,30 +60,30 @@ export class SetUpProfilePage implements OnInit {
     public navCtrl: NavController,
     public actionSheetController: ActionSheetController,
     public toastCtrl: ToastController,
-    public platform: Platform
+    public platform: Platform,
   ) {}
 
   async ngOnInit() {
-    const getKey = await fetch("https://x.rajaapi.com/poe", {
-      mode: "cors",
-      method: "GET",
+    const getKey = await fetch('https://x.rajaapi.com/poe', {
+      mode: 'cors',
+      method: 'GET',
       headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*"
-      }
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+      },
     });
     const token = await getKey.json();
 
     const getProvince = await fetch(
-      "https://x.rajaapi.com/MeP7c5ne" + token.token + "/m/wilayah/provinsi",
+      'https://x.rajaapi.com/MeP7c5ne' + token.token + '/m/wilayah/provinsi',
       {
-        mode: "cors",
-        method: "GET",
+        mode: 'cors',
+        method: 'GET',
         headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*"
-        }
-      }
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+        },
+      },
     );
     const province = await getProvince.json();
 
@@ -100,27 +100,31 @@ export class SetUpProfilePage implements OnInit {
     this.presentActionSheet();
   }
 
+  fullNameFormat(fullName: string) {
+    return provinceFormat(fullName);
+  }
+
   async presentActionSheet() {
     const actionSheet = await this.actionSheetController.create({
-      header: "Select Image Source!",
+      header: 'Select Image Source!',
       buttons: [
         {
-          text: "Load from Gallery",
+          text: 'Load from Gallery',
           handler: () => {
             this.selectGalery();
-          }
+          },
         },
         {
-          text: "Use Camera",
+          text: 'Use Camera',
           handler: () => {
             this.takePicture();
-          }
+          },
         },
         {
-          text: "Cancel",
-          role: "cancel"
-        }
-      ]
+          text: 'Cancel',
+          role: 'cancel',
+        },
+      ],
     });
     await actionSheet.present();
   }
@@ -142,17 +146,17 @@ export class SetUpProfilePage implements OnInit {
       full_name,
       phone_number,
       location,
-      image
+      image,
     };
     this.loadingCtrl
-      .create({ keyboardClose: true, message: "Signing up..." })
-      .then(async loadingEl => {
+      .create({keyboardClose: true, message: 'Signing up...'})
+      .then(async (loadingEl) => {
         loadingEl.present();
 
-        let response = await fetch(APISetting.API_ENDPOINT + "auth/sign-up", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(data)
+        let response = await fetch(APISetting.API_ENDPOINT + 'auth/sign-up', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify(data),
         });
 
         let signUpStatus;
@@ -166,14 +170,14 @@ export class SetUpProfilePage implements OnInit {
         if (signUpStatus.success === true) {
           loadingEl.dismiss();
           self.authService.login();
-          self.storage.set("userToken", signUpStatus.token);
-          self.router.navigateByUrl("/set-up-done");
+          self.storage.set('userToken', signUpStatus.token);
+          self.router.navigateByUrl('/set-up-done');
         } else {
           loadingEl.dismiss();
           const alert = await self.alertController.create({
-            header: "Alert",
+            header: 'Alert',
             message: signUpStatus.message,
-            buttons: ["OK"]
+            buttons: ['OK'],
           });
           await alert.present();
         }
@@ -185,17 +189,17 @@ export class SetUpProfilePage implements OnInit {
 
   takePicture() {
     this.camera.getPicture(this.cameraOptions).then(
-      imageData => {
+      (imageData) => {
         if (imageData.length === 0) {
           this.profilePicture = this.profilePicture;
         } else {
-          this.profilePicture = "data:image/jpeg;base64," + imageData;
+          this.profilePicture = 'data:image/jpeg;base64,' + imageData;
           this.capturedSnapURL = imageData;
         }
       },
-      err => {
+      (err) => {
         console.error(err);
-      }
+      },
     );
   }
 
@@ -203,20 +207,20 @@ export class SetUpProfilePage implements OnInit {
     const options = {
       maximumImagesCount: 1,
       outputType: 1,
-      quality: 100
+      quality: 100,
     };
     this.imagePicker.getPictures(options).then(
-      imageData => {
+      (imageData) => {
         if (imageData.length === 0) {
           this.profilePicture = this.profilePicture;
         } else {
-          this.profilePicture = "data:image/jpeg;base64," + imageData;
+          this.profilePicture = 'data:image/jpeg;base64,' + imageData;
           this.capturedSnapURL = imageData;
         }
       },
-      err => {
+      (err) => {
         alert(err);
-      }
+      },
     );
   }
 

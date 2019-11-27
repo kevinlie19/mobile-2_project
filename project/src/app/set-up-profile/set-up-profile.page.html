@@ -51,6 +51,7 @@
                   name="fullName"
                   required
                   type="name"
+                  (ionChange)="$event.target.value = fullNameFormat($event.target.value)"
                   class="fullNameInput"
                 ></ion-input>
               </ion-item>
