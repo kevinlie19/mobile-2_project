@@ -138,9 +138,9 @@ export class FeedsPage implements OnInit {
             user_id: 50,
             item_name: 'Sari Roti',
             tag: 'Available',
-            category: 'Dairy Foods"',
+            category: 'Snacks"',
             description: 'Describe your item here',
-            buy_date: '11/17/2019',
+            buy_date: '',
             exp_date: '11/30/2019',
             timestamp: '1',
             // tslint:disable-next-line: max-line-length
@@ -162,9 +162,9 @@ export class FeedsPage implements OnInit {
             user_id: 50,
             item_name: 'Susu Bear Brand',
             tag: 'Available',
-            category: 'Milk',
+            category: 'Drinks',
             description: '',
-            buy_date: '11/17/2019',
+            buy_date: '',
             exp_date: '11/31/2019',
             timestamp: '1',
             // tslint:disable-next-line: max-line-length

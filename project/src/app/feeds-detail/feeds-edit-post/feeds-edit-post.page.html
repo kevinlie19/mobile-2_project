@@ -93,6 +93,8 @@
           >Meat and Poultry</ion-select-option
         >
         <ion-select-option value="Dairy Foods">Dairy Foods</ion-select-option>
+        <ion-select-option value="Drinks">Drinks</ion-select-option>
+        <ion-select-option value="Snacks">Snacks</ion-select-option>
         <ion-select-option value="Fish and Seafood"
           >Fish and Seafood</ion-select-option
         >
@@ -123,7 +125,11 @@
         required
       >
         <ion-select-option value="Available">Available</ion-select-option>
-        <ion-select-option value="Expired">Expired</ion-select-option>
+        <ion-select-option
+          *ngIf="loadedFeed.post[0].exp_date < currentDate"
+          value="Expired"
+          >Expired</ion-select-option
+        >
       </ion-select>
     </ion-row>
     <br />
