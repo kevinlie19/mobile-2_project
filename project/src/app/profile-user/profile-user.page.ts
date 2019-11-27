@@ -1,12 +1,14 @@
 import {Component, OnInit} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
 
-import {NavController} from '@ionic/angular';
+import {NavController, ModalController} from '@ionic/angular';
 import {Storage} from '@ionic/storage';
 
 import {UserProfile} from './profile-user.model';
 import {ProfileUserService} from './profile-user.service';
 import {APISetting} from '../constant/API';
+import {ViewFollowerComponent} from './view-follower/view-follower.component';
+import {ViewFollowingComponent} from './view-following/view-following.component';
 
 @Component({
   selector: 'app-profile-user',
@@ -31,6 +33,7 @@ export class ProfileUserPage implements OnInit {
     private route: ActivatedRoute,
     private navCtrl: NavController,
     private storage: Storage,
+    private modalCtrl: ModalController,
   ) {}
 
   async ngOnInit() {
@@ -105,6 +108,22 @@ export class ProfileUserPage implements OnInit {
       }
       this.isLoading = false;
     });
+  }
+
+  viewFollower() {
+    this.modalCtrl
+      .create({component: ViewFollowerComponent})
+      .then((modalElement) => {
+        modalElement.present();
+      });
+  }
+
+  viewFollowing() {
+    this.modalCtrl
+      .create({component: ViewFollowingComponent})
+      .then((modalElement) => {
+        modalElement.present();
+      });
   }
 
   ionViewWillEnter() {

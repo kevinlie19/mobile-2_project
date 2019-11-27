@@ -6,6 +6,9 @@ import {Storage} from '@ionic/storage';
 import {Profile} from './profile.model';
 import {ProfileService} from './profile.service';
 import {APISetting} from '../constant/API';
+import {ModalController} from '@ionic/angular';
+import {ViewFollowerComponent} from './view-follower/view-follower.component';
+import {ViewFollowingComponent} from './view-following/view-following.component';
 
 @Component({
   selector: 'app-profile',
@@ -25,6 +28,7 @@ export class ProfilePage implements OnInit {
     private profileService: ProfileService,
     private router: Router,
     private storage: Storage,
+    private modalCtrl: ModalController,
   ) {}
 
   async ngOnInit() {
@@ -64,6 +68,22 @@ export class ProfilePage implements OnInit {
       }
     }
     this.isLoading = false;
+  }
+
+  viewFollower() {
+    this.modalCtrl
+      .create({component: ViewFollowerComponent})
+      .then((modalElement) => {
+        modalElement.present();
+      });
+  }
+
+  viewFollowing() {
+    this.modalCtrl
+      .create({component: ViewFollowingComponent})
+      .then((modalElement) => {
+        modalElement.present();
+      });
   }
 
   ionViewWillEnter() {

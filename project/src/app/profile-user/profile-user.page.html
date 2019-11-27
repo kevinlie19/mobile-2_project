@@ -72,7 +72,12 @@
                   <ion-col col-12 no-padding text-center>Post</ion-col></ion-row
                 >
               </ion-col>
-              <ion-col col-2 no-padding class="userFollowerContainer">
+              <ion-col
+                col-2
+                no-padding
+                class="userFollowerContainer"
+                (click)="viewFollower()"
+              >
                 <ion-row class="textAmount">
                   <ion-col col-12 no-padding text-center
                     >{{ loadedUserProfile.user[0].follower.length }}</ion-col
@@ -84,7 +89,12 @@
                   ></ion-row
                 >
               </ion-col>
-              <ion-col col-2 no-padding class="userFollowingContainer">
+              <ion-col
+                col-2
+                no-padding
+                class="userFollowingContainer"
+                (click)="viewFollowing()"
+              >
                 <ion-row class="textAmount">
                   <ion-col col-12 no-padding text-center
                     >{{ loadedUserProfile.user[0].following.length }}</ion-col
