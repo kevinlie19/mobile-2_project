@@ -20,5 +20,9 @@ export class ProfileService {
     return this._myProfile;
   }
 
+  getUserId() {
+    return this._myProfile.user[0].id;
+  }
+
   constructor() {}
 }

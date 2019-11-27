@@ -1,0 +1,64 @@
+.notFoundContainer {
+  display: block;
+  background-color: #ffffff;
+}
+
+.textNotFound {
+  font-family: qanelas;
+  font-size: 16;
+  color: #5d5d5d;
+  line-height: 1.5;
+}
+
+.listFriendContainer {
+  box-shadow: #00000029 0px 3px 6px;
+  line-height: 25px;
+  margin-left: 20px;
+  margin-right: 20px;
+  background-color: #ffffff;
+  vertical-align: middle;
+  margin-top: 22px;
+}
+
+.imgAvatar {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.spacingContainer {
+  visibility: hidden;
+}
+
+.textContainer {
+  vertical-align: middle;
+  font-family: neusa-next-std, sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+  color: #3c4cac;
+}
+
+ion-content {
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.spin {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+ion-spinner {
+  width: 80px;
+  height: 80px;
+  --color: #3c4cac;
+}
+
+.searchBarContainer {
+  display: block;
+  margin: 0 auto;
+  border-radius: 200px;
+}

@@ -19,5 +19,9 @@ export class ProfileUserService {
     return this._userProfile;
   }
 
+  getUserId() {
+    return this._userProfile.user[0].id;
+  }
+
   constructor() {}
 }

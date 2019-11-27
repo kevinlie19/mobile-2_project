@@ -1,17 +1,19 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { Routes, RouterModule } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {FormsModule} from '@angular/forms';
+import {Routes, RouterModule} from '@angular/router';
 
-import { IonicModule } from '@ionic/angular';
+import {IonicModule} from '@ionic/angular';
 
-import { ProfileUserPage } from './profile-user.page';
+import {ProfileUserPage} from './profile-user.page';
+import {ViewFollowingComponent} from './view-following/view-following.component';
+import {ViewFollowerComponent} from './view-follower/view-follower.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: ProfileUserPage
-  }
+    component: ProfileUserPage,
+  },
 ];
 
 @NgModule({
@@ -19,8 +21,13 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
   ],
-  declarations: [ProfileUserPage]
+  declarations: [
+    ProfileUserPage,
+    ViewFollowingComponent,
+    ViewFollowerComponent,
+  ],
+  entryComponents: [ViewFollowingComponent, ViewFollowerComponent],
 })
 export class ProfileUserPageModule {}

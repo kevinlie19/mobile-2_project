@@ -1,0 +1,77 @@
+<ion-header>
+  <ion-toolbar color="tertiary" mode="ios">
+    <ion-title>Following List</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="onCancel()">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <br />
+  <ion-toolbar>
+    <div class="searchBarContainer">
+      <ion-searchbar
+        placeholder="Search for followings"
+        [(ngModel)]="searchKeyword"
+        (ionInput)="onInputSearch($event.target.value)"
+        (ionClear)="onInputSearch($event.target.value)"
+      ></ion-searchbar>
+    </div>
+  </ion-toolbar>
+
+  <div
+    class="notFoundContainer ion-text-center"
+    *ngIf="!isHavingFriend && !isInputEntered"
+  >
+    <p class="textNotFound">
+      There is not a single user
+      <br />
+      registered as your following!
+    </p>
+  </div>
+
+  <div
+    class="notFoundContainer ion-text-center"
+    *ngIf="
+      isInputEntered &&
+      !isFriendFound &&
+      (!loadedFollowing || loadedFollowing.length === 0)
+    "
+  >
+    <p class="textNotFound">
+      User not found!
+    </p>
+  </div>
+
+  <div *ngIf="!isLoading && loadedFollowing.length > 0">
+    <ion-list
+      class="listFriendContainer"
+      *ngFor="let item of loadedFollowing"
+      (click)="viewProfile(item.id)"
+    >
+      <ion-item lines="none">
+        <img
+          src="{{ item.avatar }}"
+          *ngIf="item.avatar !== null"
+          class="imgAvatar"
+        />
+        <img
+          src="assets/images/avatarDefault.png"
+          *ngIf="item.avatar === null"
+          class="imgAvatar"
+        />
+        <div class="spacingContainer">---</div>
+        <div class="textContainer">
+          {{ item.full_name }} <br />{{ item.username }}
+        </div>
+      </ion-item>
+    </ion-list>
+  </div>
+</ion-content>
+
+<div class="spin" *ngIf="isLoading">
+  <ion-spinner name="crescent"></ion-spinner>
+</div>
