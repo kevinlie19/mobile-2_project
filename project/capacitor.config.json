@@ -1,6 +1,6 @@
 {
   "appId": "com.umn.cibo",
-  "appName": "project",
+  "appName": "CIBO",
   "bundledWebRuntime": false,
   "npmClient": "npm",
   "webDir": "www",
