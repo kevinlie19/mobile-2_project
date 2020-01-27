@@ -1,18 +1,18 @@
 <ion-header *ngIf="!isLoading">
-  <ion-toolbar class="toolbarContainer">
-    <ion-row class="rowToolbar toolbarContainer">
-      <ion-buttons>
+  <ion-toolbar class="toolbarContainer" mode="ios">
+    <!-- <ion-row class="rowToolbar toolbarContainer"> -->
+    <!-- <ion-buttons>
         <ion-button (click)="scanBarcode()">
           <ion-icon name="barcode" class="headerIcon"></ion-icon>
         </ion-button>
-      </ion-buttons>
-      <div class="headerTitle">Home</div>
-      <ion-buttons>
-        <ion-button (click)="onClickChat()">
-          <ion-icon name="chatboxes" class="headerIcon"></ion-icon>
-        </ion-button>
-      </ion-buttons>
-    </ion-row>
+      </ion-buttons> -->
+    <ion-title class="headerTitle">Home</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="onClickChat()">
+        <ion-icon name="chatboxes" class="headerIcon"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <!-- </ion-row> -->
   </ion-toolbar>
 </ion-header>
 
@@ -45,42 +45,22 @@
   <ion-row class="rowFeedsContainer">
     <ion-col class="colFeedsContainer" *ngFor="let item of loadedFeeds">
       <ion-card class="cardContainer">
-        <div
-          class="imageContainer"
-          [routerLink]="['/', 'feeds', 'feeds-detail', item.id]"
-        >
-          <img
-            *ngIf="
+        <div class="imageContainer" [routerLink]="['/', 'feeds', 'feeds-detail', item.id]">
+          <img *ngIf="
               item.tag.toLowerCase() == 'available' ||
               item.tag.toLowerCase() == 'expired'
-            "
-            src="{{ item.image }}"
-            class="imageAvailable"
-          />
-          <img
-            *ngIf="item.tag.toLowerCase() == 'unavailable'"
-            src="{{ item.image }}"
-            class="imageUnavailable"
-          />
-          <div
-            *ngIf="
+            " src="{{ item.image }}" class="imageAvailable" />
+          <img *ngIf="item.tag.toLowerCase() == 'unavailable'" src="{{ item.image }}" class="imageUnavailable" />
+          <div *ngIf="
               item.tag.toLowerCase() == 'available' ||
               item.tag.toLowerCase() == 'expired'
-            "
-            class="tagPosition statusAvailable"
-          >
+            " class="tagPosition statusAvailable">
             Available
           </div>
-          <div
-            *ngIf="item.tag.toLowerCase() == 'expired'"
-            class="tagPositionExpired statusExpired"
-          >
+          <div *ngIf="item.tag.toLowerCase() == 'expired'" class="tagPositionExpired statusExpired">
             {{ item.tag }}
           </div>
-          <div
-            *ngIf="item.tag.toLowerCase() == 'unavailable'"
-            class="tagPosition statusUnavailable"
-          >
+          <div *ngIf="item.tag.toLowerCase() == 'unavailable'" class="tagPosition statusUnavailable">
             {{ item.tag }}
           </div>
         </div>
@@ -92,10 +72,7 @@
             <ion-row>
               <ion-col class="ion-no-padding">
                 <div class="timestampContainer">
-                  <img
-                    src="../assets/images/hourglass.png"
-                    class="imgTimestamp"
-                  />
+                  <img src="../assets/images/hourglass.png" class="imgTimestamp" />
                   <ion-label>
                     {{ item.timestamp }}
                   </ion-label>
@@ -106,18 +83,10 @@
           <p>
             <ion-row class="userInfoContainer">
               <ion-col size="4" class="avatarContainer">
-                <img
-                  src="{{ item.avatar }}"
-                  class="imageAvatar"
-                  *ngIf="item.avatar != null"
-                  [routerLink]="['/', 'profile-user', item.user_id]"
-                />
-                <img
-                  src="assets/images/avatarDefault.png"
-                  class="imageAvatar"
-                  *ngIf="item.avatar == null"
-                  [routerLink]="['/', 'profile-user', item.user_id]"
-                />
+                <img src="{{ item.avatar }}" class="imageAvatar" *ngIf="item.avatar != null"
+                  [routerLink]="['/', 'profile-user', item.user_id]" />
+                <img src="assets/images/avatarDefault.png" class="imageAvatar" *ngIf="item.avatar == null"
+                  [routerLink]="['/', 'profile-user', item.user_id]" />
               </ion-col>
               <ion-col size="8" class="userContainer">
                 <ion-row class="textUserName">
